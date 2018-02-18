@@ -1,0 +1,35 @@
+{
+  "name": "frindlycommute",
+  "version": "1.0.0",
+  "description": "friendly-commute",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuillermoCoding/Friendly-commute.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuillermoCoding/Friendly-commute/issues"
+  },
+  "homepage": "https://github.com/GuillermoCoding/Friendly-commute#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "css-loader": "^0.28.9",
+    "express": "^4.16.2",
+    "html-webpack-plugin": "^2.30.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "style-loader": "^0.20.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-middleware": "^2.0.5"
+  }
+}
