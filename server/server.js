@@ -5,6 +5,7 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const jobModel = require('./models/job');
 const Job = mongoose.model('job');
+require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
 
@@ -17,7 +18,7 @@ app.use('/graphql',expressGraphQL({
 	schema,
 	graphiql: true
 }));
-mongoose.connect('mongodb://localhost:27017/friendly_commute_db');
+mongoose.connect(process.env.JOB_TITLES_DB_URL);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))
 	.on('error',()=>console.log('Error when connecting to database'));
