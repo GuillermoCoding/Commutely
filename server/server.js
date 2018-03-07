@@ -1,13 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const expressGraphQL = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
-const jobModel = require('./models/job');
-const Job = mongoose.model('job');
+const suggestionModel = require('./models/suggestion');
+const Suggestion = mongoose.model('suggestion');
 require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
+
+app.use(cors(
+  {
+    origin : 'http://localhost:4000',
+    credentials: true
+  }
+));
 
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');

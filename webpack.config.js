@@ -2,7 +2,13 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './client/index.js',
+	devServer: {
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		}
+	},
+	devtool: 'source-map',
+	entry: ['babel-polyfill','./client/index.js'],
   output: {
   	path: '/',
     filename: 'bundle.js'

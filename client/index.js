@@ -1,30 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SearchBar from './components/search_bar';
+import App from './app';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { ApolloLink } from 'apollo-link';
+import { withClientState } from 'apollo-link-state';
+import fetch from 'unfetch';
+import _ from 'lodash';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import searchedJob from './resolvers/searchedJob';
+import jobList from './resolvers/jobList';
+import address from './resolvers/address';
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from './reducers/index';
 
-const networkInterface = createNetworkInterface({
-	uri: 'http://localhost:4000/graphql'
+const cache = new InMemoryCache();
+const stateLink = withClientState({
+	cache,
+	..._.merge(searchedJob,jobList,address)
+	
 });
 const apolloClient = new ApolloClient({
-	networkInterface
+	link: ApolloLink.from([
+		stateLink,
+		new HttpLink({
+			uri: 'http://localhost:4000/graphql',fetch:fetch
+		}),
+	]),
+	cache
 });
-
-const store = createStore(reducers);
 
 const Root = ()=>{
 	return (
-		<Provider store={store}>
+
 		<ApolloProvider client={apolloClient}>
-			<SearchBar/>
+			<App/>
 		</ApolloProvider>
-		</Provider>
   );
 };
 

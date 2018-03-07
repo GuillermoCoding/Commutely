@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
 import Downshift from 'downshift';
-import ResultList from './result_list';
+import SuggestionList from './suggestion_list';
+import updateSearchedJob from '../mutations/updateSearchedJob';
+import {graphql, compose, withApollo } from 'react-apollo';
 
 class SearchBar extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			inputValue:''
+		}
+	}
+	onInputValueChange(inputValue){
+		this.setState({inputValue});
+	}
+	onChange(selectedItem){
+		this.props.updateSearchedJob({
+			variables : {
+				title: selectedItem
+			}
+		});
+	}
 	render(){
 		return (
 			<Downshift
-				onChange={selectedItem=>console.log(selectedItem)}
+				onInputValueChange={inputValue=>this.onInputValueChange(inputValue)}
+				onChange={selectedItem=>this.onChange(selectedItem)}
 				render={({inputValue, getInputProps, isOpen, getItemProps, highlightedIndex,selectedItem})=>(
 					<div>
 						<input {...getInputProps()}/>
 						{isOpen ? (			
-							<ResultList 
+							<SuggestionList 
 								getItemProps={getItemProps} 
-								inputValue={inputValue}
+								inputValue={this.state.inputValue}
 								highlightedIndex={highlightedIndex}
 								selectedItem={selectedItem}
 							/>
@@ -22,10 +41,7 @@ class SearchBar extends Component {
 					
 				)}
 			/>
-		
 		);
 	}
-
 }
-
-export default SearchBar;
+export default compose(graphql(updateSearchedJob, {name: 'updateSearchedJob'}))(SearchBar);

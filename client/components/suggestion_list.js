@@ -1,17 +1,18 @@
 import React, {Component } from 'react';
 import {graphql} from 'react-apollo';
-import query from '../queries/fetchJobTitles';
+import suggestionsQuery from '../queries/fetchSuggestions';
 
-class ResultList extends Component {
+class SuggestionList extends Component {
 	renderResults(){
+		
 		if (!this.props.data.loading && this.props.inputValue!=0)  {
-			return this.props.data.jobs.map((job, index)=>{
+			return this.props.data.suggestions.map(({title}, index)=>{
 				return (<div 
-									{...this.props.getItemProps({item: job.jobTitle})} 
+									{...this.props.getItemProps({item: title})} 
 									key={index}
 									style={{backgroundColor: index==this.props.highlightedIndex? 'grey':'white'}}
 									>
-					{job.jobTitle}
+					{title}
 					</div>)
 			});
 		} else {
@@ -28,6 +29,6 @@ class ResultList extends Component {
 }
 
 
-export default graphql(query,{
-	options: (props)=>{return {variables: {jobPhrase: props.inputValue}}}
-})(ResultList);
+export default graphql(suggestionsQuery,{
+	options: (props)=>{return {variables: {title: props.inputValue}}}
+})(SuggestionList);
