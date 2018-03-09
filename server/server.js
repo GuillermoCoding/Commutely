@@ -26,7 +26,7 @@ app.use('/graphql',expressGraphQL({
 	schema,
 	graphiql: true
 }));
-mongoose.connect(process.env.JOB_TITLES_DB_URL);
+mongoose.connect(process.env.SUGGESTIONS_DB);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))
 	.on('error',()=>console.log('Error when connecting to database'));
