@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import fetchAddress from '../queries/fetchAddress';
-import fetchSearchedJob from '../queries/fetchSearchedJob';
-import fetchJobs from '../queries/fetchJobs';
-import updateJobList from '../mutations/updateJobList';
+import { 
+	fetchAddress, 
+	fetchSearchedJob, 
+	fetchJobs, 
+} from '../queries';
+import {updateJobList} from '../mutations';
 import {graphql, compose, withApollo} from 'react-apollo';
 
 class Button extends Component {
@@ -16,9 +18,10 @@ class Button extends Component {
 				zipcode
 			}
 		});
+		const {jobs} = response.data;
 		this.props.updateJobList({
 			variables : {
-				jobs : response.data.jobs
+				jobs
 			}
 		});
 	}

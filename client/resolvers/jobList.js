@@ -13,10 +13,12 @@ const jobList = {
 			updateJobList : (_,{jobs},{cache})=>{
 				const data = {
 					  jobList: {
+						  __typename: 'jobList',
 						  jobs
 					  }
 				  };
 				  cache.writeData({ data });
+				  return null;
 			}
 		}
 	}

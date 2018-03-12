@@ -10,10 +10,7 @@ import fetch from 'unfetch';
 import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import searchedJob from './resolvers/searchedJob';
-import jobList from './resolvers/jobList';
-import address from './resolvers/address';
-
+import { address, currentUser, jobList, searchedJob } from './resolvers';
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({

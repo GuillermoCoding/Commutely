@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Downshift from 'downshift';
-import SuggestionList from './suggestion_list';
-import updateSearchedJob from '../mutations/updateSearchedJob';
-import {graphql, compose, withApollo } from 'react-apollo';
+import { AutoCompleteList } from './index';
+import { updateSearchedJob } from '../mutations';
+import { graphql, compose, withApollo } from 'react-apollo';
 
-class SearchBar extends Component {
+class JobTitleSearchBar extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -30,7 +30,7 @@ class SearchBar extends Component {
 					<div>
 						<input {...getInputProps()}/>
 						{isOpen ? (			
-							<SuggestionList 
+							<AutoCompleteList 
 								getItemProps={getItemProps} 
 								inputValue={this.state.inputValue}
 								highlightedIndex={highlightedIndex}
@@ -44,4 +44,4 @@ class SearchBar extends Component {
 		);
 	}
 }
-export default compose(graphql(updateSearchedJob, {name: 'updateSearchedJob'}))(SearchBar);
+export default compose(graphql(updateSearchedJob, {name: 'updateSearchedJob'}))(JobTitleSearchBar);

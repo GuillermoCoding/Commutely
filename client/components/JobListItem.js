@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import MapView from './map_view';
-import { graphql,compose } from 'react-apollo';
+import { MapView } from './';
 
-class JobItem extends Component {
+class JobListItem extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -47,4 +46,4 @@ class JobItem extends Component {
 
 }
 
-export default JobItem;
+export default JobListItem;

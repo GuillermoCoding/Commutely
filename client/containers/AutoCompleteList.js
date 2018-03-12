@@ -1,10 +1,9 @@
-import React, {Component } from 'react';
-import {graphql} from 'react-apollo';
-import suggestionsQuery from '../queries/fetchSuggestions';
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { fetchSuggestions } from '../queries';
 
-class SuggestionList extends Component {
+class AutoCompleteList extends Component {
 	renderResults(){
-		
 		if (!this.props.data.loading && this.props.inputValue!=0)  {
 			return this.props.data.suggestions.map(({title}, index)=>{
 				return (<div 
@@ -28,7 +27,6 @@ class SuggestionList extends Component {
 	}
 }
 
-
-export default graphql(suggestionsQuery,{
+export default graphql(fetchSuggestions,{
 	options: (props)=>{return {variables: {title: props.inputValue}}}
-})(SuggestionList);
+})(AutoCompleteList);

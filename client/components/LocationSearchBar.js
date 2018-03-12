@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import {graphql} from 'react-apollo';
-import updateAddress from '../mutations/updateAddress';
+import { graphql } from 'react-apollo';
+import { updateAddress } from '../mutations';
 
-class AddressSearch extends Component {
+class LocationSearchBar extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			address: ''
 		}
-		this.onChange = (address=> this.setState({address}))
+		this.onChange = (address => this.setState({address}))
 	}
 	
 	async onSelect(data){
+		await this.setState({address:data});
 		const result = await geocodeByAddress(this.state.address);
 		const {lat, lng } = await getLatLng(result[0]);
 		const {address_components} = result[0];
 		const zipcode = this.getZipCode(address_components);
-		const address = {lat,lng, zipcode};
 		this.props.updateAddress({
 			variables: {
-				address
+				lat,
+				lng,
+				zipcode,
 			}
 		});
 	}	
@@ -45,7 +47,7 @@ class AddressSearch extends Component {
 		}
 		
 		return (
-				<PlacesAutoComplete 
+				<PlacesAutoComplete
 					inputProps={inputProps} 
 					renderSuggestion={renderSuggestion}
 					onSelect={this.onSelect.bind(this)}
@@ -53,4 +55,4 @@ class AddressSearch extends Component {
 		);
 	}
 }
-export default graphql(updateAddress,{name:'updateAddress'})(AddressSearch);
+export default graphql(updateAddress,{name:'updateAddress'})(LocationSearchBar);

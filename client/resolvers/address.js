@@ -12,18 +12,17 @@ const address = {
     },
     resolvers: {
         Mutation: {
-            updateAddress : (_,{address},{cache}) =>{
-
+            updateAddress : (_,{lat,lng,zipcode},{cache}) =>{
                 const data = {
-                    address: {
-                        lat : address.lat,
-                        lng : address.lng,
-                        zipcode : address.zipcode
+                    address : {
+                        __typename: 'address',
+                        lat,
+                        lng,
+                        zipcode
                     }
                 }
                 cache.writeData({data});
-                const result = cache.readQuery({query});
-                console.log(result);
+                return null;
             }
         }
     }

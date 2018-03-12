@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
-import fetchJobList from '../queries/fetchJobList';
-import JobItem from '../components/job_item';
+import { fetchJobList } from '../queries';
+import { JobListItem }from '../components';
 import { Spinner } from 'react-activity';
 import 'react-activity/dist/react-activity.css';
 
 class JobList extends Component {
-
 	renderJobs(){
-		console.log(this.props.data.loading);
 		if (!this.props.data.loading) {
 			return this.props.data.jobList.jobs.map(({title,company,url,city,state},index)=>{
 				const job = {
@@ -19,7 +17,7 @@ class JobList extends Component {
 					url
 				}
 				return (
-					<JobItem key={index} job={job}/>
+					<JobListItem key={index} job={job}/>
 				);
 			});
 		} else {
@@ -29,9 +27,7 @@ class JobList extends Component {
 		}
 	}
 	render(){
-		
 		return (
-			
 			<div>
 				{this.renderJobs()}
 			</div>

@@ -11,13 +11,13 @@ const searchedJob = {
 		Mutation : {
 			updateSearchedJob : (_,{title},{cache}) => {
 				const data = {
-						searchedJob: {
-								title
-						}
+					searchedJob : {
+						__typename: 'searchedJob',
+						title
+					}
 				}
 				cache.writeData({data});
-				const state = cache.readQuery({query});
-				return data;
+				return null;
 			}
 		}
 	}

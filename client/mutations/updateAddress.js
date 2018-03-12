@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-    mutation updateAddress($address: Address) {
-        updateAddress(address : $address) @client {
+    mutation updateAddress($lat: String, $lng: String, $zipcode: String) {
+        updateAddress(lat: $lat, lng: $lng, zipcode: $zipcode) @client {
             lat
             lng
             zipcode
