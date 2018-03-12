@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { GraphQLObjectType, GraphQLList, GraphQLString} = require('graphql');
+const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLInt} = require('graphql');
 const SuggestionType = require('./suggestion_type');
 const JobType = require('./job_type');
 const suggestionModel = require('../models/suggestion');
@@ -24,10 +24,11 @@ const RootQuery = new GraphQLObjectType({
 			type: new GraphQLList(JobType),
 			args : {
 				title: {type: GraphQLString},
-				zipcode: {type: GraphQLString}
+				zipcode: {type: GraphQLString},
+				startingPage: {type: GraphQLInt}
 			},
-			resolve(parentVale, {title, zipcode}){
-				const jobResults = fetchData.IndeedJobs(title,zipcode);
+			resolve(parentVale, {title, zipcode, startingPage}){
+				const jobResults = fetchData.IndeedJobs(title,zipcode,startingPage);
 				return jobResults;
 			}
 		}

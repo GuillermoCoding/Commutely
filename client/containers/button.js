@@ -4,8 +4,8 @@ import {
 	fetchSearchedJob, 
 	fetchJobs, 
 } from '../queries';
-import {updateJobList} from '../mutations';
-import {graphql, compose, withApollo} from 'react-apollo';
+import { updateJobList } from '../mutations';
+import { graphql, compose, withApollo } from 'react-apollo';
 
 class Button extends Component {
 	async handleSubmit(){
@@ -15,7 +15,8 @@ class Button extends Component {
 			query: fetchJobs,
 			variables : {
 				title,
-				zipcode
+				zipcode,
+				startingPage : 0
 			}
 		});
 		const {jobs} = response.data;
