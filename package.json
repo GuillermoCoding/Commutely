@@ -2,14 +2,14 @@
   "name": "frindlycommute",
   "version": "1.0.0",
   "engines": {
-  	"node":"9.7.1"
+    "node": "9.7.1"
   },
   "description": "friendly-commute",
   "main": "index.js",
   "scripts": {
-	"postinstall":"webpack -p",
+    "postinstall": "webpack -p",
     "dev": "nodemon index.js",
-    "start":"node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -55,6 +55,7 @@
     "react": "^16.0.0",
     "react-activity": "^1.2.1",
     "react-apollo": "^2.0.4",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
     "react-icons": "^2.2.7",

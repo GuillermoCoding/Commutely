@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { LocationSearchBar } from './components';
-import { SubmitButton, JobList, JobTitleSearchBar, NavigationFooter } from './containers';
+import { SubmitButton, JobList, JobTitleSearchBar, NavigationFooter, CommuteOptions } from './containers';
 
 class App extends Component {
 	render (){
@@ -11,6 +11,7 @@ class App extends Component {
 				<SubmitButton/>
 				<JobList/>
 				<NavigationFooter/>
+				<CommuteOptions/>
 			</div>
 		);
 	}
