@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(express.static('./'));
+
 app.use('/graphql',expressGraphQL({
 	schema,
 	graphiql: true
