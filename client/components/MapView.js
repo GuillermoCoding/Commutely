@@ -21,11 +21,6 @@ const MapWithDirectionsRenderer = compose(
 		async componentDidMount(){
 			console.log(this.props.destinationProps);
 			const {company, city, state } = this.props.destinationProps;
-			const results = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${company}+${city}+${state}&key=AIzaSyAIuFU-2Vg7-NE4sqpIc4u4cePagRtYxzo`,{
-				withCredentials: true,
-				credentials: 'same-origin'
-			});
-			console.log(results);
 			const DirectionsService = new google.maps.DirectionsService();
 			DirectionsService.route({
 				origin: new google.maps.LatLng(41.8507300, -87.6512600),

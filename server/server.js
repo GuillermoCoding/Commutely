@@ -10,7 +10,7 @@ const path = require('path');
 require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
-
+app.use(cors());
 
 // const webpackMiddleware = require('webpack-dev-middleware');
 // const webpack = require('webpack');
