@@ -24,14 +24,15 @@ app.use(cors(
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(express.static('./'));
-
-app.get('*',(req, res)=>{
-  res.sendFile(path.resolve(__dirname,'../index.html'));
-});
 app.use('/graphql',expressGraphQL({
 	schema,
 	graphiql: true
 }));
+
+app.get('*',(req, res)=>{
+  res.sendFile(path.resolve(__dirname,'../index.html'));
+});
+
 mongoose.connect(process.env.SUGGESTIONS_DB);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))
