@@ -81,23 +81,41 @@ class NavigationFooter extends Component {
 		});
 
 	}
-	handleNumberClick(event){
+	async handleNumberClick(event){
 		const currentPage = parseInt(event.target.innerHTML);
-		this.setState({ currentPage });
+		await this.setState({ currentPage });
+		const {zipcode} = this.props.fetchAddress.address;
+		const {title} = this.props.fetchSearchedJob.searchedJob;
+		const response = await this.props.client.query({
+			query: fetchJobs,
+			variables : {
+				title,
+				zipcode,
+				startingPage : this.state.currentPage
+			}
+		});
+		this.props.updateJobList({
+			variables: {
+				jobs : response.data.jobs
+			}
+		});
+		
 	}
 	renderLeftArrow(){
 		const divStyle={
-			background: 'rgba(0,0,0,0.7)',
+			color: 'white',
 		}
 		if (this.state.currentPage==1) {
 			return (
-				<div style={divStyle}>
+				<div id='navigation-left-arrow' style={divStyle}>
 					<ArrowLeft onClick={this.handleLeftClick.bind(this)}/>
 				</div>
 			);
 		} else {
 			return (
+				<div id='navigation-left-arrow'>
 				<ArrowLeft onClick={this.handleLeftClick.bind(this)}/>
+				</div>
 			);
 			
 		}
@@ -116,7 +134,7 @@ class NavigationFooter extends Component {
 					color: 'blue'
 				}
 				return (
-					<div key={number} style={divStyle} onClick={event => this.handleNumberClick(event)}>
+					<div className='navigation-footer-item' key={number} style={divStyle} onClick={event => this.handleNumberClick(event)}>
 						{number}
 					</div>
 				);
@@ -125,7 +143,7 @@ class NavigationFooter extends Component {
 					cursor: 'pointer',
 				}
 				return (
-					<div key={number} style={divStyle}onClick={event => this.handleNumberClick(event)}>
+					<div className='navigation-footer-item' key={number} style={divStyle}onClick={event => this.handleNumberClick(event)}>
 						{number}
 					</div>
 				);
@@ -136,10 +154,12 @@ class NavigationFooter extends Component {
 	render(){
 		if (this.props.fetchJobList.jobList.jobs.length!=0) {
 			return (
-				<div onClick={this.handleLeft}>
+				<div id='navigation-footer'>
 					{this.renderLeftArrow()}
 					{this.renderNumbers()}
-					<ArrowRight onClick={this.handleRightClick.bind(this)}/>
+					<div id='navigation-right-arrow'>
+						<ArrowRight onClick={this.handleRightClick.bind(this)}/>
+					</div>
 				</div>
 			);
 		} else {

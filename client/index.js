@@ -11,6 +11,7 @@ import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import { address, currentUser, jobList, searchedJob } from './resolvers';
+import './style/style.css';
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({
@@ -30,7 +31,6 @@ const apolloClient = new ApolloClient({
 
 const Root = ()=>{
 	return (
-
 		<ApolloProvider client={apolloClient}>
 			<App/>
 		</ApolloProvider>

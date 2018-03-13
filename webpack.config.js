@@ -10,7 +10,8 @@ module.exports = {
 	devtool: 'source-map',
 	entry: ['babel-polyfill','./client/index.js'],
   output: {
-  	path: '/',
+		path: __dirname,
+		publicPath: '/',
     filename: 'bundle.js'
   },
   devtool: '#source-map',
