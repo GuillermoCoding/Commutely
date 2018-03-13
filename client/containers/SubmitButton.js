@@ -29,7 +29,7 @@ class SubmitButton extends Component {
 	render() {
 		return(
 			<div>
-				<button onClick={this.handleSubmit.bind(this)}>Search</button>
+				<button onClick={this.handleSubmit.bind(this)}>Searcsssh</button>
 			</div>
 		);
 	}
