@@ -4,6 +4,8 @@
   "description": "friendly-commute",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
+    "start":"webpack -p && nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
