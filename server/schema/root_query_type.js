@@ -17,6 +17,7 @@ const RootQuery = new GraphQLObjectType({
 			},
 			resolve(parentValue, {title}){
 				const suggestionResults = Suggestion.find({title: {$regex : '^'+title, $options: 'i'}}).limit(10).exec();
+				console.log(suggestionResults);
 				return suggestionResults;
 			}
 		},
