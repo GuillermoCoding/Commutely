@@ -23,7 +23,7 @@ const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
 		new HttpLink({
-			uri: 'http://localhost:4000/graphql',fetch:fetch
+			uri: 'https://heroku-test-300.herokuapp.com/graphql',fetch:fetch
 		}),
 	]),
 	cache
