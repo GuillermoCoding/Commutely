@@ -18,20 +18,20 @@ app.use(cors(
   }
 ));
 
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config.js');
+// const webpackMiddleware = require('webpack-dev-middleware');
+// const webpack = require('webpack');
+// const webpackConfig = require('../webpack.config.js');
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+// app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(express.static('./'));
 app.use('/graphql',expressGraphQL({
 	schema,
 	graphiql: true
 }));
 
-// app.get('*',(req, res)=>{
-//   res.sendFile(path.resolve(__dirname,'../index.html'));
-// });
+app.get('*',(req, res)=>{
+  res.sendFile(path.resolve(__dirname,'../index.html'));
+});
 
 mongoose.connect(process.env.SUGGESTIONS_DB);
 mongoose.connection
