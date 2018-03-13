@@ -1,6 +1,9 @@
 {
   "name": "frindlycommute",
   "version": "1.0.0",
+  "engines": {
+  	"node":"9.7,1"
+  },
   "description": "friendly-commute",
   "main": "index.js",
   "scripts": {
