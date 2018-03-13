@@ -7,7 +7,7 @@ import {
 import { updateJobList } from '../mutations';
 import { graphql, compose, withApollo } from 'react-apollo';
 
-class Button extends Component {
+class SubmitButton extends Component {
 	async handleSubmit(){
 		const {zipcode} = this.props.fetchAddress.address;
 		const {title} = this.props.fetchSearchedJob.searchedJob;
@@ -47,4 +47,4 @@ export default compose(
 		name: 'updateJobList'
 	}),
 	withApollo
-)(Button);
+)(SubmitButton);
