@@ -11,12 +11,6 @@ require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
 
-app.use(cors(
-  {
-    origin : 'http://localhost:4000',
-    credentials: true
-  }
-));
 
 // const webpackMiddleware = require('webpack-dev-middleware');
 // const webpack = require('webpack');
