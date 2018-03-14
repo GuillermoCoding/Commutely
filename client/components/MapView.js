@@ -10,7 +10,7 @@ import {
 
 const MapWithDirectionsRenderer = compose(
 	withProps({
-		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDpMxCcDWygwE7_J6zgU_A6rh4ASsRu5rM&libraries=geometry,drawing,places',
+		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDZRFt_hUSsof9hE1T-bbaKvCNIwAW-tNE&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: <div style={{ height: `400px` }} />,
 		mapElement: <div style={{ height: `100%` }} />,
