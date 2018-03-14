@@ -10,6 +10,7 @@ export default gql`
                 state
                 country
                 url
+                routeAvailable
            }
         }
     }`;

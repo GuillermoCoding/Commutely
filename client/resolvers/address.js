@@ -1,4 +1,3 @@
-import query from '../queries/fetchAddress';
 
 const address = {
     defaults: {

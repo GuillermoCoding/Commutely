@@ -7,14 +7,13 @@ module.exports = {
 			'Access-Control-Allow-Origin': '*'
 		}
 	},
-	devtool: 'source-map',
+	devtool: '#source-map',
 	entry: ['babel-polyfill','./client/index.js'],
   output: {
 		path: __dirname,
 		publicPath: '/',
     filename: 'bundle.js'
   },
-  devtool: '#source-map',
 	module: {
   	rules: [
     	{
@@ -25,6 +24,10 @@ module.exports = {
 			{
 				use: ['style-loader','css-loader'],
 				test: /\.css$/
+			},
+			{
+				use:['file-loader'],
+				test: /\.(png|jpg|gif)$/
 			}
     ]
   },

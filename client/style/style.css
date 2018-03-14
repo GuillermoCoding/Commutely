@@ -19,3 +19,11 @@
     padding-right: 25%;
     font-size: 1em;
 }
+/*LANDING PAGE*/
+#panel {
+    background-size: cover; 
+    height:50em;
+}
+.input-field-text{
+    color:white;
+}

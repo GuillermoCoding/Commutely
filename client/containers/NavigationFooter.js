@@ -174,9 +174,9 @@ class NavigationFooter extends Component {
 }
 
 export default compose(
-	graphql(fetchJobs,{
-		name: "fetchJobs"
-	}),
+	// graphql(fetchJobs,{
+	// 	name: "fetchJobs"
+	// }),
 	graphql(updateJobList,{
 		name: "updateJobList"
 	}),

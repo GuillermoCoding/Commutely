@@ -38,7 +38,7 @@ class JobListItem extends Component {
 				<h5>{this.props.job.city}</h5>
 				<h5>{this.props.job.state}</h5>
 				<a href={`${this.props.job.url}`}>See more</a>
-				<button onClick={this.handleClick.bind(this)}>View route</button>
+				<button disabled={!this.props.job.routeAvailable} onClick={this.handleClick.bind(this)}>View route</button>
 				{this.displayMap()}
 			</div>
 		);

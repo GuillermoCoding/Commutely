@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLString, GraphQLID} = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean } = require('graphql');
 
 const JobType = new GraphQLObjectType({
 	name: 'JobType',
@@ -10,6 +10,7 @@ const JobType = new GraphQLObjectType({
         state: { type: GraphQLString},
         country: { type: GraphQLString},
         url: { type: GraphQLString},
+        routeAvailable: { type: GraphQLBoolean}
 	})
 });
 

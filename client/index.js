@@ -10,20 +10,26 @@ import fetch from 'unfetch';
 import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { address, currentUser, jobList, searchedJob } from './resolvers';
+import { 
+	address, 
+	jobList, 
+	searchedJob, 
+	commuteOption, 
+	timeOption
+} from './resolvers';
 import './style/style.css';
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({
 	cache,
-	..._.merge(searchedJob,jobList,address)
+	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)
 	
 });
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
 		new HttpLink({
-			uri: 'http://localhost:4000graphql',fetch:fetch
+			uri: 'http://localhost:4000/graphql',fetch:fetch
 		}),
 	]),
 	cache

@@ -25,10 +25,16 @@ const RootQuery = new GraphQLObjectType({
 			args : {
 				title: {type: GraphQLString},
 				zipcode: {type: GraphQLString},
-				startingPage: {type: GraphQLInt}
+				startingPage: {type: GraphQLInt},
+				lat: {type: GraphQLInt},
+				lng: {type: GraphQLInt},
+				commuteSelected: {type: GraphQLString},
+				timeSelected: {type: GraphQLInt}
 			},
-			resolve(parentVale, {title, zipcode, startingPage}){
-				const jobResults = fetchData.IndeedJobs(title,zipcode,startingPage);
+			resolve(parentVale, args){
+				
+				console.log('fetch jobs');
+				const jobResults = fetchData.IndeedJobs(args);
 				return jobResults;
 			}
 		}

@@ -17,13 +17,13 @@ const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');
 
 app.use(webpackMiddleware(webpack(webpackConfig)));
+
+app.use('/graphql',expressGraphQL({
+	schema,
+	graphiql: true
+}));
+
 // app.use(express.static('./'));
-
-// app.use('/graphql',expressGraphQL({
-// 	schema,
-// 	graphiql: true
-// }));
-
 // app.get('*',(req, res)=>{
 //   res.sendFile(path.resolve(__dirname,'../index.html'));
 // });

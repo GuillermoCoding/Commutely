@@ -4,4 +4,5 @@ export { default as JobList } from './JobList';
 export { default as JobTitleSearchBar } from './JobTitleSearchBar';
 export { default as NavigationFooter } from './NavigationFooter';
 export { default as CommuteOptions } from './CommuteOptions';
+export { default as TimeOptions } from './TimeOptions';
 
