@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { graphql } from 'react-apollo';
 import { updateAddress } from '../mutations';
+import styles from '../styles/LocationSearchBar.css';
 
 class LocationSearchBar extends Component {
 	constructor(props){
@@ -35,23 +36,30 @@ class LocationSearchBar extends Component {
 	}
 	render(){
 		const renderSuggestion = ({formattedSuggestion}) => (
-			<div>
-				<strong>{formattedSuggestion.mainText}</strong>{' '}
-				<small>{formattedSuggestion.secondaryText}</small>
+			<div className={styles.item}>
+				{formattedSuggestion.mainText}{' '}
+				{formattedSuggestion.secondaryText}
 			</div>
 		);
-
 		const inputProps = {
 			value : this.state.address,
 			onChange : this.onChange
 		}
-		
+		const styles = {
+			autocompleteContainer: {
+				zIndex: 1
+			},
+			autocompleteItem: {
+				borderBottom: 'solid rgb(64, 64, 64) 1px'
+			}
+		}
 		return (
-				<PlacesAutoComplete
-					inputProps={inputProps} 
-					renderSuggestion={renderSuggestion}
-					onSelect={this.onSelect.bind(this)}
-				/>
+					<PlacesAutoComplete
+						styles={styles}
+						inputProps={inputProps} 
+						renderSuggestion={renderSuggestion}
+						onSelect={this.onSelect.bind(this)}
+					/>
 		);
 	}
 }

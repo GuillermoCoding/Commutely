@@ -1,0 +1,20 @@
+.container{
+    height: 40em;
+    border-top: solid rgb(0, 255, 153) 3px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-bottom: solid rgb(0, 255, 153) 3px;
+}
+.text{
+    color: white;
+    font-size: 1.4em;
+    font-weight: 300;
+    text-shadow: 1px 1px 9px black, 2px 2px 9px black, -1px -1px 9px black;
+}
+.upper {
+    height:15em;
+    margin-top: 4em;
+}
+.lower {
+    margin-bottom: 6em;
+}

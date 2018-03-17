@@ -1,46 +1,41 @@
 import React, { Component } from 'react';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
-import Bicycle from 'react-icons/lib/fa/bicycle';
-import Person from 'react-icons/lib/fa/street-view';
-import Car from 'react-icons/lib/fa/automobile';
-import Transit from 'react-icons/lib/fa/train';
-import Uber from 'react-icons/lib/fa/cab';
+import { 
+	ButtonToolbar, 
+	ToggleButtonGroup,
+	ToggleButton 
+} from 'react-bootstrap';
+import WalkingIcon from 'react-icons/lib/md/directions-walk';
+import BikeIcon from 'react-icons/lib/md/directions-bike';
+import CarIcon from 'react-icons/lib/md/directions-car';
 import { graphql, withApollo, compose } from 'react-apollo';
 import { fetchCommuteOption } from '../queries';
 import { updateCommuteOption } from '../mutations';
+import styles from '../styles/CommuteOptions.css';
 
 class CommuteOptions extends Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			dropdownOptions: ["Car","Bicycle","Walking","Transit","Uber"]
-		}
-	}
-	renderOptions(){
-		const commuteSelected = this.props.data.commuteOption.commuteSelected;
-		return this.state.dropdownOptions.map((option,index)=>{
-			return (
-				<MenuItem value={option} onClick={this.handleSelection.bind(this)} active={option==commuteSelected?true:false} key={index} >{option}</MenuItem>
-			); 
-		});
-	}
 	handleSelection(event){
+		console.log(event);
 		this.props.updateCommuteOption({
 			variables: {
-				commuteSelected: event.target.innerText
+				commuteSelected: event
 			}
 		});
 	}
   render(){
   	return (
-			<div>
-				<DropdownButton
-					title={this.props.data.commuteOption.commuteSelected}
-					id="dropdown"
-				>
-					{this.renderOptions()}
-				</DropdownButton>
-			</div>
+				<ButtonToolbar>
+					<ToggleButtonGroup 
+						defaultValue={'walking'}
+						bsSize="large" 
+						className={styles.buttons}
+						onChange={this.handleSelection.bind(this)} 
+						type='radio' 
+						name='options'>
+						<ToggleButton value={'walking'}><WalkingIcon/></ToggleButton>
+						<ToggleButton value={'biking'}><BikeIcon/></ToggleButton>
+						<ToggleButton value={'driving'}><CarIcon/></ToggleButton>
+					</ToggleButtonGroup>
+				</ButtonToolbar>
     );
   }
 }

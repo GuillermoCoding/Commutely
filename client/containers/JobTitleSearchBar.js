@@ -3,6 +3,7 @@ import Downshift from 'downshift';
 import { AutoCompleteList } from './index';
 import { updateSearchedJob } from '../mutations';
 import { graphql, compose, withApollo } from 'react-apollo';
+import styles from '../styles/JobTitleSearchBar.css';
 
 class JobTitleSearchBar extends Component {
 	constructor(props){
@@ -28,7 +29,7 @@ class JobTitleSearchBar extends Component {
 				onChange={selectedItem=>this.onChange(selectedItem)}
 				render={({inputValue, getInputProps, isOpen, getItemProps, highlightedIndex,selectedItem})=>(
 					<div>
-						<input {...getInputProps()}/>
+						<input className={styles.input} {...getInputProps()}/>
 						{isOpen ? (			
 							<AutoCompleteList 
 								getItemProps={getItemProps} 

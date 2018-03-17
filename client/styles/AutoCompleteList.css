@@ -1,0 +1,16 @@
+.list {
+    position: absolute;
+    background-color: white;
+    z-index: 3;
+    width:80%;
+    border: solid rgb(64, 64, 64) 1px;
+}
+.item{
+    border-bottom: solid rgb(64, 64, 64) 1px;
+    background-color: white;
+    padding: .65em;
+}
+.item.selected{
+    background-color: rgb(217, 217, 217)
+}
+

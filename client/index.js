@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
+import { HomeNavBar } from './components';
+import {SubmitButton} from './containers';
 import fetch from 'unfetch';
 import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -17,7 +19,6 @@ import {
 	commuteOption, 
 	timeOption
 } from './resolvers';
-import './style/style.css';
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({
@@ -38,7 +39,12 @@ const apolloClient = new ApolloClient({
 const Root = ()=>{
 	return (
 		<ApolloProvider client={apolloClient}>
-			<App/>
+			<Router history={browserHistory}>
+				<Route path='/' components={App}>
+					<IndexRoute component={HomeNavBar}/>
+				</Route>
+				<Route path='/results' components={SubmitButton}/>
+			</Router>
 		</ApolloProvider>
   );
 };

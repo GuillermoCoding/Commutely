@@ -17,17 +17,18 @@ module.exports = {
 	module: {
   	rules: [
     	{
-				use: 'babel-loader',
 				test: /\.js$/,
+				loader: 'babel-loader',
 				exclude: /node_modules/,
       },
 			{
-				use: ['style-loader','css-loader'],
-				test: /\.css$/
+				test: /\.css$/,
+				loader: 'style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]'
+				
 			},
 			{
-				use:['file-loader'],
-				test: /\.(png|jpg|gif)$/
+				test: /\.(png|jpg|gif)$/,
+				loader:['url-loader']
 			}
     ]
   },

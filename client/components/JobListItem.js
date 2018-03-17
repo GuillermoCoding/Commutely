@@ -33,10 +33,11 @@ class JobListItem extends Component {
 	render(){
 		return (
 			<div>
-				<h3>{this.props.job.title}</h3>
+				{/*<h3>{this.props.job.title}</h3>
 				<h5>{this.props.job.company}</h5>
 				<h5>{this.props.job.city}</h5>
-				<h5>{this.props.job.state}</h5>
+				<h5>{this.props.job.state}</h5>*/}
+				<h5>{this.props.job.index}</h5>
 				<a href={`${this.props.job.url}`}>See more</a>
 				<button disabled={!this.props.job.routeAvailable} onClick={this.handleClick.bind(this)}>View route</button>
 				{this.displayMap()}

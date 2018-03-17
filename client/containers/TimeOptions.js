@@ -8,7 +8,7 @@ class TimeOptions extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			dropdownOptions: ["5","10","15","20","30","35","40","45+"]
+			dropdownOptions: ["5","10","15","20","25","30","45+"]
 		}
 	}
 	renderOptions(){
