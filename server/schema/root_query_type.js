@@ -24,16 +24,47 @@ const RootQuery = new GraphQLObjectType({
 			type: new GraphQLList(JobType),
 			args : {
 				title: {type: GraphQLString},
-				zipcode: {type: GraphQLString},
-				startingPage: {type: GraphQLInt},
-				lat: {type: GraphQLInt},
-				lng: {type: GraphQLInt},
+				homeAddress: {type: GraphQLString},
+				city: {type: GraphQLString},
+				state: {type: GraphQLString},
 				commuteSelected: {type: GraphQLString},
-				timeSelected: {type: GraphQLInt}
+				timeSelected: {type: GraphQLInt},
+				startingPage: {type: GraphQLInt},
 			},
 			resolve(parentVale, args){
-				
-				console.log('fetch jobs');
+				// const jobResults = [{
+				// 	title: 'title1',
+				// 	company: 'company1',
+				// 	address: '13025 Worldgate Dr, Herndon',
+				// 	commuteTime: '1',
+				// 	commuteDistance: '1',
+				// 	url : 'url1'
+				// },
+				// {
+				// 	title: 'title2',
+				// 	company: 'company2',
+				// 	address: '13025 Worldgate Dr, Herndon',
+				// 	commuteTime: '2',
+				// 	commuteDistance: '2',
+				// 	url : 'url2'
+
+				// },
+				// {
+				// 	title: 'title3',
+				// 	company: 'company3',
+				// 	address: '13025 Worldgate Dr, Herndon',
+				// 	commuteTime: '3',
+				// 	commuteDistance: '3',
+				// 	url : 'url3'
+				// },
+				// {
+				// 	title: 'title4',
+				// 	company: 'company4',
+				// 	address: '13025 Worldgate Dr, Herndon',
+				// 	commuteTime: '4',
+				// 	commuteDistance: '4',
+				// 	url : 'url4'
+				// }];
 				const jobResults = fetchData.IndeedJobs(args);
 				return jobResults;
 			}

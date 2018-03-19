@@ -32,7 +32,7 @@ class CommuteOptions extends Component {
 						type='radio' 
 						name='options'>
 						<ToggleButton value={'walking'}><WalkingIcon/></ToggleButton>
-						<ToggleButton value={'biking'}><BikeIcon/></ToggleButton>
+						<ToggleButton value={'bicycling'}><BikeIcon/></ToggleButton>
 						<ToggleButton value={'driving'}><CarIcon/></ToggleButton>
 					</ToggleButtonGroup>
 				</ButtonToolbar>

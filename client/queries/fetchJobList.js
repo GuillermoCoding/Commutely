@@ -5,12 +5,10 @@ export default gql`
         jobList @client{
            jobs {
                title
-                company
-                city
-                state
-                country
-                url
-                routeAvailable
+               company
+               address
+               commuteTime
+               commuteDistance
            }
         }
     }`;

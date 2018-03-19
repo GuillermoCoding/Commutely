@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
 
 export default gql`
-    mutation updateAddress($lat: String, $lng: String, $zipcode: String) {
-        updateAddress(lat: $lat, lng: $lng, zipcode: $zipcode) @client {
-            lat
-            lng
-            zipcode
+    mutation updateAddress($homeAddress: String, $city: String, $state: String) {
+        updateAddress(homeAddress : $homeAddress, city: $city, state: $state) @client {
+            homeAddress
+            city
+            state
         }
     }
 `;

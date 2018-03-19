@@ -7,10 +7,9 @@ import {
 	GoogleMap, 
 	DirectionsRenderer 
 } from 'react-google-maps';
-
 const MapWithDirectionsRenderer = compose(
 	withProps({
-		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDZRFt_hUSsof9hE1T-bbaKvCNIwAW-tNE&libraries=geometry,drawing,places',
+		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA6oWSrlXFahsT5ezn6zRb-N3IcMrhavVg&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: `100%` }} />,
 		containerElement: <div style={{ height: `400px` }} />,
 		mapElement: <div style={{ height: `100%` }} />,
@@ -19,15 +18,13 @@ const MapWithDirectionsRenderer = compose(
 	withGoogleMap,
 	lifecycle({
 		async componentDidMount(){
-			console.log(this.props.destinationProps);
-			const {company, city, state } = this.props.destinationProps;
+			const { homeAddress, companyAddress, travelMode } = this.props.mapProps;
 			const DirectionsService = new google.maps.DirectionsService();
 			DirectionsService.route({
-				origin: new google.maps.LatLng(41.8507300, -87.6512600),
-				destination: new google.maps.LatLng(41.8525800, -87.6514100),
-				travelMode: google.maps.TravelMode.DRIVING,
+				origin: homeAddress,
+				destination: companyAddress,
+				travelMode: travelMode.toUpperCase(),
 			},(result,status)=>{
-				console.log(result);
 				if (status == google.maps.DirectionsStatus.OK) {
 					this.setState({
 						directions: result
@@ -49,9 +46,9 @@ const MapWithDirectionsRenderer = compose(
 
 
 
-const MapView = ({destinationProps})=>{
+const MapView = ({mapProps})=>{
 	return(
-		<MapWithDirectionsRenderer destinationProps={destinationProps}/>
+		<MapWithDirectionsRenderer mapProps={mapProps}/>
 	);
 }
 

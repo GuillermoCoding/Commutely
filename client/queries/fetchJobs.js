@@ -3,28 +3,27 @@ import gql from 'graphql-tag';
 export default gql`
     query fetchJobs(
         $title: String, 
-        $zipcode: String, 
-        $startingPage: Int,
-        $lat: Int,
-        $lng: Int,
+        $homeAddress: String,
+        $city: String,
+        $state: String,
         $commuteSelected: String,
         $timeSelected: Int
+        $startingPage: Int,
         ){
         jobs(
-            title: $title, 
-            zipcode: $zipcode, 
-            startingPage: $startingPage,
-            lat : $lat,
-            lng: $lng,
+            title: $title,
+            homeAddress: $homeAddress,
+            city: $city,
+            state: $state,
             commuteSelected: $commuteSelected,
-            timeSelected: $timeSelected 
+            timeSelected: $timeSelected,
+            startingPage: $startingPage,
             ){
             title
             company
-            city
-            state
-            country
+            address
+            commuteTime
+            commuteDistance
             url
-            routeAvailable
         }
     }`;

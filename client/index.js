@@ -7,7 +7,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
 import { HomeNavBar } from './components';
-import {SubmitButton} from './containers';
+import {SubmitButton, JobList} from './containers';
 import fetch from 'unfetch';
 import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -43,7 +43,7 @@ const Root = ()=>{
 				<Route path='/' components={App}>
 					<IndexRoute component={HomeNavBar}/>
 				</Route>
-				<Route path='/results' components={SubmitButton}/>
+				<Route path='/results' components={JobList}/>
 			</Router>
 		</ApolloProvider>
   );

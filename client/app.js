@@ -13,7 +13,7 @@ import { fetchCommuteOption } from './queries';
 import { graphql } from 'react-apollo';
 import styles from './styles/App.css';
 import carBackground from './images/driving-image.jpg';
-import bikeBackground from './images/biking-image.jpg';
+import bikeBackground from './images/bicycling-image.jpg';
 import walkingBackground from './images/walking-image.jpg';
 
 class App extends Component {

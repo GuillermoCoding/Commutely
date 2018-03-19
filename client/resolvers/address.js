@@ -3,21 +3,21 @@ const address = {
     defaults: {
         address: {
             __typename: 'address',
-            lat: null,
-            lng: null,
-            zipcode: null,
+            homeAddress: null,
+            city: null,
+            state: null
         }
 
     },
     resolvers: {
         Mutation: {
-            updateAddress : (_,{lat,lng,zipcode},{cache}) =>{
+            updateAddress : (_,{homeAddress,city,state},{cache}) =>{
                 const data = {
                     address : {
                         __typename: 'address',
-                        lat,
-                        lng,
-                        zipcode
+                        homeAddress,
+                        city,
+                        state
                     }
                 }
                 cache.writeData({data});

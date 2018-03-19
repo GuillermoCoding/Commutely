@@ -1,47 +1,22 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import { MapView } from './';
 
 class JobListItem extends Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			displayMap: false
-		}
-	}
-	handleClick(){
-		this.setState(prevState=>({
-			displayMap : !prevState.displayMap
-		}));
-	}
-	displayMap(){
-		if (this.state.displayMap) {
-			const {company, city, state} = this.props.job;
-			const destinationProps = {
-				company,
-				city,
-				state
-			}
-			return (
-				<MapView destinationProps={destinationProps}/>
-			);
-		} else {
-			return (
-				null
-			);
-		}
-	}
 	render(){
 		return (
-			<div>
-				{/*<h3>{this.props.job.title}</h3>
-				<h5>{this.props.job.company}</h5>
-				<h5>{this.props.job.city}</h5>
-				<h5>{this.props.job.state}</h5>*/}
-				<h5>{this.props.job.index}</h5>
-				<a href={`${this.props.job.url}`}>See more</a>
-				<button disabled={!this.props.job.routeAvailable} onClick={this.handleClick.bind(this)}>View route</button>
-				{this.displayMap()}
-			</div>
+				<Row>
+					<Col xs={12} md={6} lg={6}>
+						<h3>{this.props.job.title}</h3>
+						<h5>{this.props.job.company}</h5>
+						<h5>{this.props.job.address}</h5>
+						<h5>{this.props.mapProps.travelMode} time : {this.props.job.commuteTime}</h5>
+						<h5>commute distance : {this.props.job.commuteDistance}</h5>
+					</Col>
+					<Col xs={12} md={6} lg={6}>
+						<MapView mapProps={this.props.mapProps}/>
+					</Col>
+				</Row>
 		);
 	}
 

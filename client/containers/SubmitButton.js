@@ -23,7 +23,7 @@ class SubmitButton extends Component {
 	}
 	async handleSubmit(){
 		await this.setState({isLoading:true});
-		const {zipcode, lat, lng} = this.props.fetchAddress.address;
+		const {homeAddress, city, state} = this.props.fetchAddress.address;
 		const {title} = this.props.fetchSearchedJob.searchedJob;
 		const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
 		const {timeSelected} = this.props.fetchTimeOption.timeOption;
@@ -31,23 +31,22 @@ class SubmitButton extends Component {
 			query: fetchJobs,
 			variables : {
 				title,
-				zipcode,
-				lat : parseInt(lat),
-				lng : parseInt(lng),
+				homeAddress,
+				city,
+				state,
 				commuteSelected,
 				timeSelected : parseInt(timeSelected),
 				startingPage : 0
 			}
 		});
 		console.log(response.data);
+		const {jobs} = response.data;
+		await this.props.updateJobList({
+				variables : {
+					jobs
+				}
+			});
 		browserHistory.push('/results');
-
-		// const {jobs} = response.data;
-		// this.props.updateJobList({
-		// 	variables : {
-		// 		jobs
-		// 	}
-		// });
 	}
 	renderButtonContent(){
 

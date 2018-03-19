@@ -6,11 +6,10 @@ const JobType = new GraphQLObjectType({
 		_id : { type: GraphQLID},
 		title: { type: GraphQLString},
         company: { type: GraphQLString},
-        city: { type: GraphQLString},
-        state: { type: GraphQLString},
-        country: { type: GraphQLString},
+        address: {type: GraphQLString },
+        commuteTime: {type: GraphQLString},
+        commuteDistance : {type: GraphQLString},
         url: { type: GraphQLString},
-        routeAvailable: { type: GraphQLBoolean}
 	})
 });
 
