@@ -14,7 +14,6 @@ import styles from '../styles/CommuteOptions.css';
 
 class CommuteOptions extends Component {
 	handleSelection(event){
-		console.log(event);
 		this.props.updateCommuteOption({
 			variables: {
 				commuteSelected: event
@@ -22,18 +21,19 @@ class CommuteOptions extends Component {
 		});
 	}
   render(){
+		const commuteSelected = this.props.fetchCommuteOption.commuteOption.commuteSelected;
   	return (
 				<ButtonToolbar>
 					<ToggleButtonGroup 
-						defaultValue={'walking'}
+						defaultValue={commuteSelected}
 						bsSize="large" 
 						className={styles.buttons}
 						onChange={this.handleSelection.bind(this)} 
 						type='radio' 
 						name='options'>
-						<ToggleButton value={'walking'}><WalkingIcon/></ToggleButton>
-						<ToggleButton value={'bicycling'}><BikeIcon/></ToggleButton>
-						<ToggleButton value={'driving'}><CarIcon/></ToggleButton>
+						<ToggleButton value={'Driving'}><CarIcon/></ToggleButton>
+						<ToggleButton value={'Bicycling'}><BikeIcon/></ToggleButton>
+						<ToggleButton value={'Walking'}><WalkingIcon/></ToggleButton>
 					</ToggleButtonGroup>
 				</ButtonToolbar>
     );
@@ -41,7 +41,9 @@ class CommuteOptions extends Component {
 }
 
 export default compose(
-	graphql(fetchCommuteOption),
+	graphql(fetchCommuteOption,{
+		name: 'fetchCommuteOption'
+	}),
 	graphql(updateCommuteOption,{
 		name: "updateCommuteOption"
 	}),

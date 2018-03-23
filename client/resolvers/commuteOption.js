@@ -4,7 +4,7 @@ const commuteOption = {
     defaults: {
         commuteOption: {
             __typename: "commuteOption",
-            commuteSelected: "walking" 
+            commuteSelected: "Driving" 
         }
     },
     resolvers: {

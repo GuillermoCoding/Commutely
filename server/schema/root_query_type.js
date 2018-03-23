@@ -65,7 +65,7 @@ const RootQuery = new GraphQLObjectType({
 				// 	commuteDistance: '4',
 				// 	url : 'url4'
 				// }];
-				const jobResults = fetchData.IndeedJobs(args);
+				const jobResults =  fetchData.IndeedJobs(args);
 				return jobResults;
 			}
 		}

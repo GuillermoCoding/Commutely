@@ -9,6 +9,7 @@ export default gql`
                address
                commuteTime
                commuteDistance
+               url
            }
         }
     }`;

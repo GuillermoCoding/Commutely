@@ -21,11 +21,11 @@ class JobList extends Component {
 	}
 	
 	renderJobs(){
-		console.log(this.props.fetchCommuteOption.commuteOption.commuteSelected);
-		return this.props.fetchJobList.jobList.jobs.map(({title, company, address,commuteTime, commuteDistance})=>{
+		return this.props.fetchJobList.jobList.jobs.map(({title, company, address,commuteTime, commuteDistance, url})=>{
 			const job = {
 				title,
 				company,
+				url,
 				address,
 				commuteTime,
 				commuteDistance

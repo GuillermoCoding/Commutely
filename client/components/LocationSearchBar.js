@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { graphql } from 'react-apollo';
+import { graphql, compose, withApollo } from 'react-apollo';
 import { updateAddress } from '../mutations';
+import { fetchAddress } from '../queries';
 import styles from '../styles/LocationSearchBar.css';
 
 class LocationSearchBar extends Component {
@@ -19,7 +20,6 @@ class LocationSearchBar extends Component {
 		const {address_components} = result[0];
 		const city = this.getCity(address_components);
 		const state = this.getState(address_components);
-		console.log(city+', '+state);
 		this.props.updateAddress({
 			variables: {
 				homeAddress : this.state.address,
@@ -51,6 +51,11 @@ class LocationSearchBar extends Component {
 			}
 		}
 	}
+	componentWillMount(){
+		if (this.props.fetchAddress.address.homeAddress) {
+			this.setState({address : this.props.fetchAddress.address.homeAddress});
+		}
+	}
 	render(){
 		const renderSuggestion = ({formattedSuggestion}) => (
 			<div className={styles.item}>
@@ -80,4 +85,11 @@ class LocationSearchBar extends Component {
 		);
 	}
 }
-export default graphql(updateAddress,{name:'updateAddress'})(LocationSearchBar);
+export default compose(
+	graphql(updateAddress,{
+		name: 'updateAddress'
+	}),
+	graphql(fetchAddress,{
+		name: 'fetchAddress'
+	}))
+	(LocationSearchBar)

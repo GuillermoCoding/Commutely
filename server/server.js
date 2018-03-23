@@ -23,11 +23,10 @@ app.use('/graphql',expressGraphQL({
 	graphiql: true
 }));
 
-// app.use(express.static('./'));
-app.get('*',(req, res)=>{
-  res.sendFile(path.resolve(__dirname,'../index.html'));
-});
-console.log(process.env.SUGGESTIONS_DB);
+app.use(express.static('./'));
+// app.get('*',(req, res)=>{
+//   res.sendFile(path.resolve(__dirname,'../index.html'));
+// });
 mongoose.connect(process.env.SUGGESTIONS_DB);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))

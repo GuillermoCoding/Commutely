@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Downshift from 'downshift';
 import { AutoCompleteList } from './index';
 import { updateSearchedJob } from '../mutations';
+import { fetchSearchedJob } from '../queries';
 import { graphql, compose, withApollo } from 'react-apollo';
 import styles from '../styles/JobTitleSearchBar.css';
 
@@ -12,9 +13,6 @@ class JobTitleSearchBar extends Component {
 			inputValue:''
 		}
 	}
-	onInputValueChange(inputValue){
-		this.setState({inputValue});
-	}
 	onChange(selectedItem){
 		this.props.updateSearchedJob({
 			variables : {
@@ -22,10 +20,16 @@ class JobTitleSearchBar extends Component {
 			}
 		});
 	}
+
+	componentWillMount(){
+		const { title } = this.props.fetchSearchedJob.searchedJob;
+		this.setState({inputValue: title});
+	}
 	render(){
 		return (
 			<Downshift
-				onInputValueChange={inputValue=>this.onInputValueChange(inputValue)}
+				defaultInputValue={this.state.inputValue}
+				onInputValueChange={inputValue=>this.setState({inputValue})}
 				onChange={selectedItem=>this.onChange(selectedItem)}
 				render={({inputValue, getInputProps, isOpen, getItemProps, highlightedIndex,selectedItem})=>(
 					<div>
@@ -45,4 +49,11 @@ class JobTitleSearchBar extends Component {
 		);
 	}
 }
-export default compose(graphql(updateSearchedJob, {name: 'updateSearchedJob'}))(JobTitleSearchBar);
+export default compose(
+	graphql(updateSearchedJob,{
+		name: 'updateSearchedJob'
+	}),
+	graphql(fetchSearchedJob,{
+		name: 'fetchSearchedJob'
+	})
+	)(JobTitleSearchBar);

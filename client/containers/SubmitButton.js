@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import SearchIcon from 'react-icons/lib/md/search';
-import ReactLoading from 'react-loading';
+import Loader from 'react-loader-spinner';
+
 import { 
 	fetchAddress, 
 	fetchSearchedJob, 
@@ -39,7 +40,6 @@ class SubmitButton extends Component {
 				startingPage : 0
 			}
 		});
-		console.log(response.data);
 		const {jobs} = response.data;
 		await this.props.updateJobList({
 				variables : {
@@ -49,15 +49,16 @@ class SubmitButton extends Component {
 		browserHistory.push('/results');
 	}
 	renderButtonContent(){
-
 		if (this.state.isLoading) {
 			return (
-				<ReactLoading
-					height={'100%'}
-					width={'34px'}
-					type={'spinningBubbles'}
-					className={styles.loading}
-				/>
+				<div>
+					<Loader
+						type='ThreeDots'
+						color="#ffffff"
+						height="25"	
+						width="25"
+					/>
+				</div>
 			);
 		} else {
 			return (
@@ -75,16 +76,14 @@ class SubmitButton extends Component {
 	render() {
 		const { isLoading } = this.state;
 		return(
-			<div>
-				<Button
+				<button
 					disabled={isLoading}
 					className={styles.button} 
 					onClick={this.handleSubmit.bind(this)}>
 					<div className={styles.content}>
 						{this.renderButtonContent()}
 					</div>
-				</Button>
-			</div>
+				</button>
 		);
 	}
 

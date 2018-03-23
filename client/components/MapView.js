@@ -7,11 +7,12 @@ import {
 	GoogleMap, 
 	DirectionsRenderer 
 } from 'react-google-maps';
+
 const MapWithDirectionsRenderer = compose(
 	withProps({
-		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA6oWSrlXFahsT5ezn6zRb-N3IcMrhavVg&libraries=geometry,drawing,places',
+		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ9K6-WfSn3iJgCpvBi-6VcRk4ZVKX5Uo	&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: `100%` }} />,
-		containerElement: <div style={{ height: `400px` }} />,
+		containerElement: <div style={{ height: `300px` }} />,
 		mapElement: <div style={{ height: `100%` }} />,
 	}),
 	withScriptjs,

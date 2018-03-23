@@ -30,7 +30,7 @@ const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
 		new HttpLink({
-			uri: 'https://heroku-test-300.herokuapp.com/graphql',fetch:fetch
+			uri: 'http://localhost:4000/graphql',fetch:fetch
 		}),
 	]),
 	cache
@@ -40,10 +40,13 @@ const Root = ()=>{
 	return (
 		<ApolloProvider client={apolloClient}>
 			<Router history={browserHistory}>
-				<Route path='/' components={App}>
-					<IndexRoute component={HomeNavBar}/>
+				
+				
+				<Route path='/' components={HomeNavBar}>
+					<IndexRoute component={App}/>
+					<Route path='/results' components={JobList}/>
 				</Route>
-				<Route path='/results' components={JobList}/>
+				
 			</Router>
 		</ApolloProvider>
   );
