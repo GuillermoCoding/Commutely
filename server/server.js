@@ -27,7 +27,6 @@ app.use(express.static('./'));
 app.get('*',(req, res)=>{
   res.sendFile(path.resolve(__dirname,'../index.html'));
 });
-console.log('server!');
 console.log(process.env.SUGGESTIONS_DB);
 mongoose.connect(process.env.SUGGESTIONS_DB);
 mongoose.connection
