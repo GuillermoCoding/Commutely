@@ -1,4 +1,14 @@
 .item {
     margin-bottom: 3.5em;
-    border-bottom: solid rgb(0, 255, 153) 3px;
+    border: solid rgba(0, 255, 153,.4) 3px;
+}
+.header {
+    margin-bottom: 1em;
+}
+.snippet {
+    margin-top: 2em;
+    color: rgb(102, 102, 102);
+}
+.text {
+    color: black;
 }

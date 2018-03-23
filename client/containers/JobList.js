@@ -21,10 +21,11 @@ class JobList extends Component {
 	}
 	
 	renderJobs(){
-		return this.props.fetchJobList.jobList.jobs.map(({title, company, address,commuteTime, commuteDistance, url})=>{
+		return this.props.fetchJobList.jobList.jobs.map(({title, company, address, commuteTime, commuteDistance, snippet, url})=>{
 			const job = {
 				title,
 				company,
+				snippet,
 				url,
 				address,
 				commuteTime,
@@ -44,6 +45,11 @@ class JobList extends Component {
 		return (
 			<Grid>
 				{this.renderJobs()}
+				<span id="indeed_at">
+					<a title="Job Search" href="https://www.indeed.com" rel="nofollow">
+					jobs by <img alt='Indeed' src="https://www.indeed.com/p/jobsearch.gif"/>
+					</a>
+				</span>
 			</Grid>
 		);
 	}

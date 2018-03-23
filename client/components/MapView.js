@@ -7,12 +7,13 @@ import {
 	GoogleMap, 
 	DirectionsRenderer 
 } from 'react-google-maps';
+import styles from '../styles/MapView.css';
 
 const MapWithDirectionsRenderer = compose(
 	withProps({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ9K6-WfSn3iJgCpvBi-6VcRk4ZVKX5Uo	&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: `100%` }} />,
-		containerElement: <div style={{ height: `300px` }} />,
+		containerElement: <div className={styles.map}/>,
 		mapElement: <div style={{ height: `100%` }} />,
 	}),
 	withScriptjs,
