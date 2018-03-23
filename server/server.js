@@ -12,11 +12,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config.js');
+// const webpackMiddleware = require('webpack-dev-middleware');
+// const webpack = require('webpack');
+// const webpackConfig = require('../webpack.config.js');
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+// app.use(webpackMiddleware(webpack(webpackConfig)));
 
 app.use('/graphql',expressGraphQL({
 	schema,
@@ -24,9 +24,9 @@ app.use('/graphql',expressGraphQL({
 }));
 
 app.use(express.static('./'));
-// app.get('*',(req, res)=>{
-//   res.sendFile(path.resolve(__dirname,'../index.html'));
-// });
+app.get('*',(req, res)=>{
+  res.sendFile(path.resolve(__dirname,'../index.html'));
+});
 mongoose.connect(process.env.SUGGESTIONS_DB);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))
