@@ -21,7 +21,7 @@ class App extends Component {
 	render (){
 		const imageURL = './images/'+this.props.data.commuteOption.commuteSelected+'-image.jpg';
 		const backgroundStyle = {
-			backgroundImage : 'url("'+require(''+imageURL)+'")'
+			backgroundImage : 'url('+require(imageURL)+')'
 		}
 		return (
 				
