@@ -26,7 +26,11 @@ const stateLink = withClientState({
 	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)
 	
 });
-console.log(process.env.PORT);
+console.log(process.env.NODE_ENV);
+let url = 'http:localhost:4000/graphql';
+if (process.env.NODE_ENV=='production') {
+	url = 'https://daily-commute-123.herokuapp.com/graphql'
+}
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
