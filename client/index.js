@@ -26,11 +26,12 @@ const stateLink = withClientState({
 	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)
 	
 });
+console.log(process.env.PORT);
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
 		new HttpLink({
-			uri: 'https://daily-commute-123.herokuapp.com/graphql',fetch:fetch
+			uri: `http://localhost:4000/graphql`,fetch:fetch
 		}),
 	]),
 	cache
