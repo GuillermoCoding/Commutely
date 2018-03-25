@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const devPlugins = [
-	new Dotenv(),
 	new HtmlWebpackPlugin({template: './client/index.html'})
 	];
 const prodPlugins = [
@@ -14,7 +13,7 @@ const prodPlugins = [
 		];
 console.log('webpack!');
 console.log(process.env.NODE_ENV);
-const configPlugins = (process.env.NODE_ENV=='development')? devPlugins : prodPlugins;
+const configPlugins = (process.env.NODE_ENV=='development')? devPlugins.push(new Dotenv()) : prodPlugins;
 module.exports = {
 	  devServer: {
 		    headers: {
