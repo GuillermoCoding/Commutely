@@ -25,8 +25,7 @@ const stateLink = withClientState({
 	cache,
 	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)	
 });
-console.log('here');
-console.log(process.env.GOOGLE_API_KEY);
+console.log(process.env.NODE_ENV);
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
