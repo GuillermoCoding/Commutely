@@ -13,13 +13,13 @@ app.use(cors());
 
 if (process.env.NODE_ENV=='development') {
 	console.log('development set up');
+	require('dotenv').config();
 	const webpackMiddleware = require('webpack-dev-middleware');
 	const webpack = require('webpack');
 	const webpackConfig = require('../webpack.config.js');
 	app.use(webpackMiddleware(webpack(webpackConfig)));
 } else {
 	console.log('production set up');
-	require('dotenv').config();
 	app.use(express.static('./'));
 	app.get('*',(req, res)=>{
   		res.sendFile(path.resolve(__dirname,'../index.html'));
