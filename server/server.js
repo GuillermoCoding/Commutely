@@ -30,6 +30,8 @@ app.use('/graphql',expressGraphQL({
 	graphiql: true
 }));
 mongoose.connect(process.env.MLAB_DB_URL);
+console.log('db url');
+console.log(process.env.MLAB_DB_URL);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))
 	.on('error',()=>console.log('Error when connecting to database'));
