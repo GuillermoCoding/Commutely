@@ -23,10 +23,10 @@ import {
 const cache = new InMemoryCache();
 const stateLink = withClientState({
 	cache,
-	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)
-	
+	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)	
 });
-console.log(process.env);
+consol.log('here');
+console.log(process.env.GOOGLE_API_KEY);
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,

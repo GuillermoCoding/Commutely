@@ -35,9 +35,12 @@ module.exports = {
 		  },
 	  plugins: [
 			new Dotenv(),
-		    new HtmlWebpackPlugin({
-			      template: './client/index.html'
-			    })
+			new webpack.DefinePlugin({
+				'GOOGLE_API_KEY' : JSON.stringify(process.env.GOOGLE_API_KEY)
+			}),
+		   new HtmlWebpackPlugin({
+			 	template: './client/index.html'
+			 })
 		  ]
 }
 
