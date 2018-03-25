@@ -7,7 +7,10 @@ const devPlugins = [
 	new HtmlWebpackPlugin({template: './client/index.html'})
 	];
 const prodPlugins = [
-		new webpack.DefinePlugin({'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY)}),
+		new webpack.DefinePlugin(
+			{'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY),
+				'process.env.HOST_URL': JSON.stringify(process.env.HOST_URL)
+		},),
 		new HtmlWebpackPlugin({template: './client/index.html'})
 		];
 console.log('webpack!');
