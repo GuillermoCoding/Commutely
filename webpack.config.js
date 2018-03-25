@@ -2,6 +2,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
+const devPlugins = [
+	new Dotenv(),
+	new HtmlWebpackPlugin({template: './client/index.html'})
+	];
+const prodPlugins = [
+		new webpack.DefinePlugin({'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY)}),
+		new HtmlWebpackPlugin({template: './client/index.html'})
+		];
+console.log('webpack!');
+console.log(process.env.NODE_ENV);
+const configPlugins = (process.env.NODE_ENV=='development')? devPlugins : prodPlugins;
 module.exports = {
 	  devServer: {
 		    headers: {
@@ -33,14 +44,6 @@ module.exports = {
 					        }
 			      ]
 		  },
-	  plugins: [
-			new Dotenv(),
-			new webpack.DefinePlugin({
-				'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY)
-			}),
-		   new HtmlWebpackPlugin({
-			 	template: './client/index.html'
-			 })
-		  ]
+	  plugins: configPlugins
 }
 
