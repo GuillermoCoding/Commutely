@@ -11,9 +11,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV=='development') {
 	console.log('development set up');
-	require('dotenv').config();
+	
 	const webpackMiddleware = require('webpack-dev-middleware');
 	const webpack = require('webpack');
 	const webpackConfig = require('../webpack.config.js');
