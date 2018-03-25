@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const suggestionModel = require('./models/suggestion');
 const Suggestion = mongoose.model('suggestion');
 const path = require('path');
-require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -20,6 +19,7 @@ if (process.env.NODE_ENV=='development') {
 	app.use(webpackMiddleware(webpack(webpackConfig)));
 } else {
 	console.log('production set up');
+	require('dotenv').config();
 	app.use(express.static('./'));
 	app.get('*',(req, res)=>{
   		res.sendFile(path.resolve(__dirname,'../index.html'));
@@ -30,8 +30,6 @@ app.use('/graphql',expressGraphQL({
 	graphiql: true
 }));
 mongoose.connect(process.env.MLAB_DB_URL);
-console.log('db url');
-console.log(process.env.MLAB_DB_URL);
 mongoose.connection
 	.once('open',()=>console.log('Connected to MongoDB'))
 	.on('error',()=>console.log('Error when connecting to database'));

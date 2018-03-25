@@ -1,7 +1,9 @@
 const fetch = require('node-fetch');
 const axios = require('axios');
 const { filterAsync } = require('node-filter-async');
-require('dotenv').config();
+if (process.env.NODE_ENV=='development') {
+   require('dotenv').config(); 
+}
 
 exports.IndeedJobs = async (args)=>{
         const {
@@ -20,9 +22,7 @@ exports.IndeedJobs = async (args)=>{
             const placeResponse = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=20&keyword=${company}+" in "+${city}+${state}&key=${process.env.GOOGLE_API_KEY}`);
             return (placeResponse.data.results.length == 1);
         });
-        console.log(results);
         const jobArray =  await results.map(async ({jobtitle, company, city, state, country,snippet, url,latitude, longitude})=>{
-            console.log(snippet);
             try {
             const placeResponse = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=20&keyword=${company}+" in "+${city}+${state}&key=${process.env.GOOGLE_API_KEY}`);
             const placeArray = placeResponse.data.results;
