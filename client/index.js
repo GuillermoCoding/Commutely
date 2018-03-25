@@ -26,7 +26,7 @@ const stateLink = withClientState({
 	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)
 	
 });
-
+console.log(process.env);
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
