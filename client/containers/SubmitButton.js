@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import SearchIcon from 'react-icons/lib/md/search';
 import Loader from 'react-loader-spinner';
-
+import { geocodeByAddress } from 'react-places-autocomplete';
 import { 
 	fetchAddress, 
 	fetchSearchedJob, 
@@ -22,43 +22,90 @@ class SubmitButton extends Component {
 			isLoading: false,
 		}
 	}
+	getCity(addressComponents){
+		for (let i =0; i < addressComponents.length; i++){
+			const component = addressComponents[i];
+			if (component.types.includes('locality')){
+				return component.long_name;
+			}
+		}
+	}
+	getState(addressComponents){
+		for (let i =0; i < addressComponents.length; i++){
+			const component = addressComponents[i];
+			if (component.types.includes('administrative_area_level_1')){
+				return component.short_name;
+			}
+		}
+	}
 	async handleSubmit(){
+		let results;
 		const {homeAddress, city, state} = this.props.fetchAddress.address;
-
+		await this.setState({isLoading:true});
 		if (!homeAddress) {
-			console.log('address error');
 			this.props.updateErrorMessage({
 				variables: {
 					content: 'Address is required for route calculations'
 				}
 			});
+			this.setState({isLoading: false});
 		} else {
-			await this.setState({isLoading:true});
-			const {title} = this.props.fetchSearchedJob.searchedJob;
-			const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
-			const {timeSelected} = this.props.fetchTimeOption.timeOption;
-			const response = await this.props.client.query({
-				query: fetchJobs,
-				variables : {
-					title,
-					homeAddress,
-					city,
-					state,
-					commuteSelected,
-					timeSelected : parseInt(timeSelected),
-					startingPage : 0
-				}
-			});
-			const {jobs} = response.data;
-			if (jobs.length==0) {
-				this.setState({resultsError: true});
-			} else {
-				await this.props.updateJobList({
-					variables : {
-						jobs
+			console.log('here1');
+
+			try {
+				  results = await geocodeByAddress(homeAddress);
+			} catch(err){
+				console.log('error');
+				console.log(err);
+			}
+			console.log(results);
+			if (results.length!=1) {
+				await this.props.updateErrorMessage({
+					variables: {
+						content: 'Invalid address'
 					}
 				});
-				browserHistory.push('/results');
+				this.setState({isLoading: false});
+
+			} else {
+					console.log('here2');
+					const {address_components} = results[0];
+					const city = this.getCity(address_components);
+					const state = this.getState(address_components);
+					const {title} = this.props.fetchSearchedJob.searchedJob;
+					const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
+					const {timeSelected} = this.props.fetchTimeOption.timeOption;
+					console.log(title);
+					console.log(homeAddress);
+					console.log(city);
+					console.log(state);
+					console.log(commuteSelected);
+
+					const response = await this.props.client.query({
+						query: fetchJobs,
+						variables : {
+							title,
+							homeAddress,
+							city,
+							state,
+							commuteSelected,
+							timeSelected : parseInt(timeSelected),
+							startingPage : 0
+						}
+					});
+					console.log('results');
+					console.log(response.data.jobs);
+					const {jobs} = response.data;
+					if (jobs.length==0) {
+						this.setState({resultsError: true});
+					} else {
+						await this.props.updateJobList({
+							variables : {
+								jobs
+							}
+						});
+						browserHistory.push('/results');
+					}		
 			}
 			
 		}

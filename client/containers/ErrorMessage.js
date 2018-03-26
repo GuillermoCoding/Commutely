@@ -6,8 +6,6 @@ import styles from '../styles/ErrorMessage.css';
 
 class ErrorMessage extends Component {
     render(){
-        console.log('error message displayed');
-        console.log(this.props.fetchErrorMessage.errorMessage.content);
         return (
             <div>
                 <h2 className={styles.text}>{this.props.fetchErrorMessage.errorMessage.content}</h2>

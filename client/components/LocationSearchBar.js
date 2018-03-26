@@ -22,17 +22,6 @@ class LocationSearchBar extends Component {
 	}
 	async onSelect(data){
 		await this.setState({address:data});
-		const result = await geocodeByAddress(this.state.address);
-		const {address_components} = result[0];
-		const city = this.getCity(address_components);
-		const state = this.getState(address_components);
-		await this.props.updateAddress({
-				variables: {
-					homeAddress : this.state.address,
-					city,
-					state
-				}
-		});
 		await this.props.updateErrorMessage({
 			variables: {
 				content: ''
@@ -40,29 +29,13 @@ class LocationSearchBar extends Component {
 		});
 
 	}	
-	getCity(addressComponents){
-		for (let i =0; i < addressComponents.length; i++){
-			const component = addressComponents[i];
-			if (component.types.includes('locality')){
-				return component.long_name;
-			}
-		}
-	}
-	getState(addressComponents){
-		for (let i =0; i < addressComponents.length; i++){
-			const component = addressComponents[i];
-			if (component.types.includes('administrative_area_level_1')){
-				return component.short_name;
-			}
-		}
-	}
-	getZipCode(addressComponents){
-		for (let i =addressComponents.length-1; i >= 0; i--) {
-			if (addressComponents[i].types.length==1 && addressComponents[i].types[0]=='postal_code') {
-				return addressComponents[i].long_name;
-			}
-		}
-	}
+	// getZipCode(addressComponents){
+	// 	for (let i =addressComponents.length-1; i >= 0; i--) {
+	// 		if (addressComponents[i].types.length==1 && addressComponents[i].types[0]=='postal_code') {
+	// 			return addressComponents[i].long_name;
+	// 		}
+	// 	}
+	// }
 	componentWillMount(){
 		if (this.props.fetchAddress.address.homeAddress) {
 			this.setState({address : this.props.fetchAddress.address.homeAddress});
