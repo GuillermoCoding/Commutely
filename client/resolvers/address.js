@@ -13,6 +13,9 @@ const address = {
     resolvers: {
         Mutation: {
             updateAddress : (_,{homeAddress,city,state},{cache}) =>{
+                console.log(homeAddress);
+                console.log(city);
+                console.log(state);
                 const data = {
                     address : {
                         __typename: 'address',

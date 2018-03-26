@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { graphql, compose, withApollo } from 'react-apollo';
-import { updateAddress } from '../mutations';
+import { updateAddress, updateErrorMessage } from '../mutations';
 import { fetchAddress } from '../queries';
 import styles from '../styles/LocationSearchBar.css';
 
@@ -11,22 +11,34 @@ class LocationSearchBar extends Component {
 		this.state = {
 			address: ''
 		}
-		this.onChange = (address => this.setState({address}))
 	}
-	
+	async onChange(address){
+		this.setState({address});
+		await this.props.updateAddress({
+			variables: {
+				homeAddress: address
+			}
+		});
+	}
 	async onSelect(data){
 		await this.setState({address:data});
 		const result = await geocodeByAddress(this.state.address);
 		const {address_components} = result[0];
 		const city = this.getCity(address_components);
 		const state = this.getState(address_components);
-		this.props.updateAddress({
+		await this.props.updateAddress({
+				variables: {
+					homeAddress : this.state.address,
+					city,
+					state
+				}
+		});
+		await this.props.updateErrorMessage({
 			variables: {
-				homeAddress : this.state.address,
-				city,
-				state
+				content: ''
 			}
 		});
+
 	}	
 	getCity(addressComponents){
 		for (let i =0; i < addressComponents.length; i++){
@@ -65,7 +77,7 @@ class LocationSearchBar extends Component {
 		);
 		const inputProps = {
 			value : this.state.address,
-			onChange : this.onChange,
+			onChange : this.onChange.bind(this),
 			
 		}
 		const styles = {
@@ -82,6 +94,7 @@ class LocationSearchBar extends Component {
 						styles={styles}
 						inputProps={inputProps} 
 						renderSuggestion={renderSuggestion}
+						debounce={1000}
 						onSelect={this.onSelect.bind(this)}
 					/>
 		);
@@ -93,5 +106,8 @@ export default compose(
 	}),
 	graphql(fetchAddress,{
 		name: 'fetchAddress'
+	}),
+	graphql(updateErrorMessage,{
+		name: 'updateErrorMessage'
 	}))
 	(LocationSearchBar)

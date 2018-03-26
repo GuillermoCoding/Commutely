@@ -9,7 +9,6 @@ const errorMessage = {
     resolvers: {
         Mutation: {
             updateErrorMessage : (_,{content},{cache}) =>{
-							console.log('error message resolver '+content);
                 const data = {
                     errorMessage : {
                         __typename: 'errorMessage',
