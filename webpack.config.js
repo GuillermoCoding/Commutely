@@ -12,8 +12,7 @@ const prodPlugins = [
 		{'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY),
 		'process.env.HOST_URL': JSON.stringify(process.env.HOST_URL)
 		}
-	),
-	new HtmlWebpackPlugin({template: './client/index.html'})
+	)
 ];
 
 const configPlugins = (process.env.NODE_ENV=='development')? devPlugins : prodPlugins;

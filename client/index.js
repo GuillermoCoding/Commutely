@@ -17,15 +17,15 @@ import {
 	jobList, 
 	searchedJob, 
 	commuteOption, 
-	timeOption
+	timeOption,
+	errorMessage
 } from './resolvers';
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({
 	cache,
-	..._.merge(searchedJob,jobList,address,commuteOption,timeOption)	
+	..._.merge(searchedJob,jobList,address,commuteOption,timeOption,errorMessage)	
 });
-console.log(process.env.NODE_ENV);
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,

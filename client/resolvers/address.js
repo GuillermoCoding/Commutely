@@ -5,7 +5,8 @@ const address = {
             __typename: 'address',
             homeAddress: null,
             city: null,
-            state: null
+            state: null,
+            error: false
         }
 
     },

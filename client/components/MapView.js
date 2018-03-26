@@ -37,13 +37,21 @@ const MapWithDirectionsRenderer = compose(
 			});
 		}
 	})
-)(props=>
-	<GoogleMap
-		defaultZoom={7}
-		defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
-	>
-	{props.directions && <DirectionsRenderer directions={props.directions}/>}
-	</GoogleMap>
+)((props)=>{
+	const markerOptions = {
+		draggable : true
+	};
+	return (
+		<GoogleMap
+			defaultZoom={7}
+			defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
+		>
+		{props.directions && <DirectionsRenderer directions={props.directions} markerOptions={markerOptions}/>}
+		</GoogleMap>
+	);
+
+
+}
 );
 
 

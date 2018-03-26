@@ -2,7 +2,8 @@
     background-color: rgb(0, 255, 153);
     position: absolute;
     bottom: 0;
-    margin-left: 25%;
+    height: 2.7em;
+    margin-left: 29%;
     width: 50%;
 }
 .button:hover {

@@ -65,7 +65,8 @@ class LocationSearchBar extends Component {
 		);
 		const inputProps = {
 			value : this.state.address,
-			onChange : this.onChange
+			onChange : this.onChange,
+			
 		}
 		const styles = {
 			autocompleteContainer: {
@@ -77,6 +78,7 @@ class LocationSearchBar extends Component {
 		}
 		return (
 					<PlacesAutoComplete
+						className={styles.input}
 						styles={styles}
 						inputProps={inputProps} 
 						renderSuggestion={renderSuggestion}

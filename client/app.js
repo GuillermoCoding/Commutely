@@ -7,7 +7,8 @@ import {
 	JobTitleSearchBar, 
 	NavigationFooter, 
 	CommuteOptions,
-	TimeOptions
+	TimeOptions,
+	ErrorMessage
  } from './containers';
 import { fetchCommuteOption } from './queries';
 import { graphql } from 'react-apollo';
@@ -49,6 +50,9 @@ class App extends Component {
 							</Col>
 							<Col xs={12} md={6} lg={6}>
 								<SubmitButton/>
+							</Col>
+							<Col xs={12} md={12} lg={12}>
+								<ErrorMessage/>
 							</Col>
 						</Row>
 				

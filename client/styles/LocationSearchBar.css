@@ -1,5 +1,5 @@
 .input {
-    width: 85%;
+    border: solid red 1px;
 }
 .item{
    border-bottom: solid rgb(64, 64, 64) 1px;
