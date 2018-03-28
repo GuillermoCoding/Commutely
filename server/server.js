@@ -3,9 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressGraphQL = require('express-graphql');
 const schema = require('./schema/schema');
-const mongoose = require('mongoose');
-const suggestionModel = require('./models/suggestion');
-const Suggestion = mongoose.model('suggestion');
+// const mongoose = require('mongoose');
+// const suggestionModel = require('./models/suggestion');
+// const Suggestion = mongoose.model('suggestion');
+const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
 const app = express();
 app.use(bodyParser.json());
@@ -28,9 +29,17 @@ app.use('/graphql',expressGraphQL({
 	schema,
 	graphiql: true
 }));
-mongoose.connect(process.env.MLAB_DB_URL);
-mongoose.connection
-	.once('open',()=>console.log('Connected to MongoDB'))
-	.on('error',()=>console.log('Error when connecting to database'));
+MongoClient.connect(process.env.MLAB_DB_URL,(err,client)=>{
+	if (err) {
+		console.log('error connection to DB');
+		console.log(err);
+	} else {
+		console.log('connection success');
+	}
+});
+// mongoose.connect(process.env.MLAB_DB_URL);
+// mongoose.connection
+// 	.once('open',()=>console.log('Connected to MongoDB'))
+// 	.on('error',()=>console.log('Error when connecting to database'));
 
 module.exports = app;

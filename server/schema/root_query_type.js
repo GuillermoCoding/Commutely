@@ -10,14 +10,25 @@ const fetchData = require('../controllers/fetchData');
 const RootQuery = new GraphQLObjectType({
 	name: 'RootQueryType',
 	fields: ()=>({
-		suggestions : {
-			type: new GraphQLList(SuggestionType),
+		locationSuggestions: {
+		  type: new GraphQLList(GraphQLString),
+		  args: {
+			  input: {type: GraphQLString}
+		  },
+		  resolve(parentValue,{input}){
+			const suggestions = fetchData.Locations(input);
+			return suggestions;
+		  }
+		},
+		jobTitleSuggestions : {
+			type: new GraphQLList(GraphQLString),
 			args: {
-				title : {type: GraphQLString}
+				input : {type: GraphQLString}
 			},
-			resolve(parentValue, {title}){
-				const suggestionResults = Suggestion.find({title: {$regex : '^'+title, $options: 'i'}}).limit(10).exec();
-				return suggestionResults;
+			resolve(parentValue, {input}){
+				//const suggestionResults = Suggestion.find({title: {$regex : '^'+input, $options: 'i'}}).limit(10).exec();
+				const suggestions = fetchData.JobTitles(input);
+				return suggestions;
 			}
 		},
 		jobs: {

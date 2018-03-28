@@ -23,7 +23,7 @@
 #autocomplete-results {
     position: absolute;
     background-color: white;
-    z-index: 1;
+    /*z-index: 1;*/
 }
 #autocomplete-result-item {
     border: solid black 1px;

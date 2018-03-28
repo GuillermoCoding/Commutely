@@ -6,3 +6,4 @@ export { default as fetchSuggestions } from './fetchSuggestions';
 export { default as fetchCommuteOption } from './fetchCommuteOption';
 export { default as fetchTimeOption } from './fetchTimeOption';
 export { default as fetchErrorMessage } from './fetchErrorMessage';
+export { default as fetchLocationSuggestions } from './fetchLocationSuggestions';

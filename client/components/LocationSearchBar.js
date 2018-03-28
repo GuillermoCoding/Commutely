@@ -1,75 +1,79 @@
 import React, { Component } from 'react';
-import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import Downshift from 'downshift';
 import { graphql, compose, withApollo } from 'react-apollo';
 import { updateAddress, updateErrorMessage } from '../mutations';
-import { fetchAddress } from '../queries';
+import { fetchAddress, fetchLocationSuggestions } from '../queries';
 import styles from '../styles/LocationSearchBar.css';
 
 class LocationSearchBar extends Component {
-	constructor(props){
+  constructor(props){
 		super(props);
 		this.state = {
-			address: ''
+			address: '',
+      results: []
 		}
 	}
 	async onChange(address){
-		this.setState({address});
+		await this.setState({address});
 		await this.props.updateAddress({
 			variables: {
 				homeAddress: address
 			}
 		});
 	}
-	async onSelect(data){
-		await this.setState({address:data});
-		await this.props.updateErrorMessage({
-			variables: {
-				content: ''
-			}
-		});
-
-	}	
-	// getZipCode(addressComponents){
-	// 	for (let i =addressComponents.length-1; i >= 0; i--) {
-	// 		if (addressComponents[i].types.length==1 && addressComponents[i].types[0]=='postal_code') {
-	// 			return addressComponents[i].long_name;
+	// async onSelect(address){
+	// 	await this.setState({address});
+	// 	await this.props.updateErrorMessage({
+	// 		variables: {
+	// 			content: ''
 	// 		}
-	// 	}
-	// }
+	// 	});
+	// }	
+  async onInputValueChange(address){
+    await this.setState({address});
+    const results = await this.props.client.query({
+                      query: fetchLocationSuggestions,
+                      variables: {
+                        input: this.state.address
+                      }
+                    });
+    await this.setState({results: results.data.locationSuggestions});
+          
+  }
 	componentWillMount(){
 		if (this.props.fetchAddress.address.homeAddress) {
 			this.setState({address : this.props.fetchAddress.address.homeAddress});
 		}
 	}
 	render(){
-		const renderSuggestion = ({formattedSuggestion}) => (
-			<div className={styles.item}>
-				{formattedSuggestion.mainText}{' '}
-				{formattedSuggestion.secondaryText}
-			</div>
-		);
-		const inputProps = {
-			value : this.state.address,
-			onChange : this.onChange.bind(this),
-			
-		}
-		const styles = {
-			autocompleteContainer: {
-				zIndex: 1
-			},
-			autocompleteItem: {
-				borderBottom: 'solid rgb(64, 64, 64) 1px'
-			}
-		}
 		return (
-					<PlacesAutoComplete
-						className={styles.input}
-						styles={styles}
-						inputProps={inputProps} 
-						renderSuggestion={renderSuggestion}
-						debounce={1000}
-						onSelect={this.onSelect.bind(this)}
-					/>
+			<Downshift
+			  inputValue={this.state.address}
+        onChange={this.onChange.bind(this)}
+        onInputValueChange={this.onInputValueChange.bind(this)}
+        render={({getInputProps,getItemProps,isOpen, selectedItem,highlightedIndex})=>{
+          return (
+            <div>
+              <input className={styles.input}placeholder={'Enter address...'} {...getInputProps()}/>
+              {isOpen?(
+                <div className={styles.results}>
+                  {this.state.results.map((result,index)=>{
+                    return (
+                      <div 
+                        className={styles.item} 
+                        key={index}
+                        {...getItemProps({item: result})}
+                      >
+                        {result}
+                      </div>
+                    );
+                  })}  
+                </div>
+              ):null}
+            </div>
+          );
+        }}
+			/>
 		);
 	}
 }
@@ -82,5 +86,6 @@ export default compose(
 	}),
 	graphql(updateErrorMessage,{
 		name: 'updateErrorMessage'
-	}))
+	}),
+  withApollo)
 	(LocationSearchBar)

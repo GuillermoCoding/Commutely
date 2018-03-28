@@ -1,6 +1,20 @@
 .input {
-    border: solid red 1px;
+    width:100%;
+    padding-left: .7em;
+    height: 3.2em;
+    border-radius: 9px;
+    outline: none;
+    color: rgb(64, 64, 64);
+    font-size: 1em;
 }
-.item{
-   border-bottom: solid rgb(64, 64, 64) 1px;
+.results {
+   
+}
+.item {
+    color: rgb(64, 64, 64);
+    font-weight: 300;
+    background-color: white;
+    border-radius: 9px;
+    margin: 0.2em 0;
+    padding: 0.5em 0 0.5em 0.7em;
 }

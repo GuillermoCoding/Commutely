@@ -10,44 +10,58 @@ class JobTitleSearchBar extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			inputValue:''
+			jobTitle:'',
+      results: []
 		}
 	}
-	onChange(selectedItem){
-		this.props.updateSearchedJob({
-			variables : {
-				title: selectedItem
+	async onChange(jobTitle){
+    await this.setState({jobTitle});
+    await this.props.updateSearchedJob({
+		  variables : {
+			  title: jobTitle
 			}
 		});
 	}
+  onInputValueChange(jobTitle){
+    await this.setState({jobTitle});  
 
+  }
 	componentWillMount(){
 		const { title } = this.props.fetchSearchedJob.searchedJob;
-		this.setState({inputValue: title});
+		this.setState({jobTitle: title});
 	}
-	render(){
-		return (
-			<Downshift
-				defaultInputValue={this.state.inputValue}
-				onInputValueChange={inputValue=>this.setState({inputValue})}
-				onChange={selectedItem=>this.onChange(selectedItem)}
-				render={({inputValue, getInputProps, isOpen, getItemProps, highlightedIndex,selectedItem})=>(
-					<div>
-						<input className={styles.input} {...getInputProps()}/>
-						{isOpen ? (			
-							<AutoCompleteList 
-								getItemProps={getItemProps} 
-								inputValue={this.state.inputValue}
-								highlightedIndex={highlightedIndex}
-								selectedItem={selectedItem}
-							/>
-						): null}
-					</div>
-					
-				)}
-			/>
-		);
-	}
+  render(){
+    return (
+      <Downshift
+        inputValue={this.state.jobTitle}
+        onChange={this.onChange.bind(this)}
+        onInputValueChange={this.onInputValueChange.bind(this)}
+        render={({getInputProps,getItemProps,isOpen, selectedItem,highlightedIndex})=>{
+          return (
+            <div>
+              <input className={styles.input}placeholder={'Enter address...'} {...getInputProps()}/>
+              {isOpen?(
+                <div className={styles.results}>
+                  {this.state.results.map((result,index)=>{
+                    return (
+                      <div 
+                        className={styles.item} 
+                        key={index}
+                        {...getItemProps({item: result})}
+                      >
+                        {result}
+                      </div>
+                    );
+                  })}  
+                </div>
+              ):null}
+            </div>
+          );
+        }}
+      />
+    );
+  }
+
 }
 export default compose(
 	graphql(updateSearchedJob,{

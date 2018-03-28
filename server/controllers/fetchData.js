@@ -1,6 +1,6 @@
-const fetch = require('node-fetch');
 const axios = require('axios');
 const { filterAsync } = require('node-filter-async');
+const MongoClient = require('mongodb').MongoClient;
 
 if (process.env.NODE_ENV=='development') {
    require('dotenv').config(); 
@@ -47,3 +47,14 @@ exports.IndeedJobs = async (args)=>{
         return jobArray;
 }
 
+exports.Locations = async (input)=>{
+    const response = await axios(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${process.env.GOOGLE_API_KEY}`);
+    const results = response.data.predictions;
+    const array =  results.map(result=>{
+      return result.description;
+    });
+    return array;
+}
+exports.jobTitles = async (input)=>{
+    
+}

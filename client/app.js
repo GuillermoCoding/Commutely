@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LocationSearchBar } from './components';
+import { LocationSearchBar, JobTitleSearchBar2} from './components';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { 
 	SubmitButton, 
@@ -55,7 +55,6 @@ class App extends Component {
 								<ErrorMessage/>
 							</Col>
 						</Row>
-				
 					</Grid>
 				</div>
 		);
