@@ -4,7 +4,6 @@ import { graphql, compose, withApollo } from 'react-apollo';
 import { updateAddress, updateErrorMessage } from '../mutations';
 import { fetchAddress, fetchLocationSuggestions } from '../queries';
 import styles from '../styles/LocationSearchBar.css';
-//import { AutoCompleteSearch, AutoCompleteResults} from '../components';
 import { AutoCompleteSearch, AutoCompleteResults} from '../components';
 
 class LocationSearchBar extends Component {
@@ -22,15 +21,12 @@ class LocationSearchBar extends Component {
 				homeAddress: address
 			}
 		});
+		await this.props.updateErrorMessage({
+			varibles: {
+				content: ''
+			}
+		});
 	}
-	// async onSelect(address){
-	// 	await this.setState({address});
-	// 	await this.props.updateErrorMessage({
-	// 		variables: {
-	// 			content: ''
-	// 		}
-	// 	});
-	// }	
   async onInputValueChange(address){
     await this.setState({address});
     const results = await this.props.client.query({
@@ -57,7 +53,7 @@ class LocationSearchBar extends Component {
           return (
             <div>
               <AutoCompleteSearch 
-								placeholder={'Enter job title...'} 
+								placeholder={'Enter home address...'} 
 								getInputProps={getInputProps}
 							/>
 							<AutoCompleteResults 

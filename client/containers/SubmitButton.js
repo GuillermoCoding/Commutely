@@ -39,7 +39,6 @@ class SubmitButton extends Component {
 		}
 	}
 	async handleSubmit(){
-		let results;
 		const {homeAddress, city, state} = this.props.fetchAddress.address;
 		await this.setState({isLoading:true});
 		if (!homeAddress) {
@@ -50,20 +49,7 @@ class SubmitButton extends Component {
 			});
 			this.setState({isLoading: false});
 		} else {
-			try {
-				  results = await geocodeByAddress(homeAddress);
-			} catch(err){
-				console.log(err);
-			}
-			if (results.length!=1) {
-				await this.props.updateErrorMessage({
-					variables: {
-						content: 'Invalid address'
-					}
-				});
-				this.setState({isLoading: false});
-
-			} else {
+			    const results = await geocodeByAddress(homeAddress);
 					const {address_components} = results[0];
 					const city = this.getCity(address_components);
 					const state = this.getState(address_components);
@@ -84,7 +70,12 @@ class SubmitButton extends Component {
 					});
 					const {jobs} = response.data;
 					if (jobs.length==0) {
-						this.setState({resultsError: true});
+            await this.props.updateErrorMessage({
+              variables: {
+                content: 'No jobs found, Please try a different address or job title'
+              }
+            });
+            this.setState({isLoading: false});
 					} else {
 						await this.props.updateJobList({
 							variables : {
@@ -93,8 +84,6 @@ class SubmitButton extends Component {
 						});
 						browserHistory.push('/results');
 					}		
-			}
-			
 		}
 	}
 	renderButtonContent(){

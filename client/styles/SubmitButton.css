@@ -19,6 +19,7 @@
     font-size: 1.4em;
     font-weight: 300;
     margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
 .content {
     display: inline-block;

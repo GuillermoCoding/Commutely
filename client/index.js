@@ -6,7 +6,7 @@ import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
-import { HomeNavBar } from './components';
+import { HomeNavBar, Component } from './components';
 import {SubmitButton, JobList} from './containers';
 import fetch from 'unfetch';
 import _ from 'lodash';
@@ -40,11 +40,9 @@ const Root = ()=>{
 	return (
 		<ApolloProvider client={apolloClient}>
 			<Router history={browserHistory}>
-				
-				
 				<Route path='/' components={HomeNavBar}>
 					<IndexRoute component={App}/>
-					<Route path='/results' components={JobList}/>
+					<Route path='/results' components={Component}/>
 				</Route>
 				
 			</Router>

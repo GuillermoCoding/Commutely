@@ -3,13 +3,11 @@ import { PageHeader } from 'react-bootstrap';
 import styles from '../styles/HomeNavBar.css';
 
 const HomeNavBar = (props)=>{
-    return (
-        <div>
-            <PageHeader className={styles.header}>
-                <h2 className={styles.text}>Daily Commute</h2>
-            </PageHeader>
-            {props.children}
-        </div>
+  return (
+    <div>
+      <h2 className={styles.header}> Daily Commute</h2>
+      {props.children}
+    </div>
     );
 }
 
