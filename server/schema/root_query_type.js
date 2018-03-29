@@ -26,8 +26,9 @@ const RootQuery = new GraphQLObjectType({
 				input : {type: GraphQLString}
 			},
 			resolve(parentValue, {input}){
-				//const suggestionResults = Suggestion.find({title: {$regex : '^'+input, $options: 'i'}}).limit(10).exec();
 				const suggestions = fetchData.JobTitles(input);
+				console.log('resolve');
+				console.log(suggestions);
 				return suggestions;
 			}
 		},

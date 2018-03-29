@@ -55,6 +55,12 @@ exports.Locations = async (input)=>{
     });
     return array;
 }
-exports.jobTitles = async (input)=>{
-    
+exports.JobTitles = async (input)=>{
+    console.log(input);
+    const db = await MongoClient.connect(process.env.MLAB_DB_URL);
+    const collection = db.collection('suggestions');
+    const results = await collection.find({title: {$regex : '^'+input, $options: 'i'}}).limit(7).toArray();
+    return results.map(result=>{
+        return result.title;
+    });
 }

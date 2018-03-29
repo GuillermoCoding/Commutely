@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { LocationSearchBar, JobTitleSearchBar2} from './components';
+import { JobTitleSearchBar2} from './components';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { 
 	SubmitButton, 
 	JobList, 
 	JobTitleSearchBar, 
+	LocationSearchBar,
 	NavigationFooter, 
 	CommuteOptions,
 	TimeOptions,

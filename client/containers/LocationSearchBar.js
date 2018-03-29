@@ -4,6 +4,8 @@ import { graphql, compose, withApollo } from 'react-apollo';
 import { updateAddress, updateErrorMessage } from '../mutations';
 import { fetchAddress, fetchLocationSuggestions } from '../queries';
 import styles from '../styles/LocationSearchBar.css';
+//import { AutoCompleteSearch, AutoCompleteResults} from '../components';
+import { AutoCompleteSearch, AutoCompleteResults} from '../components';
 
 class LocationSearchBar extends Component {
   constructor(props){
@@ -54,22 +56,16 @@ class LocationSearchBar extends Component {
         render={({getInputProps,getItemProps,isOpen, selectedItem,highlightedIndex})=>{
           return (
             <div>
-              <input className={styles.input}placeholder={'Enter address...'} {...getInputProps()}/>
-              {isOpen?(
-                <div className={styles.results}>
-                  {this.state.results.map((result,index)=>{
-                    return (
-                      <div 
-                        className={styles.item} 
-                        key={index}
-                        {...getItemProps({item: result})}
-                      >
-                        {result}
-                      </div>
-                    );
-                  })}  
-                </div>
-              ):null}
+              <AutoCompleteSearch 
+								placeholder={'Enter job title...'} 
+								getInputProps={getInputProps}
+							/>
+							<AutoCompleteResults 
+								isOpen={isOpen} 
+								results={this.state.results} 
+								getItemProps={getItemProps}
+								highlightedIndex={highlightedIndex}
+							/>
             </div>
           );
         }}

@@ -50,15 +50,11 @@ class SubmitButton extends Component {
 			});
 			this.setState({isLoading: false});
 		} else {
-			console.log('here1');
-
 			try {
 				  results = await geocodeByAddress(homeAddress);
 			} catch(err){
-				console.log('error');
 				console.log(err);
 			}
-			console.log(results);
 			if (results.length!=1) {
 				await this.props.updateErrorMessage({
 					variables: {
@@ -68,19 +64,12 @@ class SubmitButton extends Component {
 				this.setState({isLoading: false});
 
 			} else {
-					console.log('here2');
 					const {address_components} = results[0];
 					const city = this.getCity(address_components);
 					const state = this.getState(address_components);
 					const {title} = this.props.fetchSearchedJob.searchedJob;
 					const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
 					const {timeSelected} = this.props.fetchTimeOption.timeOption;
-					console.log(title);
-					console.log(homeAddress);
-					console.log(city);
-					console.log(state);
-					console.log(commuteSelected);
-
 					const response = await this.props.client.query({
 						query: fetchJobs,
 						variables : {
@@ -93,8 +82,6 @@ class SubmitButton extends Component {
 							startingPage : 0
 						}
 					});
-					console.log('results');
-					console.log(response.data.jobs);
 					const {jobs} = response.data;
 					if (jobs.length==0) {
 						this.setState({resultsError: true});

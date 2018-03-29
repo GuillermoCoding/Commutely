@@ -31,13 +31,13 @@ class JobList extends Component {
 				commuteTime,
 				commuteDistance
 			};
-			const mapProps = {
+			const map = {
 				homeAddress: this.props.fetchAddress.address.homeAddress,
 				companyAddress: address,
 				travelMode: this.props.fetchCommuteOption.commuteOption.commuteSelected,
 			};
 			return (
-				<JobListItem mapProps={mapProps} job={job}/>
+				<JobListItem key={url} map={map} job={job}/>
 			);
 		});
 	}
