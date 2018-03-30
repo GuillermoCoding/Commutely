@@ -26,13 +26,13 @@ class App extends Component {
   }
   async  componentWillReceiveProps(nextProps){
     const backgroundURL = `./images/${nextProps.data.commuteOption.commuteSelected}-image.jpg`;
-		const backgroundStyle = {
-			backgroundImage : 'url('+require(''+backgroundURL.toLowerCase())+')'
-		};
+    const backgroundStyle = {
+      backgroundImage : 'url('+require(''+backgroundURL.toLowerCase())+')'
+    };
     await this.setState({backgroundStyle});
   }
   render (){
-	  return (
+    return (
       <div style={this.state.backgroundStyle} className={styles.container}>
         <Grid>
           <Row>
