@@ -30,7 +30,7 @@ const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
 		new HttpLink({
-			uri: `https://daily-commute-123.herokuapp.com/graphql`,fetch:fetch
+			uri: `${process.env.HOST_URL}/graphql`,fetch:fetch
 		}),
 	]),
 	cache
