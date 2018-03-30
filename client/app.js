@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { JobTitleSearchBar2} from './components';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { 
 	SubmitButton, 
@@ -17,7 +16,6 @@ import styles from './styles/App.css';
 import carBackground from './images/driving-image.jpg';
 import bikeBackground from './images/bicycling-image.jpg';
 import walkingBackground from './images/walking-image.jpg';
-
 class App extends Component {
 
 	render (){
@@ -26,7 +24,6 @@ class App extends Component {
 			backgroundImage : 'url('+require(''+imageURL.toLowerCase())+')'
 		}
 		return (
-				
 				<div style={backgroundStyle} className={styles.container}>
 					<Grid>
 						<Row>
@@ -39,7 +36,7 @@ class App extends Component {
 							</Col>
 						</Row>
 						<Row>
-							<Col xs={12} md={6} lg={6}>
+							<Col xs={12} sm={12} md={12} lg={6}>
 										<h6 className={styles.text}>Enter home address (Full address is required)</h6>
 										<LocationSearchBar/>
 							</Col>
@@ -52,7 +49,9 @@ class App extends Component {
 							<Col xs={12} md={6} lg={6}>
 								<SubmitButton/>
 							</Col>
-							<Col xs={12} md={12} lg={12}>
+						</Row>
+						<Row>
+							<Col xs={12} md={6} lg={6}>
 								<ErrorMessage/>
 							</Col>
 						</Row>

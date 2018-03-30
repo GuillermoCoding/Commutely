@@ -6,6 +6,24 @@
     margin-left: 29%;
     width: 50%;
     border-radius: .7em;
+    -webkit-appearance: none;
+    border-color: transparent;
+}
+@media (max-width: 570px) {
+    .button {
+        position: relative;
+        margin-left: 0;
+        width: 100%;
+        margin-top: 3em;
+        padding-bottom: 1em;
+        
+    }
+    .text {
+        font-size: 16px;
+    }
+    .search {
+        font-size: 16px;
+    }
 }
 .button:hover {
     background-color: rgb(0, 255, 153);
@@ -19,7 +37,7 @@
     font-size: 1.4em;
     font-weight: 300;
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato';
 }
 .content {
     display: inline-block;

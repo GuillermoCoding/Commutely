@@ -1,6 +1,6 @@
 .item {
-    margin-bottom: 3.5em;
-    border: solid rgba(0, 255, 153,.4) 3px;
+    margin: 2.2em .1em 0 .1em;
+    border: solid rgb(115, 115, 115) 3px
 }
 .header {
     margin-bottom: 1em;

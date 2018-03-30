@@ -10,15 +10,16 @@ class LocationSearchBar extends Component {
   constructor(props){
 		super(props);
 		this.state = {
-			address: '',
-      results: []
+			input: '',
+      results: [],
+			isLoading: false
 		}
 	}
-	async onChange(address){
-		await this.setState({address});
+	async onChange(input){
+		await this.setState({input});
 		await this.props.updateAddress({
 			variables: {
-				homeAddress: address
+				homeAddress: input
 			}
 		});
 		await this.props.updateErrorMessage({
@@ -27,27 +28,35 @@ class LocationSearchBar extends Component {
 			}
 		});
 	}
-  async onInputValueChange(address){
-    await this.setState({address});
+  async onInputValueChange(input){
+		await this.setState({isLoading: true});
+    await this.setState({input});
     const results = await this.props.client.query({
                       query: fetchLocationSuggestions,
                       variables: {
-                        input: this.state.address
+                        input: this.state.input
                       }
                     });
+		await this.setState({isLoading: false});
     await this.setState({results: results.data.locationSuggestions});
           
   }
 	componentWillMount(){
 		if (this.props.fetchAddress.address.homeAddress) {
-			this.setState({address : this.props.fetchAddress.address.homeAddress});
+			this.setState({input : this.props.fetchAddress.address.homeAddress});
 		}
 	}
+	async onStateChange(data){
+    if (data.highlightedIndex!=null) {
+      await this.setState({input: this.state.results[data.highlightedIndex]});
+    }
+  }
 	render(){
 		return (
 			<Downshift
-			  inputValue={this.state.address}
+			  inputValue={this.state.input}
         onChange={this.onChange.bind(this)}
+				onStateChange={this.onStateChange.bind(this)}
         onInputValueChange={this.onInputValueChange.bind(this)}
         render={({getInputProps,getItemProps,isOpen, selectedItem,highlightedIndex})=>{
           return (
@@ -55,6 +64,7 @@ class LocationSearchBar extends Component {
               <AutoCompleteSearch 
 								placeholder={'Enter home address...'} 
 								getInputProps={getInputProps}
+								isLoading={this.state.isLoading}
 							/>
 							<AutoCompleteResults 
 								isOpen={isOpen} 

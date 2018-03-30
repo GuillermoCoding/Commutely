@@ -7,3 +7,18 @@
     color: rgb(64, 64, 64);
     font-size: 1em;
 }
+.container {
+    overflow: hidden;
+}
+.icon {
+    overflow: hidden;
+    position: absolute;
+    margin-right: 2em;
+    right: 0;
+    margin-top: 1em;
+}
+@media (max-width: 570px) {
+    .input {
+        font-size:16px;
+    }
+}

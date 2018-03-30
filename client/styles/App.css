@@ -25,3 +25,21 @@
     text-shadow: 1px 1px 9px black, 2px 2px 9px black, -1px -1px 9px black;
 }
 
+@media (max-width: 980px) {
+    .container{
+        background-size: 980px;
+        height: 50em;
+    }
+    .phrase {
+        margin: -1em 0 1em 0;
+    }
+}
+@media (max-width: 570px) {
+    .phrase {
+        font-size:18px;
+    }
+    .text {
+        font-size: 18px;
+    }
+}
+

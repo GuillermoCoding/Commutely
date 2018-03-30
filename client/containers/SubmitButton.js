@@ -49,41 +49,42 @@ class SubmitButton extends Component {
 			});
 			this.setState({isLoading: false});
 		} else {
-			    const results = await geocodeByAddress(homeAddress);
-					const {address_components} = results[0];
-					const city = this.getCity(address_components);
-					const state = this.getState(address_components);
-					const {title} = this.props.fetchSearchedJob.searchedJob;
-					const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
-					const {timeSelected} = this.props.fetchTimeOption.timeOption;
-					const response = await this.props.client.query({
-						query: fetchJobs,
-						variables : {
-							title,
-							homeAddress,
-							city,
-							state,
-							commuteSelected,
-							timeSelected : parseInt(timeSelected),
-							startingPage : 0
-						}
-					});
-					const {jobs} = response.data;
-					if (jobs.length==0) {
-            await this.props.updateErrorMessage({
-              variables: {
-                content: 'No jobs found, Please try a different address or job title'
-              }
-            });
-            this.setState({isLoading: false});
-					} else {
-						await this.props.updateJobList({
-							variables : {
-								jobs
-							}
-						});
-						browserHistory.push('/results');
-					}		
+        const results = await geocodeByAddress(homeAddress);
+        const {address_components} = results[0];
+        const city = this.getCity(address_components);
+        const state = this.getState(address_components);
+        const {title} = this.props.fetchSearchedJob.searchedJob;
+        console.log(`Searching with ${title} and ${homeAddress}`);
+        const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
+        const {timeSelected} = this.props.fetchTimeOption.timeOption;
+        const response = await this.props.client.query({
+          query: fetchJobs,
+          variables : {
+            title,
+            homeAddress,
+            city,
+            state,
+            commuteSelected,
+            timeSelected : parseInt(timeSelected),
+            startingPage : 0
+          }
+        });
+        const {jobs} = response.data;
+        if (jobs.length==0) {
+          await this.props.updateErrorMessage({
+            variables: {
+              content: 'No jobs found, Please try a different address or job title'
+            }
+          });
+          this.setState({isLoading: false});
+        } else {
+          await this.props.updateJobList({
+            variables : {
+              jobs
+            }
+          });
+          browserHistory.push('/results');
+        }		
 		}
 	}
 	renderButtonContent(){

@@ -8,7 +8,7 @@ const devPlugins = [
 	new HtmlWebpackPlugin({template: './client/index.html'}),
 	new GoogleFontsPlugin({
 		fonts: [
-			{family: 'Roboto'}
+			{family: 'Lato', variants: ['700']}
 		]
 	})
 ];

@@ -11,7 +11,9 @@ class ViewMoreButton extends Component {
                 className={styles.button}
                 onClick={this.handleClick.bind(this)}
                 >
+                <h6 className={styles.text}>
                 View more
+                </h6>
             </button>
         );
     }

@@ -23,3 +23,8 @@
     padding: 0.5em 0 0.5em 0.7em;
     width: 100%;
 }
+@media (max-width: 570px) {
+    .input {
+        font-size: 16px;
+    }
+}

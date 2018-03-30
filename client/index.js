@@ -6,7 +6,7 @@ import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
-import { HomeNavBar, Component } from './components';
+import { HomeNavBar } from './components';
 import {SubmitButton, JobList} from './containers';
 import fetch from 'unfetch';
 import _ from 'lodash';
@@ -30,7 +30,7 @@ const apolloClient = new ApolloClient({
 	link: ApolloLink.from([
 		stateLink,
 		new HttpLink({
-			uri: `${process.env.HOST_URL}/graphql`,fetch:fetch
+			uri: `http://d3098da8.ngrok.io/graphql`,fetch:fetch
 		}),
 	]),
 	cache
@@ -42,9 +42,8 @@ const Root = ()=>{
 			<Router history={browserHistory}>
 				<Route path='/' components={HomeNavBar}>
 					<IndexRoute component={App}/>
-					<Route path='/results' components={Component}/>
+					<Route path='/results' components={JobList}/>
 				</Route>
-				
 			</Router>
 		</ApolloProvider>
   );

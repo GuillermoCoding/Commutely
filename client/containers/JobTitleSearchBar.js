@@ -4,60 +4,90 @@ import { AutoCompleteList } from './index';
 import { updateSearchedJob, updateErrorMessage } from '../mutations';
 import { fetchSearchedJob, fetchJobTitleSuggestions } from '../queries';
 import { graphql, compose, withApollo } from 'react-apollo';
-import styles from '../styles/JobTitleSearchBar.css';
 import { AutoCompleteSearch, AutoCompleteResults} from '../components';
 
 class JobTitleSearchBar extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			jobTitle:'',
-      results: []
+			input:'',
+      results: [],
+      isloading: false
 		}
 	}
-	async onChange(jobTitle){
-    await this.setState({jobTitle});
+  async onChange(input){
     await this.props.updateSearchedJob({
 		  variables : {
-			  title: jobTitle
+			  title: input
 			}
 		});
+    await this.props.updateErrorMessage({
+			  varibles: {
+				  content: ''
+			  }
+		  });
 	}
   async onInputValueChange(input){
-    await this.setState({jobTitle: input});
-    await this.props.updateErrorMessage({
-			varibles: {
-				content: ''
-			}
-		});
-    if (input.length!=0) {
-      const results = await this.props.client.query({
-      query: fetchJobTitleSuggestions,
-      variables: {
-        input
+      console.log('onInputValueChange');
+      console.log(input);
+      await this.setState({input});
+      if (input.length!=0) {
+        await this.setState({isLoading: true});
+        //await this.setState({input});
+        const results = await this.props.client.query({
+          query: fetchJobTitleSuggestions,
+          variables: {
+            input
+          }
+        }); 
+        await this.setState({isLoading: false});
+        await this.setState({results: results.data.jobTitleSuggestions}); 
+      } else {
+        await this.setState({results: []});
       }
-    }); 
-    await this.setState({results: results.data.jobTitleSuggestions}); 
-    } else {
-      await this.setState({results: []}); 
+  }
+	async componentWillMount(){
+		const { title } = this.props.fetchSearchedJob.searchedJob;
+		await this.setState({input: title});
+	}
+  async onStateChange(data){
+    if (data.highlightedIndex!=null) {
+      await this.setState({input: this.state.results[data.highlightedIndex]});
     }
   }
-	componentWillMount(){
-		const { title } = this.props.fetchSearchedJob.searchedJob;
-		this.setState({jobTitle: title});
-	}
+
+  async onOuterClick({inputValue}){
+    console.log('onOutClick');
+    console.log(inputValue);
+    await this.setState({input: inputValue});
+    await this.props.updateSearchedJob({
+      variables: {
+        title: inputValue
+      }
+    });
+    await this.props.updateErrorMessage({
+			  varibles: {
+				  content: ''
+			  }
+		});
+  }
+
   render(){
     return (
       <Downshift
-        inputValue={this.state.jobTitle}
+        onStateChange={this.onStateChange.bind(this)}
+        onOuterClick={this.onOuterClick.bind(this)}
+        inputValue={this.state.input}
         onChange={this.onChange.bind(this)}
         onInputValueChange={this.onInputValueChange.bind(this)}
         render={({getInputProps,getItemProps,isOpen, selectedItem,highlightedIndex})=>{
+        
           return (
             <div>
               <AutoCompleteSearch 
 								placeholder={'Enter job title...'} 
 								getInputProps={getInputProps}
+                isLoading={this.state.isLoading}
 							/>
 							<AutoCompleteResults 
 								isOpen={isOpen} 
