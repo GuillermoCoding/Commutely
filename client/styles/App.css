@@ -1,17 +1,17 @@
 .container{
-    height: 40em;
-    padding-top: 5em;    
-    border-top: solid rgb(0, 255, 153) 3px;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    border-bottom: solid rgb(0, 255, 153) 3px;
+  height: 40em;
+  padding-top: 5em;    
+  border-top: solid rgb(0, 255, 153) 3px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  border-bottom: solid rgb(0, 255, 153) 3px;
 }
 
 @media (max-width: 980px) {
-    .container{
-        background-size: 980px;
-        height: 50em;
-    }
+  .container{
+    background-size: 980px;
+    height: 50em;
+  }
 }
 
 

@@ -1,15 +1,15 @@
 .results {
-   position: absolute;
-   z-index: 3;
-   width: 95%;
+  position: absolute;
+  z-index: 3;
+  width: 95%;
 }
 .item {
-    color: rgb(64, 64, 64);
-    font-weight: 300;
-    background-color: white;
-    border-radius: .8em;
-    border: solid 1px grey;
-    border-top: none;
-    padding: 0.64em 0 0.64em 0.7em;
-    width: 100%;
+  color: rgb(64, 64, 64);
+  font-weight: 300;
+  background-color: white;
+  border-radius: .8em;
+  border: solid 1px grey;
+  border-top: none;
+  padding: 0.64em 0 0.64em 0.7em;
+  width: 100%;
 }

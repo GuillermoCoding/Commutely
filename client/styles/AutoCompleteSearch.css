@@ -1,33 +1,33 @@
 .input {
-    width:100%;
-    padding-left: .7em;
-    height: 3.2em;
-    border-radius: .8em;
-    outline: none;
-    color: rgb(64, 64, 64);
+  width:100%;
+  padding-left: .7em;
+  height: 3.2em;
+  border-radius: .8em;
+  outline: none;
+  color: rgb(64, 64, 64);
 }
 .container {
-    overflow: hidden;
+  overflow: hidden;
 }
 .icon {
-    overflow: hidden;
-    position: absolute;
-    margin-right: 2em;
-    right: 0;
-    margin-top: 1em;
+  overflow: hidden;
+  position: absolute;
+  margin-right: 2em;
+  right: 0;
+  margin-top: 1em;
 }
 .heading{
-    color: white;
-    font-size: 1.5em;
-    font-weight: 300;
-    text-shadow: 1px 1px 9px black, 2px 2px 9px black, -1px -1px 9px black;
+  color: white;
+  font-size: 1.5em;
+  font-weight: 300;
+  text-shadow: 1px 1px 9px black, 2px 2px 9px black, -1px -1px 9px black;
 }
 
 @media (max-width: 570px) {
-    .input {
-        font-size: 16px;
-    }
-    .heading {
-        font-size: 18px;
-    }
+  .input {
+    font-size: 16px;
+  }
+  .heading {
+    font-size: 18px;
+  }
 }

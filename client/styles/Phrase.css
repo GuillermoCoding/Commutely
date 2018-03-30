@@ -1,18 +1,18 @@
 .phrase {
-    color: white;
-    font-size: 2em;
-    font-weight: 300;
-    margin-left: 15%;
-    text-align: center;
-    text-shadow: 1px 1px 9px black, 2px 2px 9px black, -1px -1px 9px black;
+  color: white;
+  font-size: 2em;
+  font-weight: 300;
+  margin-left: 15%;
+  text-align: center;
+  text-shadow: 1px 1px 9px black, 2px 2px 9px black, -1px -1px 9px black;
 }
 @media (max-width: 980px) {
-    .phrase {
-        margin: -1em 0 1em 0;
-    }
+  .phrase {
+    margin: -1em 0 1em 0;
+  }
 }
 @media (max-width: 570px) {
-    .phrase {
-        font-size:18px;
-    }
+  .phrase {
+    font-size:18px;
+  }
 }
