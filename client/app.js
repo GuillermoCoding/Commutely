@@ -63,8 +63,8 @@ class App extends Component {
           </Row>
         </Grid>
       </div>
-		);
-	}
+    );
+  }
 }
 
 export default graphql(fetchCommuteOption)(App);
