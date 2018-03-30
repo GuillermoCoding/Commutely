@@ -1,9 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-    query {
-        errorMessage @client{
-            content
-        }
+  query {
+    errorMessage @client{
+      content
     }
-`;
+  }`;
