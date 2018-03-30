@@ -3,14 +3,10 @@ import { InputGroup, FormControl } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
 import styles from '../styles/AutoCompleteSearch.css';
 
-
-//  <input className={styles.input} placeholder={placeholder} {...getInputProps()} />
-const AutoCompleteSearch = ({placeholder,getInputProps, isLoading})=>{
+const AutoCompleteSearch = ({placeholder,getInputProps, isLoading, heading})=>{
   return (
-    /*<InputGroup>
-      <FormControl type="text" placeholder={placeholder}{...getInputProps()}/>
-      <InputGroup.Addon>.00</InputGroup.Addon>
-    </InputGroup>*/
+    <div>
+    <h6 className={styles.heading}>{heading}</h6>
     <div className={styles.container}>
     <div className={styles.icon}>
       {isLoading?(
@@ -23,6 +19,7 @@ const AutoCompleteSearch = ({placeholder,getInputProps, isLoading})=>{
       ):null}
     </div>
     <input className={styles.input} placeholder={placeholder} {...getInputProps()}/>
+    </div>
     </div>
   );
 }

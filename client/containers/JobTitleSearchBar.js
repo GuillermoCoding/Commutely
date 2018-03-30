@@ -28,12 +28,9 @@ class JobTitleSearchBar extends Component {
 		  });
 	}
   async onInputValueChange(input){
-      console.log('onInputValueChange');
-      console.log(input);
       await this.setState({input});
       if (input.length!=0) {
         await this.setState({isLoading: true});
-        //await this.setState({input});
         const results = await this.props.client.query({
           query: fetchJobTitleSuggestions,
           variables: {
@@ -57,8 +54,6 @@ class JobTitleSearchBar extends Component {
   }
 
   async onOuterClick({inputValue}){
-    console.log('onOutClick');
-    console.log(inputValue);
     await this.setState({input: inputValue});
     await this.props.updateSearchedJob({
       variables: {
@@ -85,6 +80,7 @@ class JobTitleSearchBar extends Component {
           return (
             <div>
               <AutoCompleteSearch 
+                heading={'Enter job title (Optional)'}
 								placeholder={'Enter job title...'} 
 								getInputProps={getInputProps}
                 isLoading={this.state.isLoading}

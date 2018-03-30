@@ -10,6 +10,8 @@ const commuteOption = {
     resolvers: {
         Mutation: {
             updateCommuteOption: (_,{commuteSelected},{cache})=>{
+                console.log('resolver');
+                console.log(commuteSelected);
                 const data = {
                     commuteOption: {
                         __typename: "commuteOption",

@@ -2,29 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
 import { HomeNavBar } from './components';
-import {SubmitButton, JobList} from './containers';
+import { JobList } from './containers';
 import fetch from 'unfetch';
 import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-import { 
-	address, 
-	jobList, 
-	searchedJob, 
-	commuteOption, 
-	timeOption,
-	errorMessage
-} from './resolvers';
+import linkState from './linkState'
+
 
 const cache = new InMemoryCache();
 const stateLink = withClientState({
 	cache,
-	..._.merge(searchedJob,jobList,address,commuteOption,timeOption,errorMessage)	
+	defaults: linkState.defaults,
+	resolvers: linkState.resolvers
 });
 const apolloClient = new ApolloClient({
 	link: ApolloLink.from([

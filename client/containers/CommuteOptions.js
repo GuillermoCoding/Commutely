@@ -22,7 +22,8 @@ class CommuteOptions extends Component {
 	}
   render(){
 		const commuteSelected = this.props.fetchCommuteOption.commuteOption.commuteSelected;
-  	return (
+  	return (	<div>
+		  		<h6 className={styles.heading}>How you would like to commute?</h6>
 				<ButtonToolbar>
 					<ToggleButtonGroup 
 						defaultValue={commuteSelected}
@@ -36,6 +37,7 @@ class CommuteOptions extends Component {
 						<ToggleButton value={'Walking'}><WalkingIcon/></ToggleButton>
 					</ToggleButtonGroup>
 				</ButtonToolbar>
+				</div>
     );
   }
 }

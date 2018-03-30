@@ -4,3 +4,4 @@ export { default as HomeNavBar } from './HomeNavBar';
 export { default as ViewMoreButton } from './ViewMoreButton';
 export { default as AutoCompleteSearch } from './AutoCompleteSearch';
 export { default as AutoCompleteResults } from './AutoCompleteResults';
+export { default as Phrase } from './Phrase';

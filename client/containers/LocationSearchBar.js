@@ -62,6 +62,7 @@ class LocationSearchBar extends Component {
           return (
             <div>
               <AutoCompleteSearch 
+								heading={'Enter home address'}
 								placeholder={'Enter home address...'} 
 								getInputProps={getInputProps}
 								isLoading={this.state.isLoading}
