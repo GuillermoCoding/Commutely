@@ -27,8 +27,6 @@ const RootQuery = new GraphQLObjectType({
 			},
 			resolve(parentValue, {input}){
 				const suggestions = fetchData.JobTitles(input);
-				console.log('resolve');
-				console.log(suggestions);
 				return suggestions;
 			}
 		},

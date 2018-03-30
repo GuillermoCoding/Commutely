@@ -5,8 +5,7 @@ import {
 	fetchJobs,
 	fetchAddress,
 	fetchSearchedJob,
-	fetchCommuteOption,
-	fetchTimeOption 
+	fetchCommuteOption, 
 } from '../queries';
 import { JobListItem }from '../components';
 import { updateJobList } from '../mutations';

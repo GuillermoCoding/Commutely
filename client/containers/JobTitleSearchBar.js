@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Downshift from 'downshift';
-import { AutoCompleteList } from './index';
 import { updateSearchedJob, updateErrorMessage } from '../mutations';
 import { fetchSearchedJob, fetchJobTitleSuggestions } from '../queries';
 import { graphql, compose, withApollo } from 'react-apollo';
@@ -16,6 +15,7 @@ class JobTitleSearchBar extends Component {
 		}
 	}
   async onChange(input){
+    console.log('onChange');
     await this.props.updateSearchedJob({
 		  variables : {
 			  title: input
@@ -28,6 +28,7 @@ class JobTitleSearchBar extends Component {
 		  });
 	}
   async onInputValueChange(input){
+    console.log('onInputValueChange');
       await this.setState({input});
       if (input.length!=0) {
         await this.setState({isLoading: true});
@@ -44,16 +45,18 @@ class JobTitleSearchBar extends Component {
       }
   }
 	async componentWillMount(){
+    console.log('componentWillMount');
 		const { title } = this.props.fetchSearchedJob.searchedJob;
 		await this.setState({input: title});
 	}
   async onStateChange(data){
+    console.log('onStateChange');
     if (data.highlightedIndex!=null) {
       await this.setState({input: this.state.results[data.highlightedIndex]});
     }
   }
-
   async onOuterClick({inputValue}){
+    console.log('outerclick');
     await this.setState({input: inputValue});
     await this.props.updateSearchedJob({
       variables: {

@@ -7,7 +7,6 @@ import {
 	LocationSearchBar,
 	NavigationFooter, 
 	CommuteOptions,
-	TimeOptions,
 	ErrorMessage
  } from './containers';
 import { Phrase } from './components';

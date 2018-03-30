@@ -8,8 +8,7 @@ import {
 	fetchAddress, 
 	fetchSearchedJob, 
 	fetchJobs, 
-	fetchCommuteOption,
-	fetchTimeOption
+	fetchCommuteOption
 } from '../queries';
 import { updateJobList, updateErrorMessage } from '../mutations';
 import { graphql, compose, withApollo } from 'react-apollo';
@@ -56,7 +55,6 @@ class SubmitButton extends Component {
         const {title} = this.props.fetchSearchedJob.searchedJob;
         console.log(`Searching with ${title} and ${homeAddress}`);
         const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
-        const {timeSelected} = this.props.fetchTimeOption.timeOption;
         const response = await this.props.client.query({
           query: fetchJobs,
           variables : {
@@ -65,7 +63,6 @@ class SubmitButton extends Component {
             city,
             state,
             commuteSelected,
-            timeSelected : parseInt(timeSelected),
             startingPage : 0
           }
         });
@@ -142,9 +139,6 @@ export default compose(
 	}),
 	graphql(fetchCommuteOption,{
 		name: 'fetchCommuteOption'
-	}),
-	graphql(fetchTimeOption,{
-		name: 'fetchTimeOption'
 	}),
 	graphql(updateErrorMessage,{
 		name: 'updateErrorMessage'

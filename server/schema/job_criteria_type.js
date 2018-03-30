@@ -8,8 +8,7 @@ const JobCriteriaType = new GraphQLObjectType({
         lat: { type: GraphQLInt},
         lng: { type: GraphQLInt},
         commuteOption: { type: GraphQLString},
-		timeOption: { type: GraphQLInt},
-		startingPage : { type: GraphQLInt},
+		    startingPage : { type: GraphQLInt},
 	})
 });
 
