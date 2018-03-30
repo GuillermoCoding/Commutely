@@ -14,9 +14,7 @@ import { Phrase } from './components';
 import { fetchCommuteOption } from './queries';
 import { graphql } from 'react-apollo';
 import styles from './styles/App.css';
-import carBackground from './images/driving-image.jpg';
-import bikeBackground from './images/bicycling-image.jpg';
-import walkingBackground from './images/walking-image.jpg';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -34,7 +32,7 @@ class App extends Component {
     await this.setState({backgroundStyle});
   }
   render (){
-		return (
+	  return (
       <div style={this.state.backgroundStyle} className={styles.container}>
         <Grid>
           <Row>

@@ -105,7 +105,7 @@ class SubmitButton extends Component {
 					<p className={styles.text}>
 					Search
 					</p>
-					<div className={styles.search}>
+					<div className={styles.icon}>
 					<SearchIcon/>
 					</div>
 				</div>

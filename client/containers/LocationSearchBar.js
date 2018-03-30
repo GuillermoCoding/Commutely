@@ -3,7 +3,6 @@ import Downshift from 'downshift';
 import { graphql, compose, withApollo } from 'react-apollo';
 import { updateAddress, updateErrorMessage } from '../mutations';
 import { fetchAddress, fetchLocationSuggestions } from '../queries';
-import styles from '../styles/LocationSearchBar.css';
 import { AutoCompleteSearch, AutoCompleteResults} from '../components';
 
 class LocationSearchBar extends Component {

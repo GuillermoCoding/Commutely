@@ -2,10 +2,9 @@
     width:100%;
     padding-left: .7em;
     height: 3.2em;
-    border-radius: 9px;
+    border-radius: .8em;
     outline: none;
     color: rgb(64, 64, 64);
-    font-size: 1em;
 }
 .container {
     overflow: hidden;

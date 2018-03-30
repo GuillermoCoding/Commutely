@@ -7,10 +7,9 @@
     color: rgb(64, 64, 64);
     font-weight: 300;
     background-color: white;
-    border-radius: 9px;
-    border-bottom: solid 1px grey;
-    border-right: solid 1px grey;
-    border-left: solid 1px grey;
+    border-radius: .8em;
+    border: solid 1px grey;
+    border-top: none;
     padding: 0.64em 0 0.64em 0.7em;
     width: 100%;
 }
