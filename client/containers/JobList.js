@@ -8,7 +8,7 @@ import {
 	fetchCommuteOption, 
 } from '../queries';
 import { JobListItem }from '../components';
-import { updateJobList } from '../mutations';
+import { updateStartingIndex, updateJobList } from '../mutations';
 import { Grid } from 'react-bootstrap';
 import styles from '../styles/JobList.css';
 
@@ -41,6 +41,18 @@ class JobList extends Component {
 			);
 		});
 	}
+  async componentWillUnmount(){
+    await this.props.updateStartingIndex({
+      variables: {
+        index: 0
+      }
+    });
+    await this.props.updateJobList({
+      variables: {
+        jobs: []
+      }
+    });
+  }
 	render(){
 		return (
 			<Grid>
@@ -66,5 +78,11 @@ export default compose(
 	}),
 	graphql(fetchCommuteOption,{
 		name: 'fetchCommuteOption'
-	})
+	}),
+  graphql(updateJobList,{
+    name: 'updateJobList'
+  }),
+  graphql(updateStartingIndex,{
+    name: 'updateStartingIndex'
+  })
 )(JobList);

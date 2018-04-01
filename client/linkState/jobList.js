@@ -5,33 +5,28 @@ const jobList = {
     jobList: {
       __typename: 'jobList',
       jobs: [],
-      startingIndex: 0
+      index: 0
     }
   },
   resolvers: {
     Mutation : {
       updateJobList : (_,{jobs},{cache})=>{
-        const query = gql`query{
-          jobList @client{
-            startingIndex
-          }
-        }`;
-        const result = cache.readQuery({query});
-        const previousIndex = result.jobList.startingIndex;
+        console.log('updateJoblist with:');
+        console.log(jobs);
         const data = {
           jobList: {
             __typename: 'jobList',
-            jobs,
-            startingIndex: (previousIndex + 10)
+            jobs
           }
         };
         cache.writeData({ data });
         return null;
       },
-      updateStartingIndex: (_,{startingIndex},{cache})=>{
+      updateStartingIndex: (_,{index},{cache})=>{
+        console.log('updateStartingIndex with : '+index);
         const data = {
           joblist: {
-            startingIndex: 0
+            index: 0
           }
         };
         cache.writeData({data});
