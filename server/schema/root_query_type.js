@@ -39,7 +39,7 @@ const RootQuery = new GraphQLObjectType({
 				state: {type: GraphQLString},
 				commuteSelected: {type: GraphQLString},
 				timeSelected: {type: GraphQLInt},
-				startingPage: {type: GraphQLInt},
+				startingIndex: {type: GraphQLInt},
 			},
 			resolve(parentVale, args){
 				// const jobResults = [{

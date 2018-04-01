@@ -5,4 +5,5 @@ export { default as LocationSearchBar } from './LocationSearchBar';
 export { default as NavigationFooter } from './NavigationFooter';
 export { default as CommuteOptions } from './CommuteOptions';
 export { default as ErrorMessage } from './ErrorMessage';
+export { default as LoadMoreButton } from './LoadMoreButton';
 

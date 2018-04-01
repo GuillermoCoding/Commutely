@@ -21,10 +21,6 @@ const MapWithDirectionsRenderer = compose(
 	lifecycle({
 		async componentDidMount(){
 			const { homeAddress, companyAddress, travelMode } = this.props.mapProps;
-
-      // console.log('home address : '+homeAddress);
-      // console.log('company address : '+companyAddress);
-      // console.log('travel mode : '+travelMode);
 			const DirectionsService = new google.maps.DirectionsService();
 			DirectionsService.route({
 				origin: homeAddress,
@@ -36,6 +32,7 @@ const MapWithDirectionsRenderer = compose(
 					this.setState({
 						directions: result
 					});
+          
 				} else {
 
 					console.log('error fetching directions');

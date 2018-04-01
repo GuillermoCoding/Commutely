@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import SearchIcon from 'react-icons/lib/md/search';
 import Loader from 'react-loader-spinner';
@@ -8,7 +8,8 @@ import {
 	fetchAddress, 
 	fetchSearchedJob, 
 	fetchJobs, 
-	fetchCommuteOption
+	fetchCommuteOption,
+  fetchStartingIndex
 } from '../queries';
 import { updateJobList, updateErrorMessage } from '../mutations';
 import { graphql, compose, withApollo } from 'react-apollo';
@@ -38,6 +39,10 @@ class SubmitButton extends Component {
 		}
 	}
 	async handleSubmit(){
+    const result = await this.props.client.query({
+      query: fetchStartingIndex
+    });
+    console.log(result.data.jobList.startingIndex);
 		const {homeAddress, city, state} = this.props.fetchAddress.address;
 		await this.setState({isLoading:true});
 		if (!homeAddress) {
@@ -53,7 +58,8 @@ class SubmitButton extends Component {
         const city = this.getCity(address_components);
         const state = this.getState(address_components);
         const {title} = this.props.fetchSearchedJob.searchedJob;
-        console.log(`Searching with ${title} and ${homeAddress}`);
+        // console.log(`Searching with ${title} and ${homeAddress}`);
+
         const {commuteSelected} = this.props.fetchCommuteOption.commuteOption;
         const response = await this.props.client.query({
           query: fetchJobs,
@@ -63,7 +69,7 @@ class SubmitButton extends Component {
             city,
             state,
             commuteSelected,
-            startingPage : 0
+            startingIndex : 0
           }
         });
         const {jobs} = response.data;

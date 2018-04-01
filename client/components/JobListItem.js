@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { MapView } from './';
 import styles from '../styles/JobListItem.css';
-import { ViewMoreButton } from './';
+import  ViewJobButton  from './ViewJobButton';;
 import LocationIcon from 'react-icons/lib/md/location-on';
 import BusinessIcon from 'react-icons/lib/md/business';
 import TimeIcon from 'react-icons/lib/md/access-time';
@@ -47,7 +47,7 @@ const JobListItem = ({map,job})=> {
 						</Row>
 						<Row>
 							<Col xs={12} md={12} lg={12}>
-								<ViewMoreButton url={job.url}/>
+								<ViewJobButton url={job.url}/>
 							</Col>
 						</Row>	
 					</Col>

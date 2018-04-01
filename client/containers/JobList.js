@@ -10,6 +10,7 @@ import {
 import { JobListItem }from '../components';
 import { updateJobList } from '../mutations';
 import { Grid } from 'react-bootstrap';
+import styles from '../styles/JobList.css';
 
 class JobList extends Component {
 	constructor(props){
@@ -44,11 +45,12 @@ class JobList extends Component {
 		return (
 			<Grid>
 				{this.renderJobs()}
-				<span id="indeed_at">
+        <span className={styles.indeed}id="indeed_at">
 					<a title="Job Search" href="https://www.indeed.com" rel="nofollow">
 					jobs by <img alt='Indeed' src="https://www.indeed.com/p/jobsearch.gif"/>
 					</a>
 				</span>
+        {this.props.children}
 			</Grid>
 		);
 	}

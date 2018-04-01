@@ -7,7 +7,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { withClientState } from 'apollo-link-state';
 import { HomeNavBar } from './components';
-import { JobList } from './containers';
+import { JobList, LoadMoreButton } from './containers';
 import fetch from 'unfetch';
 import _ from 'lodash';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -37,7 +37,9 @@ const Root = ()=>{
 			<Router history={browserHistory}>
 				<Route path='/' components={HomeNavBar}>
 					<IndexRoute component={App}/>
-					<Route path='/results' components={JobList}/>
+					<Route path='/results' components={JobList}>
+            <IndexRoute component={LoadMoreButton}/>
+          </Route>
 				</Route>
 			</Router>
 		</ApolloProvider>

@@ -8,7 +8,7 @@ export default gql`
     $state: String,
     $commuteSelected: String,
     $timeSelected: Int
-    $startingPage: Int,
+    $startingIndex: Int,
     ){
       jobs(
         title: $title,
@@ -17,7 +17,7 @@ export default gql`
         state: $state,
         commuteSelected: $commuteSelected,
         timeSelected: $timeSelected,
-        startingPage: $startingPage,
+        startingIndex: $startingIndex,
         ){
         title
         company
