@@ -13,7 +13,10 @@ import { updateJobList } from '../mutations';
 
 class LoadMoreButton extends React.Component {
   async loadMore (){
+    const { title } = this.props.fetchSearchedJob.searchedJob;
+    const { homeAddress, city, state } = this.props.fetchAddress.address;
     
+
   }
   render(){
     return (
@@ -24,4 +27,14 @@ class LoadMoreButton extends React.Component {
   }
 }
 
-export default LoadMoreButton;
+export default compose(
+  graphql(fetchSearchedJob,{
+    name: 'fetchSearchedJob'
+  }),
+  graphql(fetchAddress,{
+    name: 'fetchAddress'
+  }),
+  graphql(fetchCommuteOption,{
+    name: 'fetchCommuteOption'
+  })
+)(LoadMoreButton);

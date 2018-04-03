@@ -44,7 +44,7 @@ class SubmitButton extends Component {
       query: fetchStartingIndex
     });
     
-    console.log(result.data);
+    console.log(result.data.jobList.index);
 		const {homeAddress, city, state} = this.props.fetchAddress.address;
 		await this.setState({isLoading:true});
 		if (!homeAddress) {
