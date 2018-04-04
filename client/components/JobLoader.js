@@ -1,4 +1,11 @@
 import React from 'react';
+import { withApollo } from 'react-apollo';
+import { 
+  fetchAddress,
+  fetchSearchedJob,
+  fetchCommuteOption,
+  fetchStartingIndex
+ } from '../queries'
 
 class JobLoader extends React.Component {
   constructor(props){
@@ -12,7 +19,22 @@ class JobLoader extends React.Component {
   }
   onClick =()=>{
     console.log('onClick from JobLoader render prop');
-    console.log(this.props.startingIndex);
+    const address = this.props.client.query({
+      query: fetchAddress
+    });
+    console.log(address);
+    const searchedJob = this.props.client.query({
+      query: fetchSearchedJob
+    });
+    console.log(searchedJob);
+    // this.props.client.query({
+    //   query: fetchJobs,
+    //   variables: {
+
+    //   }
+    // });
+    // // console.log(this.props.startingIndex)
+    // this.props.onLoad();
   }
   render(){
     return (
