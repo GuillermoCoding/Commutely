@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/LoadMoreButton.css';
-import { withApollo, compose } from 'react-apollo';
+import { graphql, withApollo, compose } from 'react-apollo';
 import { 
   fetchJobs, 
   fetchSearchedJob, 
@@ -15,8 +15,7 @@ class LoadMoreButton extends React.Component {
   async loadMore (){
     const { title } = this.props.fetchSearchedJob.searchedJob;
     const { homeAddress, city, state } = this.props.fetchAddress.address;
-    
-
+  
   }
   render(){
     return (

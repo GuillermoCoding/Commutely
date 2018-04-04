@@ -9,7 +9,7 @@ import {
 	CommuteOptions,
 	ErrorMessage
  } from './containers';
-import { Phrase } from './components';
+import { Phrase, SearchJobsButton } from './components';
 import { fetchCommuteOption } from './queries';
 import { graphql } from 'react-apollo';
 import styles from './styles/App.css';
@@ -60,6 +60,7 @@ class App extends Component {
               <ErrorMessage/>
             </Col>
           </Row>
+          <SearchJobsButton/>
         </Grid>
       </div>
     );
