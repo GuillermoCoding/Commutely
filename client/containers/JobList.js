@@ -8,7 +8,7 @@ import {
 	fetchCommuteOption, 
 } from '../queries';
 import { JobListItem }from '../components';
-import { updateStartingIndex, updateJobList } from '../mutations';
+import { updateStartingIndex, updateJobList, resetJobList } from '../mutations';
 import { Grid } from 'react-bootstrap';
 import styles from '../styles/JobList.css';
 
@@ -21,7 +21,6 @@ class JobList extends Component {
 	}
 	
 	renderJobs(){
-    console.log(this.props.fetchJobList.jobList.jobs);
 		return this.props.fetchJobList.jobList.jobs.map(({title, company, address, commuteTime, commuteDistance, snippet, url})=>{
 			const job = {
 				title,
@@ -43,17 +42,12 @@ class JobList extends Component {
 		});
 	}
   async componentWillUnmount(){
-    console.log('JobList componentWillUnmount');
     await this.props.updateStartingIndex({
       variables: {
         index: 0
       }
     });
-    await this.props.updateJobList({
-      variables: {
-        jobs: []
-      }
-    });
+    await this.props.resetJobList();
   }
 	render(){
 		return (
@@ -86,5 +80,8 @@ export default compose(
   }),
   graphql(updateStartingIndex,{
     name: 'updateStartingIndex'
+  }),
+  graphql(resetJobList,{
+    name: 'resetJobList'
   })
 )(JobList);

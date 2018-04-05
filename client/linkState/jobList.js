@@ -12,28 +12,28 @@ const jobList = {
   resolvers: {
     Mutation : {
       updateJobList : (_,{jobs},{cache})=>{
-      
         const response = cache.readQuery({query: fetchJobList});
         const previousJobs = response.jobList.jobs;
-        console.log(previousJobs);
-        console.log(previousJobs.push(jobs));
         const data = {
           jobList: {
             __typename: 'jobList',
-            jobs: previousJobs.concat([jobs])
+            jobs: previousJobs.concat(jobs)
           }
         };
         cache.writeData({ data });
         return null;
       },
       updateStartingIndex: (_,{index},{cache})=>{
-        console.log('updateStartingIndex with : '+index);
         const data = {
           joblist: {
             index: 0
           }
         };
         cache.writeData({data});
+      },
+      resetJobList: (__,variables,{cache})=>{
+
+        cache.writeData({data:{jobList:{jobs:[]}}});
       }
     }
   }

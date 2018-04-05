@@ -4,3 +4,4 @@ export { default as updateSearchedJob } from './updateSearchedJob';
 export { default as updateCommuteOption } from './updateCommuteOption';
 export { default as updateErrorMessage } from './updateErrorMessage';
 export { default as updateStartingIndex } from './updateStartingIndex';
+export { default as resetJobList } from './resetJobList';

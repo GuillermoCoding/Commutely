@@ -27,7 +27,6 @@ const MapWithDirectionsRenderer = compose(
 				destination: companyAddress,
 				travelMode: travelMode.toUpperCase(),
 			},(result,status)=>{
-        console.log(status);
 				if (status == google.maps.DirectionsStatus.OK) {
 					this.setState({
 						directions: result
