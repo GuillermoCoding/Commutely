@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { fetchJobList} from '../queries';
 
 const jobList = { 
   defaults: {
@@ -11,12 +12,15 @@ const jobList = {
   resolvers: {
     Mutation : {
       updateJobList : (_,{jobs},{cache})=>{
-        console.log('updateJoblist with:');
-        console.log(jobs);
+      
+        const response = cache.readQuery({query: fetchJobList});
+        const previousJobs = response.jobList.jobs;
+        console.log(previousJobs);
+        console.log(previousJobs.push(jobs));
         const data = {
           jobList: {
             __typename: 'jobList',
-            jobs
+            jobs: previousJobs.concat([jobs])
           }
         };
         cache.writeData({ data });

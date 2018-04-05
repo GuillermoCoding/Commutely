@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { 
-	SubmitButton, 
 	JobList, 
 	JobTitleSearchBar, 
 	LocationSearchBar,
@@ -9,7 +8,7 @@ import {
 	CommuteOptions,
 	ErrorMessage
  } from './containers';
-import { Phrase, SearchJobsButton } from './components';
+import { Phrase, SearchButton } from './components';
 import { fetchCommuteOption } from './queries';
 import { graphql } from 'react-apollo';
 import styles from './styles/App.css';
@@ -52,7 +51,7 @@ class App extends Component {
               <CommuteOptions/>
             </Col>
             <Col xs={12} md={12} lg={6}>
-              <SearchJobsButton/>
+              <SearchButton/>
             </Col>
           </Row>
           <Row>

@@ -5,10 +5,11 @@ import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';
 import Loader from 'react-loader-spinner';
 import SearchIcon from 'react-icons/lib/md/search';
-import styles from '../styles/SubmitButton.css';
+import styles from '../styles/SearchButton.css';
 
-class SearchJobsButton extends React.Component {
+class SearchButton extends React.Component {
   async onLoad(jobs){
+    console.log(jobs);
     if (jobs.length==0) {
       this.props.updateErrorMessage({
         variables: {
@@ -24,9 +25,17 @@ class SearchJobsButton extends React.Component {
       browserHistory.push('/results');
     }
   }
+  async onError(error){
+    await this.props.updateErrorMessage({
+      variables: {
+        content: error
+      }
+    });
+  }
   render(){
     return (
       <JobLoader
+        onError={this.onError.bind(this)}
         onLoad={this.onLoad.bind(this)}
         startingIndex={0}
         render={({getButtonProps,isLoading})=>{
@@ -70,4 +79,4 @@ export default compose(
   graphql(updateErrorMessage,{
     name: 'updateErrorMessage'
   })
-)(SearchJobsButton);
+)(SearchButton);

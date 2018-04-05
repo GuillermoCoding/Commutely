@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../styles/LoadMoreButton.css';
 import { graphql, withApollo, compose } from 'react-apollo';
 import { 
   fetchJobs, 
@@ -9,31 +8,73 @@ import {
   fetchJobList,
 
 } from '../queries';
+import { JobLoader } from '../components';
+
 import { updateJobList } from '../mutations';
+import Loader from 'react-loader-spinner';
+import styles from '../styles/LoadMoreButton.css';
 
 class LoadMoreButton extends React.Component {
-  async loadMore (){
-    const { title } = this.props.fetchSearchedJob.searchedJob;
-    const { homeAddress, city, state } = this.props.fetchAddress.address;
+  constructor(props){
+    super(props);
+    this.state = {
+      startingIndex: 10
+    }
+  }
+  async onLoad(jobs){
   
+    if (jobs.length==0) {
+      this.props.updateErrorMessage({
+        variables: {
+          content: 'No more jobs to load'
+        }
+      });
+    } else {
+      await this.props.updateJobList({
+        variables: {
+          jobs
+        }
+      });
+    }
+    await this.setState((prevState)=>{
+      return {startingIndex: prevState.startingIndex + 10}
+    });
   }
   render(){
     return (
-      <button className={styles.button} onClick={this.loadMore.bind(this)}>
-        <h6 className={styles.text}>Load More</h6>
-      </button>
+      <JobLoader
+        onLoad={this.onLoad.bind(this)}
+        startingIndex={this.state.startingIndex}
+        render={({getButtonProps,isLoading})=>{
+          return (
+            <button
+              {...getButtonProps}
+              disabled={isLoading}
+              className={styles.button} 
+            >
+            <div>
+              {isLoading?(
+                  <Loader
+                    type='ThreeDots'
+                    color="#ffffff"
+                    height="35"	
+                    width="35"
+                  />
+              ):  <p className={styles.text}>
+                    Load more
+                  </p>
+              }
+              </div>
+            </button>
+          );
+        }}
+      />
     );
   }
 }
 
 export default compose(
-  graphql(fetchSearchedJob,{
-    name: 'fetchSearchedJob'
-  }),
-  graphql(fetchAddress,{
-    name: 'fetchAddress'
-  }),
-  graphql(fetchCommuteOption,{
-    name: 'fetchCommuteOption'
+  graphql(updateJobList,{
+    name: 'updateJobList'
   })
 )(LoadMoreButton);

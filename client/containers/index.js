@@ -1,4 +1,3 @@
-export { default as SubmitButton } from './SubmitButton';
 export { default as JobList } from './JobList';
 export { default as JobTitleSearchBar } from './JobTitleSearchBar';
 export { default as LocationSearchBar } from './LocationSearchBar';

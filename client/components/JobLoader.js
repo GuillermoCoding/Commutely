@@ -15,7 +15,7 @@ class JobLoader extends React.Component {
     super(props);
     this.state = {
       isLoading: false,
-      error: false,
+      error: null,
       getButtonProps: {
         onClick: this.onClick
       }
@@ -38,53 +38,47 @@ class JobLoader extends React.Component {
 		}
 	}
   onClick = async()=>{
-    console.log('onClick from JobLoader render prop');
     await this.setState({isLoading: true});
     const addressResponse = await this.props.client.query({
       query: fetchAddress
     });
-    const { homeAddress, city, state } = addressResponse.data.address;
-    const searchedJobResponse = await this.props.client.query({
-      query: fetchSearchedJob
-    });
-    const { title } = searchedJobResponse.data.searchedJob;
-    const commuteOptionResponse = await this.props.client.query({
-      query: fetchCommuteOption
-    });
-    const { commuteSelected } = commuteOptionResponse.data.commuteOption;
-    try {
-      const results = await geocodeByAddress(homeAddress);
-      const addressComponents = results[0].address_components;
-      const city = this.getCity(addressComponents);
-      const state = this.getState(addressComponents);
-      const startingIndex = this.props.startingIndex;
-      //console.log(title+' '+homeAddress+' '+city+' '+state+' '+commuteSelected);
-      const response = await this.props.client.query({
-        query: fetchJobs,
-        variables: {
-          title,
-          homeAddress,
-          city,
-          state,
-          commuteSelected,
-          startingIndex
-        }
-      });
-      await this.setState({isLoading: false});
-      const { jobs } = response.data;
-      this.props.onLoad(jobs);
-    } catch(err){
-      console.log('Error geocodeByAddress:');
-      console.log(err);
-    }
-    // this.props.client.query({
-    //   query: fetchJobs,
-    //   variables: {
 
-    //   }
-    // });
-    // // console.log(this.props.startingIndex)
-    // this.props.onLoad();
+    const { homeAddress, city, state } = addressResponse.data.address;
+    if (homeAddress) {
+      const searchedJobResponse = await this.props.client.query({
+        query: fetchSearchedJob
+      });
+      const { title } = searchedJobResponse.data.searchedJob;
+      const commuteOptionResponse = await this.props.client.query({
+        query: fetchCommuteOption
+      });
+      const { commuteSelected } = commuteOptionResponse.data.commuteOption;
+      try {
+        const results = await geocodeByAddress(homeAddress);
+        const addressComponents = results[0].address_components;
+        const city = this.getCity(addressComponents);
+        const state = this.getState(addressComponents);
+        const startingIndex = this.props.startingIndex;
+        const response = await this.props.client.query({
+          query: fetchJobs,
+          variables: {
+            title,
+            homeAddress,
+            city,
+            state,
+            commuteSelected,
+            startingIndex
+          }
+        });
+        const { jobs } = response.data;
+        this.props.onLoad(jobs);
+      } catch(err){
+        this.props.onError('Invalid address');
+      }
+    } else {
+      this.props.onError('Address required');
+    }
+    await this.setState({isLoading: false});
   }
   render(){
     return (

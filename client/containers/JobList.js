@@ -21,6 +21,7 @@ class JobList extends Component {
 	}
 	
 	renderJobs(){
+    console.log(this.props.fetchJobList.jobList.jobs);
 		return this.props.fetchJobList.jobList.jobs.map(({title, company, address, commuteTime, commuteDistance, snippet, url})=>{
 			const job = {
 				title,
@@ -42,6 +43,7 @@ class JobList extends Component {
 		});
 	}
   async componentWillUnmount(){
+    console.log('JobList componentWillUnmount');
     await this.props.updateStartingIndex({
       variables: {
         index: 0
