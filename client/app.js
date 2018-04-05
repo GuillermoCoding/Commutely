@@ -52,7 +52,7 @@ class App extends Component {
               <CommuteOptions/>
             </Col>
             <Col xs={12} md={12} lg={6}>
-              <SubmitButton/>
+              <SearchJobsButton/>
             </Col>
           </Row>
           <Row>
@@ -60,7 +60,6 @@ class App extends Component {
               <ErrorMessage/>
             </Col>
           </Row>
-          <SearchJobsButton/>
         </Grid>
       </div>
     );
