@@ -1,5 +1,5 @@
 import React from 'react';
-import { withApollo } from 'react-apollo';
+import { withApollo, compose, graphql  } from 'react-apollo';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { 
   fetchAddress,
@@ -8,12 +8,14 @@ import {
   fetchStartingIndex,
   fetchJobs
  } from '../queries'
+ import { updateErrorMessage } from '../mutations/updateErrorMessage';
 
 class JobLoader extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       isLoading: false,
+      error: false,
       getButtonProps: {
         onClick: this.onClick
       }
@@ -75,9 +77,6 @@ class JobLoader extends React.Component {
       console.log('Error geocodeByAddress:');
       console.log(err);
     }
-
-    
-    
     // this.props.client.query({
     //   query: fetchJobs,
     //   variables: {

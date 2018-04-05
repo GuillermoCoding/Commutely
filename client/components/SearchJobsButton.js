@@ -1,6 +1,6 @@
 import React from 'react';
 import JobLoader from './JobLoader';
-import { updateJobList } from '../mutations';
+import { updateJobList, updateErrorMessage } from '../mutations';
 import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';
 import Loader from 'react-loader-spinner';
@@ -9,12 +9,20 @@ import styles from '../styles/SubmitButton.css';
 
 class SearchJobsButton extends React.Component {
   async onLoad(jobs){
-    await this.props.updateJobList({
-      variables: {
-        jobs
-      }
-    });
-    browserHistory.push('/results');
+    if (jobs.length==0) {
+      this.props.updateErrorMessage({
+        variables: {
+          content: 'No jobs found, please try again'
+        }
+      });
+    } else {
+      await this.props.updateJobList({
+        variables: {
+          jobs
+        }
+      });
+      browserHistory.push('/results');
+    }
   }
   render(){
     return (
@@ -58,5 +66,8 @@ class SearchJobsButton extends React.Component {
 export default compose(
   graphql(updateJobList,{
     name: 'updateJobList'
+  }),
+  graphql(updateErrorMessage,{
+    name: 'updateErrorMessage'
   })
 )(SearchJobsButton);
