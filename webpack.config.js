@@ -14,6 +14,7 @@ const devPlugins = [
 ];
 
 const prodPlugins = [
+  new HtmlWebpackPlugin({template: './client/index.html'}),
 	new webpack.DefinePlugin(
 		{'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY),
 		'process.env.HOST_URL': JSON.stringify(process.env.HOST_URL)
