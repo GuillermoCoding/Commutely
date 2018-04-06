@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { graphql, compose, withApollo } from 'react-apollo';
 import { 
-	fetchJobList, 
+	fetchJobResults, 
 	fetchJobs,
 	fetchAddress,
 	fetchSearchedJob,
 	fetchCommuteOption, 
 } from '../queries';
 import { JobListItem }from '../components';
-import { updateStartingIndex, updateJobList, resetJobList } from '../mutations';
+import { updateStartingIndex, updateJobResults, resetJobResults } from '../mutations';
 import { Grid } from 'react-bootstrap';
 import styles from '../styles/JobList.css';
 
@@ -21,7 +21,7 @@ class JobList extends Component {
 	}
 	
 	renderJobs(){
-		return this.props.fetchJobList.jobList.jobs.map(({title, company, address, commuteTime, commuteDistance, snippet, url})=>{
+		return this.props.fetchJobResults.jobResults.jobs.map(({title, company, address, commuteTime, commuteDistance, snippet, url})=>{
 			const job = {
 				title,
 				company,
@@ -47,7 +47,7 @@ class JobList extends Component {
         index: 0
       }
     });
-    await this.props.resetJobList();
+    await this.props.resetJobResults();
   }
 	render(){
 		return (
@@ -66,8 +66,8 @@ class JobList extends Component {
 }
 
 export default compose(
-	graphql(fetchJobList,{
-		name: 'fetchJobList'
+	graphql(fetchJobResults,{
+		name: 'fetchJobResults'
 	}),
 	graphql(fetchAddress,{
 		name: 'fetchAddress'
@@ -75,13 +75,13 @@ export default compose(
 	graphql(fetchCommuteOption,{
 		name: 'fetchCommuteOption'
 	}),
-  graphql(updateJobList,{
-    name: 'updateJobList'
+  graphql(updateJobResults,{
+    name: 'updateJobResults'
   }),
   graphql(updateStartingIndex,{
     name: 'updateStartingIndex'
   }),
-  graphql(resetJobList,{
-    name: 'resetJobList'
+  graphql(resetJobResults,{
+    name: 'resetJobResults'
   })
 )(JobList);

@@ -1,22 +1,22 @@
 import gql from 'graphql-tag';
-import { fetchJobList} from '../queries';
+import { fetchJobResults} from '../queries';
 
-const jobList = { 
+const jobResults = { 
   defaults: {
-    jobList: {
-      __typename: 'jobList',
+    jobResults: {
+      __typename: 'jobResults',
       jobs: [],
       index: 0
     }
   },
   resolvers: {
     Mutation : {
-      updateJobList : (_,{jobs},{cache})=>{
-        const response = cache.readQuery({query: fetchJobList});
-        const previousJobs = response.jobList.jobs;
+      updateJobResults : (_,{jobs},{cache})=>{
+        const response = cache.readQuery({query: fetchJobResults});
+        const previousJobs = response.jobResults.jobs;
         const data = {
-          jobList: {
-            __typename: 'jobList',
+          jobResults: {
+            __typename: 'jobResults',
             jobs: previousJobs.concat(jobs)
           }
         };
@@ -31,13 +31,12 @@ const jobList = {
         };
         cache.writeData({data});
       },
-      resetJobList: (__,variables,{cache})=>{
-
-        cache.writeData({data:{jobList:{jobs:[]}}});
+      resetJobResults: (__,variables,{cache})=>{
+        cache.writeData({data:{jobResults:{jobs:[]}}});
       }
     }
   }
 };
 
-export default jobList;
+export default jobResults;
         

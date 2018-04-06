@@ -5,12 +5,12 @@ import {
   fetchSearchedJob, 
   fetchAddress, 
   fetchCommuteOption, 
-  fetchJobList,
+  fetchJobResults,
 
 } from '../queries';
 import { JobLoader } from '../components';
 
-import { updateJobList } from '../mutations';
+import { updateJobResults } from '../mutations';
 import Loader from 'react-loader-spinner';
 import styles from '../styles/LoadMoreButton.css';
 
@@ -30,7 +30,7 @@ class LoadMoreButton extends React.Component {
         }
       });
     } else {
-      await this.props.updateJobList({
+      await this.props.updateJobResults({
         variables: {
           jobs
         }
@@ -74,7 +74,7 @@ class LoadMoreButton extends React.Component {
 }
 
 export default compose(
-  graphql(updateJobList,{
-    name: 'updateJobList'
+  graphql(updateJobResults,{
+    name: 'updateJobResults'
   })
 )(LoadMoreButton);

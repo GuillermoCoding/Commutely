@@ -1,6 +1,6 @@
 import React from 'react';
 import JobLoader from './JobLoader';
-import { updateJobList, updateErrorMessage } from '../mutations';
+import { updateJobResults, updateErrorMessage } from '../mutations';
 import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';
 import Loader from 'react-loader-spinner';
@@ -16,7 +16,7 @@ class SearchButton extends React.Component {
         }
       });
     } else {
-      await this.props.updateJobList({
+      await this.props.updateJobResults({
         variables: {
           jobs
         }
@@ -72,8 +72,8 @@ class SearchButton extends React.Component {
 }
 
 export default compose(
-  graphql(updateJobList,{
-    name: 'updateJobList'
+  graphql(updateJobResults,{
+    name: 'updateJobResults'
   }),
   graphql(updateErrorMessage,{
     name: 'updateErrorMessage'

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import ArrowLeft from 'react-icons/lib/ti/arrow-left';
 import ArrowRight from 'react-icons/lib/ti/arrow-right';
-import { updateJobList } from '../mutations';
+import { updateJobResults } from '../mutations';
 import { 
 	fetchJobs, 
-	fetchJobList, 
+	fetchJobResults, 
 	fetchAddress,  
 	fetchSearchedJob
 } from '../queries';
@@ -44,7 +44,7 @@ class NavigationFooter extends Component {
 				startingPage : this.state.currentPage
 			}
 		});
-		this.props.updateJobList({
+		this.props.updateJobResults({
 			variables: {
 				jobs : response.data.jobs
 			}
@@ -74,7 +74,7 @@ class NavigationFooter extends Component {
 				startingPage : this.state.currentPage
 			}
 		});
-		this.props.updateJobList({
+		this.props.updateJobResults({
 			variables: {
 				jobs : response.data.jobs
 			}
@@ -94,7 +94,7 @@ class NavigationFooter extends Component {
 				startingPage : this.state.currentPage
 			}
 		});
-		this.props.updateJobList({
+		this.props.updateJobResults({
 			variables: {
 				jobs : response.data.jobs
 			}
@@ -152,7 +152,7 @@ class NavigationFooter extends Component {
 		});
 	}
 	render(){
-		if (this.props.fetchJobList.jobList.jobs.length!=0) {
+		if (this.props.fetchJobResults.jobList.jobs.length!=0) {
 			return (
 				<div id='navigation-footer'>
 					{this.renderLeftArrow()}
@@ -177,11 +177,11 @@ export default compose(
 	// graphql(fetchJobs,{
 	// 	name: "fetchJobs"
 	// }),
-	graphql(updateJobList,{
-		name: "updateJobList"
+	graphql(updateJobResults,{
+		name: "updateJobResults"
 	}),
-	graphql(fetchJobList,{
-		name : "fetchJobList"
+	graphql(fetchJobResults,{
+		name : "fetchJobResults"
 	}),
 	graphql(fetchAddress,{
 		name: "fetchAddress"
