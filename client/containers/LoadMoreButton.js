@@ -22,7 +22,6 @@ class LoadMoreButton extends React.Component {
     }
   }
   async onLoad(jobs){
-  
     if (jobs.length==0) {
       this.props.updateErrorMessage({
         variables: {
