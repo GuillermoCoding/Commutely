@@ -54,7 +54,7 @@ class App extends Component {
               <CommuteOptions/>
             </Col>
             <Col xs={12} md={12} lg={6}>
-              
+              <SearchButton />
             </Col>
           </Row>
           <Row>

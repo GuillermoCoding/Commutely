@@ -1,5 +1,5 @@
 import React from 'react';
-import JobLoader from '../components';
+import {JobLoader} from '../components';
 import { updateJobResults, updateErrorMessage } from '../mutations';
 import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';

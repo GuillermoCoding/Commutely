@@ -17,7 +17,7 @@ class JobLoader extends React.Component {
       isLoading: false,
       error: null,
       getButtonProps: {
-        onClick: this.onClick
+        onClick: this.onClick.bind(this)
       }
     }
   }
@@ -37,29 +37,29 @@ class JobLoader extends React.Component {
 			}
 		}
 	}
-  onClick = async()=>{
-    await this.setState({isLoading: true});
-    const addressResponse = await this.props.client.query({
+async onClick(){
+     this.setState({isLoading: true});
+    const addressResponse =  this.props.client.query({
       query: fetchAddress
     });
 
     const { homeAddress, city, state } = addressResponse.data.address;
     if (homeAddress) {
-      const searchedJobResponse = await this.props.client.query({
+      const searchedJobResponse =  this.props.client.query({
         query: fetchSearchedJob
       });
       const { title } = searchedJobResponse.data.searchedJob;
-      const commuteOptionResponse = await this.props.client.query({
+      const commuteOptionResponse =  this.props.client.query({
         query: fetchCommuteOption
       });
       const { commuteSelected } = commuteOptionResponse.data.commuteOption;
       try {
-        const results = await geocodeByAddress(homeAddress);
+        const results =  geocodeByAddress(homeAddress);
         const addressComponents = results[0].address_components;
         const city = this.getCity(addressComponents);
         const state = this.getState(addressComponents);
         const startingIndex = this.props.startingIndex;
-        const response = await this.props.client.query({
+        const response =  this.props.client.query({
           query: fetchJobs,
           variables: {
             title,
@@ -78,10 +78,11 @@ class JobLoader extends React.Component {
     } else {
       this.props.onError('Address required');
     }
-    await this.setState({isLoading: false});
+     this.setState({isLoading: false});
   }
   render(){
-    return (
+    console.log('JobLoader render');
+    return (    
       <div>
         {this.props.render(this.state)}
       </div>
