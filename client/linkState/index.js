@@ -10,5 +10,5 @@ export default _.merge(
   jobResults,
   searchedJob,
   commuteOption,
-  errorMessage
-)
+  errorMessage,
+);

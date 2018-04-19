@@ -3,23 +3,23 @@ const errorMessage = {
   defaults: {
     errorMessage: {
       __typename: 'errorMessage',
-      content: ''
-    }
+      content: '',
+    },
   },
   resolvers: {
     Mutation: {
-      updateErrorMessage : (_,{content},{cache}) =>{
+      updateErrorMessage: (_, { content }, { cache }) => {
         const data = {
-          errorMessage : {
+          errorMessage: {
             __typename: 'errorMessage',
-            content
-          }
-        }
-        cache.writeData({data});
+            content,
+          },
+        };
+        cache.writeData({ data });
         return null;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 export default errorMessage;

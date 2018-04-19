@@ -6,25 +6,25 @@ const address = {
       homeAddress: null,
       city: null,
       state: null,
-      error: false
-    }
+      error: false,
+    },
   },
   resolvers: {
     Mutation: {
-      updateAddress : (_,{homeAddress,city,state},{cache}) =>{
+      updateAddress: (_, { homeAddress, city, state }, { cache }) => {
         const data = {
-          address : {
+          address: {
             __typename: 'address',
             homeAddress,
             city,
-            state
-          }
-        }
-        cache.writeData({data});
+            state,
+          },
+        };
+        cache.writeData({ data });
         return null;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 export default address;

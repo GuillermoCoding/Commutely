@@ -7,4 +7,3 @@ export { default as ErrorMessage } from './ErrorMessage';
 export { default as LoadMoreButton } from './LoadMoreButton';
 export { default as SearchButton } from './SearchButton';
 
-

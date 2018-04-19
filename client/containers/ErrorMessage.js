@@ -5,20 +5,20 @@ import { updateErrorMessage } from '../mutations';
 import styles from '../styles/ErrorMessage.css';
 
 class ErrorMessage extends Component {
-  render(){
+  render() {
     return (
       <div>
         <h2 className={styles.text}>{this.props.fetchErrorMessage.errorMessage.content}</h2>
       </div>
-    );  
+    );
   }
 }
 
 export default compose(
-    graphql(fetchErrorMessage,{
-        name: 'fetchErrorMessage'
-    }),
-    graphql(updateErrorMessage,{
-        name: 'updateErrorMessage'
-    })
+  graphql(fetchErrorMessage, {
+    name: 'fetchErrorMessage',
+  }),
+  graphql(updateErrorMessage, {
+    name: 'updateErrorMessage',
+  }),
 )(ErrorMessage);

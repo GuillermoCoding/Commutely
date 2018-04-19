@@ -2,23 +2,23 @@
 const commuteOption = {
   defaults: {
     commuteOption: {
-      __typename: "commuteOption",
-      commuteSelected: "Driving" 
-    }
+      __typename: 'commuteOption',
+      commuteSelected: 'Driving',
+    },
   },
   resolvers: {
     Mutation: {
-      updateCommuteOption: (_,{commuteSelected},{cache})=>{
+      updateCommuteOption: (_, { commuteSelected }, { cache }) => {
         const data = {
           commuteOption: {
-            __typename: "commuteOption",
-            commuteSelected
-          }
+            __typename: 'commuteOption',
+            commuteSelected,
+          },
         };
-        cache.writeData({data});
-      }
-    }
-  }
+        cache.writeData({ data });
+      },
+    },
+  },
 };
 
 export default commuteOption;

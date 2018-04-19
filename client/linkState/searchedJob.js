@@ -1,26 +1,25 @@
 
-const searchedJob = { 
+const searchedJob = {
   defaults: {
     searchedJob: {
-      __typename : 'searchedJob',
-      title: ''
-    }
+      __typename: 'searchedJob',
+      title: '',
+    },
   },
   resolvers: {
-    Mutation : {
-      updateSearchedJob : (_,{title},{cache}) => {
+    Mutation: {
+      updateSearchedJob: (_, { title }, { cache }) => {
         const data = {
-          searchedJob : {
+          searchedJob: {
             __typename: 'searchedJob',
-            title
-          }
-        }
-        cache.writeData({data});
+            title,
+          },
+        };
+        cache.writeData({ data });
         return null;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 export default searchedJob;
-        
