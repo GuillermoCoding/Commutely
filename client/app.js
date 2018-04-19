@@ -8,7 +8,8 @@ import {
 	CommuteOptions,
 	ErrorMessage
  } from './containers';
-import { Phrase, SearchButton } from './components';
+import { Phrase } from './components';
+import { SearchButton } from './containers';
 import { fetchCommuteOption } from './queries';
 import { graphql } from 'react-apollo';
 import styles from './styles/App.css';
@@ -22,12 +23,14 @@ class App extends Component {
       }
     }
   }
-  async  componentWillReceiveProps(nextProps){
+  static getDerivedStateFromProps(nextProps,prevState){
+    console.log('getDerivedStateFromProps');
     const backgroundURL = `./images/${nextProps.data.commuteOption.commuteSelected}-image.jpg`;
-    const backgroundStyle = {
-      backgroundImage : 'url('+require(''+backgroundURL.toLowerCase())+')'
-    };
-    await this.setState({backgroundStyle});
+    return {
+      backgroundStyle: {
+        backgroundImage: 'url('+require(''+backgroundURL.toLowerCase())+')'
+      }
+    }
   }
   render (){
     return (
@@ -51,7 +54,7 @@ class App extends Component {
               <CommuteOptions/>
             </Col>
             <Col xs={12} md={12} lg={6}>
-              <SearchButton/>
+              
             </Col>
           </Row>
           <Row>

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { MapView } from './';
 import styles from '../styles/JobListItem.css';
-import  ViewJobButton  from './ViewJobButton';;
+import ViewJobButton  from './ViewJobButton';;
 import LocationIcon from 'react-icons/lib/md/location-on';
 import BusinessIcon from 'react-icons/lib/md/business';
 import TimeIcon from 'react-icons/lib/md/access-time';

@@ -7,7 +7,7 @@ import {
 import WalkingIcon from 'react-icons/lib/md/directions-walk';
 import BikeIcon from 'react-icons/lib/md/directions-bike';
 import CarIcon from 'react-icons/lib/md/directions-car';
-import { graphql, withApollo, compose } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { fetchCommuteOption } from '../queries';
 import { updateCommuteOption } from '../mutations';
 import styles from '../styles/CommuteOptions.css';
@@ -48,6 +48,5 @@ export default compose(
 	}),
 	graphql(updateCommuteOption,{
 		name: "updateCommuteOption"
-	}),
-	withApollo
+	})
 )(CommuteOptions);

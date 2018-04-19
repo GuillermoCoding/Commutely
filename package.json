@@ -2,7 +2,7 @@
   "name": "frindlycommute",
   "version": "1.0.0",
   "engines": {
-    "node": "9.7.1"
+    "node": "9.11.1"
   },
   "description": "friendly-commute",
   "main": "index.js",
@@ -60,7 +60,7 @@
     "node-fetch": "^2.0.0",
     "node-filter-async": "0.0.4",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
+    "react": "^16.3.0",
     "react-apollo": "^2.0.4",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
@@ -75,7 +75,7 @@
     "react-router-dom": "^4.2.2",
     "react-virtualized": "^9.18.5",
     "recompose": "^0.26.0",
-    "redux": "^3.7.2",
+    "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.20.2",
     "unfetch": "^3.0.0",
@@ -84,5 +84,11 @@
     "webpack-combine-loaders": "^2.0.3",
     "webpack-dev-middleware": "^2.0.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0"
+  }
 }

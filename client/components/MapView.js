@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { compose, withProps, lifecycle } from 'recompose';
-import axios from 'axios';
 import { 
 	withScriptjs, 
 	withGoogleMap, 
@@ -40,24 +39,19 @@ const MapWithDirectionsRenderer = compose(
 		}
 	})
 )((props)=>{
-	const markerOptions = {
-		draggable : true
-	};
-	return (
-		<GoogleMap
-			defaultZoom={7}
-			defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
-		>
-		{props.directions && <DirectionsRenderer directions={props.directions} markerOptions={markerOptions}/>}
-		</GoogleMap>
-	);
-
-
-}
+    const markerOptions = {
+		  draggable : true
+	  };
+    return (
+      <GoogleMap
+        defaultZoom={7}
+        defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
+      >
+      {props.directions && <DirectionsRenderer directions={props.directions} markerOptions={markerOptions}/>}
+      </GoogleMap>
+    );
+  }
 );
-
-
-
 const MapView = ({mapProps})=>{
 	return(
 		<MapWithDirectionsRenderer mapProps={mapProps}/>

@@ -5,14 +5,13 @@ import { updateErrorMessage } from '../mutations';
 import styles from '../styles/ErrorMessage.css';
 
 class ErrorMessage extends Component {
-    render(){
-        return (
-            <div>
-                <h2 className={styles.text}>{this.props.fetchErrorMessage.errorMessage.content}</h2>
-            </div>
-        );  
-    }
-
+  render(){
+    return (
+      <div>
+        <h2 className={styles.text}>{this.props.fetchErrorMessage.errorMessage.content}</h2>
+      </div>
+    );  
+  }
 }
 
 export default compose(

@@ -5,5 +5,4 @@ export { default as ViewJobButton } from './ViewJobButton';
 export { default as AutoCompleteSearch } from './AutoCompleteSearch';
 export { default as AutoCompleteResults } from './AutoCompleteResults';
 export { default as Phrase } from './Phrase';
-export { default as SearchButton } from './SearchButton';
 export { default as JobLoader } from './JobLoader';

@@ -9,7 +9,6 @@ import {
 
 } from '../queries';
 import { JobLoader } from '../components';
-
 import { updateJobResults } from '../mutations';
 import Loader from 'react-loader-spinner';
 import styles from '../styles/LoadMoreButton.css';

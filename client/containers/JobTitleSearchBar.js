@@ -74,7 +74,6 @@ class JobTitleSearchBar extends Component {
         onChange={this.onChange.bind(this)}
         onInputValueChange={this.onInputValueChange.bind(this)}
         render={({getInputProps,getItemProps,isOpen, selectedItem,highlightedIndex})=>{
-        
           return (
             <div>
               <AutoCompleteSearch 

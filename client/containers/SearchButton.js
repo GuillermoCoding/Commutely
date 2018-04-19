@@ -1,5 +1,5 @@
 import React from 'react';
-import JobLoader from './JobLoader';
+import JobLoader from '../components';
 import { updateJobResults, updateErrorMessage } from '../mutations';
 import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';
@@ -9,7 +9,7 @@ import styles from '../styles/SearchButton.css';
 
 class SearchButton extends React.Component {
   async onLoad(jobs){
-    console.log("Data received on front : ");
+    console.log("Data received on front end: ");
     console.log(jobs);
     if (jobs.length==0) {
       this.props.updateErrorMessage({

@@ -2,7 +2,6 @@ import React from 'react';
 import styles from '../styles/ViewJobButton.css';
 
 const ViewJobButton = ({url})=> {
-
   return (
       <button
         className={styles.button}
