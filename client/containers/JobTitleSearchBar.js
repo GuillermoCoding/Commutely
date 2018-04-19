@@ -11,24 +11,16 @@ class JobTitleSearchBar extends Component {
     this.state = {
       input: '',
       results: [],
-      isloading: false,
+      isLoading: false,
     };
   }
-  async onChange(input) {
-    await this.props.updateSearchedJob({
-		  variables: {
-			  title: input,
-      },
-    });
-    await this.props.updateErrorMessage({
-			  varibles: {
-				  content: '',
-			  },
-		  });
+  async componentWillMount() {
+    const { title } = this.props.fetchSearchedJob.searchedJob;
+    await this.setState({ input: title });
   }
   async onInputValueChange(input) {
     await this.setState({ input });
-    if (input.length != 0) {
+    if (input.length !== 0) {
       await this.setState({ isLoading: true });
       const results = await this.props.client.query({
         query: fetchJobTitleSuggestions,
@@ -42,9 +34,17 @@ class JobTitleSearchBar extends Component {
       await this.setState({ results: [] });
     }
   }
-  async componentWillMount() {
-    const { title } = this.props.fetchSearchedJob.searchedJob;
-    await this.setState({ input: title });
+  async onChange(input) {
+    await this.props.updateSearchedJob({
+      variables: {
+        title: input,
+      },
+    });
+    await this.props.updateErrorMessage({
+      varibles: {
+        content: '',
+      },
+    });
   }
   async onStateChange(data) {
     if (data.highlightedIndex != null) {
@@ -59,38 +59,41 @@ class JobTitleSearchBar extends Component {
       },
     });
     await this.props.updateErrorMessage({
-			  varibles: {
-				  content: '',
-			  },
+      varibles: {
+        content: '',
+      },
     });
   }
 
   render() {
     return (
       <Downshift
+        defaultHighlightedIndex={0}
         onStateChange={this.onStateChange.bind(this)}
         onOuterClick={this.onOuterClick.bind(this)}
         inputValue={this.state.input}
         onChange={this.onChange.bind(this)}
         onInputValueChange={this.onInputValueChange.bind(this)}
         render={({
- getInputProps, getItemProps, isOpen, selectedItem, highlightedIndex,
-}) => (
-  <div>
-    <AutoCompleteSearch
-      heading="Enter job title (Optional)"
-      placeholder="Enter job title..."
-      getInputProps={getInputProps}
-      isLoading={this.state.isLoading}
-    />
-    <AutoCompleteResults
-      isOpen={isOpen}
-      results={this.state.results}
-      getItemProps={getItemProps}
-      highlightedIndex={highlightedIndex}
-    />
-  </div>
-          )}
+          getInputProps, getItemProps, isOpen, highlightedIndex,
+        }) => (
+          <div>
+            <AutoCompleteSearch
+              heading="Enter job title (Optional)"
+              placeholder="Enter job title..."
+              getInputProps={getInputProps}
+              isLoading={this.state.isLoading}
+            />
+            {isOpen ? (
+              <AutoCompleteResults
+                isOpen={isOpen}
+                results={this.state.results}
+                getItemProps={getItemProps}
+                highlightedIndex={highlightedIndex}
+              />
+            ) : null}
+          </div>
+        )}
       />
     );
   }
