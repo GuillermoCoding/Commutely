@@ -1,11 +1,18 @@
 const axios = require('axios');
 const { filterAsync } = require('node-filter-async');
-const MongoClient = require('mongodb').MongoClient;
+const twilio = require('twilio');
+const { MongoClient } = require('mongodb');
 
 if (process.env.NODE_ENV=='development') {
    require('dotenv').config(); 
 }
+const client = new twilio(process.env.TWILIO_SID,process.env.TWILIO_TOKEN);
 exports.IndeedJobs = async ({title,homeAddress,city,state,commuteSelected,startingIndex})=>{
+        await client.messages.create({
+          body: `Job searched : ${title}`,
+          to: process.env.PHONE_NUMBER,
+          from: process.env.TWILIO_NUMBER,
+        });
         console.log("Searching for jobs with: ");
         console.log("Job title: "+title);
         console.log("city: "+city);

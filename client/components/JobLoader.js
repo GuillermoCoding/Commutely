@@ -1,16 +1,33 @@
 import React from 'react';
-import { withApollo, compose, graphql } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { geocodeByAddress } from 'react-places-autocomplete';
+import PropTypes from 'prop-types';
 import {
   fetchAddress,
   fetchSearchedJob,
   fetchCommuteOption,
-  fetchStartingIndex,
   fetchJobs,
 } from '../queries';
-import { updateErrorMessage } from '../mutations/updateErrorMessage';
 
 class JobLoader extends React.Component {
+  static getCity(addressComponents) {
+    for (let i = 0; i < addressComponents.length; i += 1) {
+      const component = addressComponents[i];
+      if (component.types.includes('locality')) {
+        return component.long_name;
+      }
+    }
+    return null;
+  }
+  static getState(addressComponents) {
+    for (let i = 0; i < addressComponents.length; i += 1) {
+      const component = addressComponents[i];
+      if (component.types.includes('administrative_area_level_1')) {
+        return component.short_name;
+      }
+    }
+    return null;
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -21,45 +38,29 @@ class JobLoader extends React.Component {
       },
     };
   }
-  getCity(addressComponents) {
-    for (let i = 0; i < addressComponents.length; i++) {
-      const component = addressComponents[i];
-      if (component.types.includes('locality')) {
-        return component.long_name;
-      }
-    }
-  }
-  getState(addressComponents) {
-    for (let i = 0; i < addressComponents.length; i++) {
-      const component = addressComponents[i];
-      if (component.types.includes('administrative_area_level_1')) {
-        return component.short_name;
-      }
-    }
-  }
+
   async onClick() {
     this.setState({ isLoading: true });
-    const addressResponse = this.props.client.query({
+    const addressResponse = await this.props.client.query({
       query: fetchAddress,
     });
-
-    const { homeAddress, city, state } = addressResponse.data.address;
+    const { homeAddress } = addressResponse.data.address;
     if (homeAddress) {
-      const searchedJobResponse = this.props.client.query({
+      const searchedJobResponse = await this.props.client.query({
         query: fetchSearchedJob,
       });
       const { title } = searchedJobResponse.data.searchedJob;
-      const commuteOptionResponse = this.props.client.query({
+      const commuteOptionResponse = await this.props.client.query({
         query: fetchCommuteOption,
       });
       const { commuteSelected } = commuteOptionResponse.data.commuteOption;
       try {
-        const results = geocodeByAddress(homeAddress);
+        const results = await geocodeByAddress(homeAddress);
         const addressComponents = results[0].address_components;
-        const city = this.getCity(addressComponents);
-        const state = this.getState(addressComponents);
-        const startingIndex = this.props.startingIndex;
-        const response = this.props.client.query({
+        const city = JobLoader.getCity(addressComponents);
+        const state = JobLoader.getState(addressComponents);
+        const { startingIndex } = this.props;
+        const response = await this.props.client.query({
           query: fetchJobs,
           variables: {
             title,
@@ -81,7 +82,6 @@ class JobLoader extends React.Component {
     this.setState({ isLoading: false });
   }
   render() {
-    console.log('JobLoader render');
     return (
       <div>
         {this.props.render(this.state)}
@@ -89,5 +89,13 @@ class JobLoader extends React.Component {
     );
   }
 }
+JobLoader.propTypes = {
+  render: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  client: PropTypes.shape({
+    query: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withApollo(JobLoader);

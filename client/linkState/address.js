@@ -3,7 +3,7 @@ const address = {
   defaults: {
     address: {
       __typename: 'address',
-      homeAddress: null,
+      homeAddress: '',
       city: null,
       state: null,
       error: false,
