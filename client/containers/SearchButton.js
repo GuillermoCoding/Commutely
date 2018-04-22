@@ -4,6 +4,7 @@ import SearchIcon from 'react-icons/lib/md/search';
 import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styles from '../styles/SearchButton.css';
 import { JobLoader } from '../components';
 import { updateJobResults, updateErrorMessage } from '../mutations';
@@ -78,4 +79,5 @@ export default compose(
   graphql(updateErrorMessage, {
     name: 'updateErrorMessage',
   }),
-)(SearchButton);
+)((SearchButton));
+

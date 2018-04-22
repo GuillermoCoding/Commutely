@@ -1,0 +1,2 @@
+export const UPDATE_JOBS = 'UPDATE_JOBS';
+export const UPDATE_ERROR_MESSAGE = 'UPDATE_ERROR_MESSAGE';

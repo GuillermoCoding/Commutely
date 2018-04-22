@@ -1,0 +1,11 @@
+import { UPDATE_JOBS } from '../actions/types';
+
+
+export default function (state = {}, action) {
+  switch (action.type) {
+    case UPDATE_JOBS:
+      return { ...state, jobs: action.payload };
+    default:
+      return state;
+  }
+}

@@ -21,7 +21,7 @@ const prodPlugins = [
   }),
   new GoogleFontsPlugin({
     fonts: [
-      { family: 'Lato', variants: ['700'] }
+      { family: 'Lato', variants: ['700'] },
     ],
   }),
 ];

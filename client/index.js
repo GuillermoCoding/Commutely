@@ -8,11 +8,16 @@ import { withClientState } from 'apollo-link-state';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import fetch from 'unfetch';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './reducers';
 import App from './app';
 import { HomeNavBar } from './components';
 import { JobList, LoadMoreButton } from './containers';
 import linkState from './linkState';
 
+
+const store = createStore(reducers);
 const cache = new InMemoryCache();
 const stateLink = withClientState({
   cache,
@@ -30,16 +35,18 @@ const apolloClient = new ApolloClient({
 });
 
 const Root = () => (
-  <ApolloProvider client={apolloClient}>
-    <Router history={browserHistory}>
-      <Route path="/" components={HomeNavBar}>
-        <IndexRoute component={App} />
-        <Route path="/results" components={JobList}>
-          <IndexRoute component={LoadMoreButton} />
+  <Provider store={store}>
+    <ApolloProvider client={apolloClient}>
+      <Router history={browserHistory}>
+        <Route path="/" components={HomeNavBar}>
+          <IndexRoute component={App} />
+          <Route path="/results" components={JobList}>
+            <IndexRoute component={LoadMoreButton} />
+          </Route>
         </Route>
-      </Route>
-    </Router>
-  </ApolloProvider>
+      </Router>
+    </ApolloProvider>
+  </Provider>
 );
 
 ReactDOM.render(
