@@ -3,15 +3,13 @@ import Loader from 'react-loader-spinner';
 import SearchIcon from 'react-icons/lib/md/search';
 import { graphql, compose } from 'react-apollo';
 import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import styles from '../styles/SearchButton.css';
 import { JobLoader } from '../components';
 import { updateJobResults, updateErrorMessage } from '../mutations';
 
-
 class SearchButton extends React.Component {
-  async onLoad(jobs) {
-    console.log('Data received on front end: ');
-    console.log(jobs);
+  onLoad = async (jobs) => {
     if (jobs.length === 0) {
       this.props.updateErrorMessage({
         variables: {
@@ -27,7 +25,7 @@ class SearchButton extends React.Component {
       browserHistory.push('/results');
     }
   }
-  async onError(error) {
+  onError = async (error) => {
     await this.props.updateErrorMessage({
       variables: {
         content: error,
@@ -37,8 +35,8 @@ class SearchButton extends React.Component {
   render() {
     return (
       <JobLoader
-        onError={this.onError.bind(this)}
-        onLoad={this.onLoad.bind(this)}
+        onError={this.onError}
+        onLoad={this.onLoad}
         startingIndex={0}
         render={({ getButtonProps, isLoading }) => (
           <button
@@ -54,13 +52,12 @@ class SearchButton extends React.Component {
                   height="35"
                   width="35"
                 />
-            ) : <div>
-              <p className={styles.text}>
-            Search
-              </p>
-              <div className={styles.icon}>
-                <SearchIcon />
-              </div>
+            ) :
+                <div>
+                  <p className={styles.text}> Search </p>
+                  <div className={styles.icon}>
+                    <SearchIcon />
+                  </div>
                 </div>
             }
             </div>
@@ -70,7 +67,10 @@ class SearchButton extends React.Component {
     );
   }
 }
-
+SearchButton.propTypes = {
+  updateJobResults: PropTypes.func.isRequired,
+  updateErrorMessage: PropTypes.func.isRequired,
+};
 export default compose(
   graphql(updateJobResults, {
     name: 'updateJobResults',

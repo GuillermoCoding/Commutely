@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Downshift from 'downshift';
+import { graphql, compose, withApollo } from 'react-apollo';
+import PropTypes from 'prop-types';
 import { updateSearchedJob, updateErrorMessage } from '../mutations';
 import { fetchSearchedJob, fetchJobTitleSuggestions } from '../queries';
-import { graphql, compose, withApollo } from 'react-apollo';
 import { AutoCompleteSearch, AutoCompleteResults } from '../components';
 
 class JobTitleSearchBar extends Component {
@@ -18,7 +19,7 @@ class JobTitleSearchBar extends Component {
     const { title } = this.props.fetchSearchedJob.searchedJob;
     await this.setState({ input: title });
   }
-  async onInputValueChange(input) {
+  onInputValueChange = async (input) => {
     await this.setState({ input });
     if (input.length !== 0) {
       await this.setState({ isLoading: true });
@@ -34,7 +35,7 @@ class JobTitleSearchBar extends Component {
       await this.setState({ results: [] });
     }
   }
-  async onChange(input) {
+  onChange = async (input) => {
     await this.props.updateSearchedJob({
       variables: {
         title: input,
@@ -46,12 +47,12 @@ class JobTitleSearchBar extends Component {
       },
     });
   }
-  async onStateChange(data) {
+  onStateChange = async (data) => {
     if (data.highlightedIndex != null) {
       await this.setState({ input: this.state.results[data.highlightedIndex] });
     }
   }
-  async onOuterClick({ inputValue }) {
+  onOuterClick = async ({ inputValue }) => {
     await this.setState({ input: inputValue });
     await this.props.updateSearchedJob({
       variables: {
@@ -69,11 +70,11 @@ class JobTitleSearchBar extends Component {
     return (
       <Downshift
         defaultHighlightedIndex={0}
-        onStateChange={this.onStateChange.bind(this)}
-        onOuterClick={this.onOuterClick.bind(this)}
+        onStateChange={this.onStateChange}
+        onOuterClick={this.onOuterClick}
         inputValue={this.state.input}
-        onChange={this.onChange.bind(this)}
-        onInputValueChange={this.onInputValueChange.bind(this)}
+        onChange={this.onChange}
+        onInputValueChange={this.onInputValueChange}
         render={({
           getInputProps, getItemProps, isOpen, highlightedIndex,
         }) => (
@@ -98,6 +99,8 @@ class JobTitleSearchBar extends Component {
     );
   }
 }
+JobTitleSearchBar.propTypes = {
+};
 export default compose(
   graphql(updateSearchedJob, {
     name: 'updateSearchedJob',

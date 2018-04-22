@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { fetchJobResults } from '../queries';
 
 const jobResults = {
@@ -22,14 +21,6 @@ const jobResults = {
         };
         cache.writeData({ data });
         return null;
-      },
-      updateStartingIndex: (_, { index }, { cache }) => {
-        const data = {
-          joblist: {
-            index: 0,
-          },
-        };
-        cache.writeData({ data });
       },
       resetJobResults: (__, variables, { cache }) => {
         cache.writeData({ data: { jobResults: { jobs: [] } } });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import {
   SearchButton,
   JobTitleSearchBar,
@@ -9,24 +9,30 @@ import {
   ErrorMessage,
 } from './containers';
 import { Phrase } from './components';
-import { fetchCommuteOption } from './queries';
+import { fetchCommuteOption, fetchErrorMessage } from './queries';
 import styles from './styles/App.css';
 
 class App extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('getDerivedStateFromProps');
-    const backgroundURL = `./images/${nextProps.data.commuteOption.commuteSelected}-image.jpg`;
-    return {
-      backgroundStyle: {
-        backgroundImage: `url(${require(`${backgroundURL.toLowerCase()}`)})`,
-      },
+    const newState = {};
+    if (nextProps.fetchErrorMessage.errorMessage.content) {
+      const { content } = nextProps.fetchErrorMessage.errorMessage;
+      newState.errorMessage = { content };
+    }
+    const backgroundURL = `./images/${nextProps.fetchCommuteOption.commuteOption.commuteSelected}-image.jpg`;
+    newState.backgroundStyle = {
+      backgroundImage: `url(${require(`${backgroundURL.toLowerCase()}`)})`,
     };
+    return newState;
   }
   constructor(props) {
     super(props);
     this.state = {
       backgroundStyle: {
         backgroundImage: '',
+      },
+      errorMessage: {
+        content: '',
       },
     };
   }
@@ -57,7 +63,7 @@ class App extends Component {
           </Row>
           <Row>
             <Col xs={12} md={6} lg={6}>
-              <ErrorMessage />
+              <ErrorMessage content={this.state.errorMessage.content} />
             </Col>
           </Row>
         </Grid>
@@ -66,4 +72,11 @@ class App extends Component {
   }
 }
 
-export default graphql(fetchCommuteOption)(App);
+export default compose(
+  graphql(fetchCommuteOption, {
+    name: 'fetchCommuteOption',
+  }),
+  graphql(fetchErrorMessage, {
+    name: 'fetchErrorMessage',
+  }),
+)(App);

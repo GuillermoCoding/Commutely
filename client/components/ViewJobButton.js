@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../styles/ViewJobButton.css';
 
 const ViewJobButton = ({ url }) => (
@@ -11,5 +12,8 @@ const ViewJobButton = ({ url }) => (
     </h6>
   </button>
 );
+ViewJobButton.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 
 export default ViewJobButton;

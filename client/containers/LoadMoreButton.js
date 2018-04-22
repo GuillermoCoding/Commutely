@@ -1,16 +1,9 @@
 import React from 'react';
-import { graphql, withApollo, compose } from 'react-apollo';
-import {
-  fetchJobs,
-  fetchSearchedJob,
-  fetchAddress,
-  fetchCommuteOption,
-  fetchJobResults,
-
-} from '../queries';
+import { graphql } from 'react-apollo';
+import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 import { JobLoader } from '../components';
 import { updateJobResults } from '../mutations';
-import Loader from 'react-loader-spinner';
 import styles from '../styles/LoadMoreButton.css';
 
 class LoadMoreButton extends React.Component {
@@ -20,26 +13,18 @@ class LoadMoreButton extends React.Component {
       startingIndex: 10,
     };
   }
-  async onLoad(jobs) {
-    if (jobs.length == 0) {
-      this.props.updateErrorMessage({
-        variables: {
-          content: 'No more jobs to load',
-        },
-      });
-    } else {
-      await this.props.updateJobResults({
-        variables: {
-          jobs,
-        },
-      });
-    }
+  onLoad = async (jobs) => {
+    await this.props.updateJobResults({
+      variables: {
+        jobs,
+      },
+    });
     await this.setState(prevState => ({ startingIndex: prevState.startingIndex + 10 }));
   }
   render() {
     return (
       <JobLoader
-        onLoad={this.onLoad.bind(this)}
+        onLoad={this.onLoad}
         startingIndex={this.state.startingIndex}
         render={({ getButtonProps, isLoading }) => (
           <button
@@ -55,9 +40,7 @@ class LoadMoreButton extends React.Component {
                   height="35"
                   width="35"
                 />
-              ) : <p className={styles.text}>
-                    Load more
-                  </p>
+              ) : <p className={styles.text}> Load more </p>
               }
             </div>
           </button>
@@ -66,7 +49,9 @@ class LoadMoreButton extends React.Component {
     );
   }
 }
-
-export default compose(graphql(updateJobResults, {
+LoadMoreButton.propTypes = {
+  updateJobResults: PropTypes.func.isRequired,
+};
+export default graphql(updateJobResults, {
   name: 'updateJobResults',
-}))(LoadMoreButton);
+})(LoadMoreButton);

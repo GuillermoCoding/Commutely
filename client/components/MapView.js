@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose, withProps, lifecycle } from 'recompose';
+import PropTypes from 'prop-types';
 import {
   withScriptjs,
   withGoogleMap,
@@ -26,7 +27,7 @@ const MapWithDirectionsRenderer = compose(
         destination: companyAddress,
         travelMode: travelMode.toUpperCase(),
       }, (result, status) => {
-        if (status == google.maps.DirectionsStatus.OK) {
+        if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
             directions: result,
           });
@@ -38,8 +39,8 @@ const MapWithDirectionsRenderer = compose(
   }),
 )((props) => {
   const markerOptions = {
-		  draggable: true,
-	  };
+    draggable: true,
+  };
   return (
     <GoogleMap
       defaultZoom={7}
@@ -52,6 +53,12 @@ const MapWithDirectionsRenderer = compose(
 const MapView = ({ mapProps }) => (
   <MapWithDirectionsRenderer mapProps={mapProps} />
 );
-
+MapView.propTypes = {
+  mapProps: PropTypes.shape({
+    homeAddress: PropTypes.string,
+    companyAddress: PropTypes.string,
+    travelMode: PropTypes.string,
+  }).isRequired,
+};
 
 export default MapView;

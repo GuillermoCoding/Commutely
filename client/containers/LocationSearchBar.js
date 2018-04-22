@@ -7,10 +7,6 @@ import { fetchAddress, fetchLocationSuggestions } from '../queries';
 import { AutoCompleteSearch, AutoCompleteResults } from '../components';
 
 class LocationSearchBar extends Component {
-  static getDerivedStateFromProps(nextProps, prevState) {
-    console.log(nextProps);
-    console.log(prevState);
-  }
   constructor(props) {
     super(props);
     this.state = {
@@ -57,6 +53,7 @@ class LocationSearchBar extends Component {
   render() {
     return (
       <Downshift
+        defaultHighlightedIndex={0}
         inputValue={this.state.input}
         onChange={this.onChange}
         onStateChange={this.onStateChange}
@@ -73,7 +70,6 @@ class LocationSearchBar extends Component {
             />
             {isOpen ?
               <AutoCompleteResults
-                isOpen={isOpen}
                 results={this.state.results}
                 getItemProps={getItemProps}
                 highlightedIndex={highlightedIndex}
@@ -93,6 +89,9 @@ LocationSearchBar.propTypes = {
   }).isRequired,
   updateAddress: PropTypes.func.isRequired,
   updateErrorMessage: PropTypes.func.isRequired,
+  client: PropTypes.shape({
+    query: PropTypes.func.isRequired,
+  }).isRequired,
 };
 export default compose(
   graphql(updateAddress, {
