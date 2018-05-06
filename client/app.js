@@ -42,7 +42,7 @@ class App extends Component {
         <Grid>
           <Row>
             <Col xs={12} sm={12}md={12} lg={6} lgPush={6}>
-              <Phrase text="Daily Commute helps you find jobs that fit your commuting lifestyle" />
+              <Phrase text="Daily Commut" />
             </Col>
             <Col xs={12} sm={12} md={12} lg={6} lgPull={6}>
               <JobTitleSearchBar />
