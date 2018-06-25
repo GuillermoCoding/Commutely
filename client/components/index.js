@@ -6,3 +6,4 @@ export { default as AutoCompleteSearch } from './AutoCompleteSearch';
 export { default as AutoCompleteResults } from './AutoCompleteResults';
 export { default as Phrase } from './Phrase';
 export { default as JobLoader } from './JobLoader';
+export { default as LoadingScreen } from './LoadingScreen';

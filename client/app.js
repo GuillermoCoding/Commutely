@@ -8,7 +8,7 @@ import {
   CommuteOptions,
   ErrorMessage,
 } from './containers';
-import { Phrase } from './components';
+import { Phrase, LoadingScreen } from './components';
 import { fetchCommuteOption, fetchErrorMessage } from './queries';
 import styles from './styles/App.css';
 
@@ -28,6 +28,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       backgroundStyle: {
         backgroundImage: '',
       },
@@ -39,10 +40,11 @@ class App extends Component {
   render() {
     return (
       <div style={this.state.backgroundStyle} className={styles.container}>
+      {!this.state.loading?(
         <Grid>
           <Row>
             <Col xs={12} sm={12}md={12} lg={6} lgPush={6}>
-              <Phrase text="Daily Commut" />
+              <Phrase text="Helping you find jobs that fit your commuting lifestyle" />
             </Col>
             <Col xs={12} sm={12} md={12} lg={6} lgPull={6}>
               <JobTitleSearchBar />
@@ -58,7 +60,12 @@ class App extends Component {
               <CommuteOptions />
             </Col>
             <Col xs={12} md={12} lg={6}>
-              <SearchButton />
+              <SearchButton
+                onLoad={() => {
+                  console.log('onLoad!');
+                  this.setState({loading: true})
+                }}
+                onFinish={() => this.setState({loading: false})}/> 
             </Col>
           </Row>
           <Row>
@@ -67,6 +74,7 @@ class App extends Component {
             </Col>
           </Row>
         </Grid>
+      ):<LoadingScreen />}
       </div>
     );
   }

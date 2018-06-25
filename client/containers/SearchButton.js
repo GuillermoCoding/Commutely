@@ -24,6 +24,7 @@ class SearchButton extends React.Component {
         },
       });
       browserHistory.push('/results');
+
     }
   }
   onError = async (error) => {
@@ -36,6 +37,8 @@ class SearchButton extends React.Component {
   render() {
     return (
       <JobLoader
+        onFetch={this.props.onLoad}
+        onFinish={this.props.onFinish}
         onError={this.onError}
         onLoad={this.onLoad}
         startingIndex={0}
