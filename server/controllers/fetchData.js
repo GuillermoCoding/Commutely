@@ -16,7 +16,7 @@ exports.IndeedJobs = async ({
   startingIndex,
 }) => {
   await client.messages.create({
-    body: `Job searched : ${title}`,
+    body: `Job searched : ${title}, Address used: ${homeAddress}, Current page:  ${startingIndex}`,
     to: process.env.PHONE_NUMBER,
     from: process.env.TWILIO_NUMBER,
   });

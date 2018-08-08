@@ -41,7 +41,7 @@ class JobLoader extends React.Component {
 
   async onClick() {
     console.log('onClick here');
-    this.props.onFetch();
+    //this.props.onFetch();
     this.setState({ isLoading: true });
 
     const addressResponse = await this.props.client.query({
@@ -82,7 +82,7 @@ class JobLoader extends React.Component {
     } else {
       this.props.onError('Address required');
     }
-    this.props.onFinish();
+    //this.props.onFinish();
     this.setState({ isLoading: false });
   }
   render() {
