@@ -35,7 +35,7 @@ exports.IndeedJobs = async ({
     if (googleResponse.data.results.length === 1) {
       try {
         const companyAddress = googleResponse.data.results[0].formatted_address;
-        const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${homeAddress}&mode=${commuteSelected.toLowerCase()}&destinations=${companyAddress}`);
+        const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${homeAddress}&mode=${commuteSelected.toLowerCase()}&destinations=${companyAddress}&key=${process.env.GOOGLE_API_KEY}`);
         try {
           const durationText = distanceResponse.data.rows[0].elements[0].duration.text;
           if (durationText.split(' ').length === 2) {
@@ -65,7 +65,7 @@ exports.IndeedJobs = async ({
       const googleResponse = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?&query=${company}+in+${city}+${state}&key=${process.env.GOOGLE_API_KEY}`);
       if (googleResponse.data.results.length === 1) {
         const companyAddress = googleResponse.data.results[0].formatted_address;
-        const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${homeAddress}&mode=${commuteSelected.toLowerCase()}&destinations=${companyAddress}`);
+        const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${homeAddress}&mode=${commuteSelected.toLowerCase()}&destinations=${companyAddress}&key=${process.env.GOOGLE_API_KEY}`);
         const commuteTime = distanceResponse.data.rows[0].elements[0].duration.text;
         const commuteDistance = distanceResponse.data.rows[0].elements[0].distance.text;
         return {
