@@ -1,4 +1,4 @@
-# Daily-commute
+# Commutely
 React JS application that integrates the Indeed API and Google Maps API to help you find jobs that fit your commuting lifestyle
 
 [Live Demo](https://daily-commute-4.herokuapp.com/)
