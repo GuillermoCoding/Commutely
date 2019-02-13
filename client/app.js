@@ -7,6 +7,7 @@ import {
   LocationSearchBar,
   CommuteOptions,
   ErrorMessage,
+  NavBar,
 } from './containers';
 import { Phrase, LoadingScreen } from './components';
 import { fetchCommuteOption, fetchErrorMessage } from './queries';

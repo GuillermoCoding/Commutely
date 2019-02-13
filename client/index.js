@@ -12,7 +12,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './reducers';
 import App from './app';
-import { HomeNavBar } from './components';
+import { HomeNavBar, NavBar } from './components';
 import { JobList, LoadMoreButton } from './containers';
 import linkState from './linkState';
 
@@ -38,12 +38,13 @@ const Root = () => (
   <Provider store={store}>
     <ApolloProvider client={apolloClient}>
       <Router history={browserHistory}>
-        <Route path="/" components={HomeNavBar}>
+        <Route path="/" components={NavBar}>
           <IndexRoute component={App} />
           <Route path="/results" components={JobList}>
             <IndexRoute component={LoadMoreButton} />
           </Route>
         </Route>
+        
       </Router>
     </ApolloProvider>
   </Provider>
