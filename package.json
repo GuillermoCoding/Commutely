@@ -60,6 +60,7 @@
     "mongoose": "^5.0.12",
     "node-fetch": "^2.0.0",
     "node-filter-async": "0.0.4",
+    "nodemon": "^1.18.10",
     "prop-types": "^15.6.0",
     "react": "^16.3.0",
     "react-apollo": "^2.0.4",
